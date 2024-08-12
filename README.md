@@ -8,7 +8,7 @@ If you have an idea for a level or would like to contribute in any way, please c
 
 ## Deployed Versions
 
-You can find the current, official version at: [hacktheton.com](https://hacktheton.com)
+You can find the current, official version at [hacktheton.com](https://hacktheton.com)
 
 ## Install and Build
 
