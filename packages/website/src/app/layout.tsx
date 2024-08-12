@@ -6,7 +6,7 @@ import { Footer } from "@/components/Footer"
 
 export const metadata: Metadata = {
   title: "Hack the TON",
-  description: "TON CTF",
+  description: "TON based wargame",
 }
 
 const anonymousPro = Anonymous_Pro({ weight: "400", subsets: ["latin"] })
