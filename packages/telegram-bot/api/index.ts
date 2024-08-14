@@ -1,14 +1,11 @@
 import { Telegraf } from "telegraf"
 import { message } from "telegraf/filters"
-import express from "express"
+// import express from "express"
 
 import dotenv from "dotenv"
 dotenv.config()
 
-const app = express()
-
 const bot = new Telegraf(process.env.TG_BOT_TOKEN!)
-app.use(await bot.createWebhook({ domain: process.env.WEBHOOK_DOMAIN! }))
 
 bot.start((ctx) =>
   ctx.reply(
@@ -20,10 +17,22 @@ bot.on(message("text"), (ctx) => {
   ctx.reply("Coming soon!")
 })
 
-bot.launch()
-
-app.get("/", (_, res) => {
-  res.send("Running")
+bot.launch({
+  webhook: {
+    domain: process.env.WEBHOOK_DOMAIN!,
+  },
 })
 
-export default app
+// Enable graceful stop
+process.once("SIGINT", () => bot.stop("SIGINT"))
+process.once("SIGTERM", () => bot.stop("SIGTERM"))
+
+// const app = express()
+
+// app.use(await bot.createWebhook({ domain: process.env.WEBHOOK_DOMAIN! }))
+
+// app.get("/", (_, res) => {
+//   res.send("Running")
+// })
+
+// export default app
