@@ -21,3 +21,5 @@ bot.launch()
 app.get("/", (_, res) => {
   res.send("Telegram bot is ready!")
 })
+
+export default app
