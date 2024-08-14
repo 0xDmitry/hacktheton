@@ -10,18 +10,20 @@ const app = express()
 const bot = new Telegraf(process.env.TG_BOT_TOKEN!)
 app.use(await bot.createWebhook({ domain: process.env.WEBHOOK_DOMAIN! }))
 
-bot.start((ctx) => ctx.reply("Hello!"))
-
-bot.on(message("text"), async (ctx) => {
-  await ctx.reply(
-    "Welcome to the TON based wargame Hack the TON! You are so early..."
+bot.start((ctx) =>
+  ctx.reply(
+    "Welcome to the TON based wargame Hack the TON! Wow you are so early!"
   )
+)
+
+bot.on(message("text"), (ctx) => {
+  ctx.reply("Coming soon!")
 })
 
 bot.launch()
 
 app.get("/", (_, res) => {
-  res.send("Coming soon!")
+  res.send("Running")
 })
 
 export default app
