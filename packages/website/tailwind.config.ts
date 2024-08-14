@@ -15,17 +15,24 @@ const config: Config = {
         foreground: "var(--foreground)",
       },
       animation: {
-        typewriter: "typewriter 2s steps(30) forwards",
-        caret: "typewriter 2s steps(30) forwards, blink 1s infinite 2s",
+        typewriter: "growRight 2s steps(25) forwards",
+        cursor:
+          "growRight 2s steps(25) forwards, blink 1s step-end infinite 2.2s",
       },
       keyframes: {
-        typewriter: {
+        growRight: {
           to: {
             left: "100%",
           },
         },
         blink: {
-          "0%": {
+          from: {
+            opacity: "0",
+          },
+          "50%": {
+            opacity: "1",
+          },
+          to: {
             opacity: "0",
           },
         },
