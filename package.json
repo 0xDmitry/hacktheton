@@ -8,7 +8,8 @@
     "lint:website": "cd packages/website && bun run lint",
     "build:website": "cd packages/website && bun run build",
     "start:website": "cd packages/website && bun run start",
-    "dev:website": "cd packages/website && bun run dev"
+    "dev:website": "cd packages/website && bun run dev",
+    "dev:bot": "cd packages/telegram-bot && vercel dev"
   },
   "devDependencies": {
     "@types/bun": "latest"
