@@ -9,6 +9,6 @@ export const Header = () => (
         <div className="text-4xl">HACK THE TON</div>
       </div>
     </Link>
-    {/* <div>Connect Wallet</div> */}
+    <div>Connect Wallet</div>
   </header>
 )
