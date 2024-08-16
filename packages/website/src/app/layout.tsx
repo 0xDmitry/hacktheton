@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { Anonymous_Pro } from "next/font/google"
 import "./globals.css"
+import { TonConnectProvider } from "@/components/TonConnectProvider"
 import { Header } from "@/components/Header"
 import { Footer } from "@/components/Footer"
 
@@ -21,9 +22,11 @@ export default function RootLayout({
       <body
         className={`${anonymousPro.className} flex flex-col subpixel-antialiased`}
       >
-        <Header />
-        {children}
-        <Footer />
+        <TonConnectProvider>
+          <Header />
+          {children}
+          <Footer />
+        </TonConnectProvider>
       </body>
     </html>
   )
