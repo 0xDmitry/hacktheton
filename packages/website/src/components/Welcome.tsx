@@ -1,12 +1,17 @@
 export const Welcome = () => (
   <div className="max-w-3xl text-xl">
-    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-    Lorem Ipsum has been the industry's standard dummy text ever since the
-    1500s, when an unknown printer took a galley of type and scrambled it to
-    make a type specimen book. It has survived not only five centuries, but also
-    the leap into electronic typesetting, remaining essentially unchanged. It
-    was popularised in the 1960s with the release of Letraset sheets containing
-    Lorem Ipsum passages, and more recently with desktop publishing software
-    like Aldus PageMaker including versions of Lorem Ipsum.
+    Hack the TON is a TON based wargame inspired by{" "}
+    <a
+      className="text-slate-400"
+      href="https://ethernaut.openzeppelin.com/"
+      target="_blank"
+    >
+      The Ethernaut
+    </a>
+    , played in the TON Virtual Machine. Each level is a smart contract that
+    needs to be hacked. Our goal is to help you to learn how to develop safe TON
+    smart contracts and build a thriving community around this craft.
+    <br />
+    Good luck and have fun!
   </div>
 )
