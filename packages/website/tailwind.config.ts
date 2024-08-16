@@ -15,7 +15,7 @@ const config: Config = {
         foreground: "var(--foreground)",
       },
       animation: {
-        cursorBlink: "blink 1.1s step-end infinite 3s",
+        cursorBlink: "blink 1.1s step-end infinite 2s",
       },
       keyframes: {
         blink: {
