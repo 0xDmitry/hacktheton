@@ -1,4 +1,4 @@
-import { Levels } from "@/components/Levels"
+import { LevelsList } from "@/components/Levels"
 import { TypewriterText } from "@/components/TypewriterText"
 import { Welcome } from "@/components/Welcome"
 
@@ -7,7 +7,7 @@ export default function Home() {
     <div className="bg-background">
       <div className="container mx-auto flex flex-col justify-center gap-12 px-6 py-12">
         <Welcome />
-        <Levels />
+        <LevelsList />
         <TypewriterText text={"MORE LEVELS COMING SOON!"} />
       </div>
     </div>
