@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { HackTheTon } from "@/components/assets/HackTheTon"
-import { ConnectButton } from "./ConnectButton"
+import { ConnectButton } from "@/components/ConnectButton"
 
 export const Header = () => (
   <header className="container mx-auto flex items-center justify-center sm:justify-between p-6">
