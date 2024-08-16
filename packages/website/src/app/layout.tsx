@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { Anonymous_Pro } from "next/font/google"
 import "./globals.css"
-import { TonConnectProvider } from "@/components/providers/TonConnectProvider"
+import { TonConnectProvider } from "@/providers/TonConnectProvider"
 import { Header } from "@/components/Header"
 import { Footer } from "@/components/Footer"
 
