@@ -1,5 +1,6 @@
 {
   "name": "telegram-bot",
+  "version": "0.1.0",
   "module": "index.ts",
   "type": "module",
   "devDependencies": {
