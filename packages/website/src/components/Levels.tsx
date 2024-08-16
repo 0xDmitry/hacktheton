@@ -9,7 +9,7 @@ const LevelItem = ({
 }) => (
   <Link
     href={`/level-${id}`}
-    className="flex justify-between p-2 border-b-2 last:border-b-0 border-black hover:bg-black hover:text-foreground transition"
+    className="flex justify-between p-3 border-b-2 last:border-b-0 border-black hover:bg-black hover:text-foreground transition"
   >
     <div className="col-span-5">{`Level ${id}`}</div>
     <div className="">{isCompleted ? "COMPLETED" : ""}</div>
