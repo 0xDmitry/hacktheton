@@ -2,7 +2,7 @@
 
 import { TonConnectUIProvider } from "@tonconnect/ui-react"
 
-// TODO: Change to prod url here and in the manifest
+// TODO: Change to prod url here and in the manifest before release
 const manifestUrl =
   "https://hacktheton-website-git-epic-mvp-0xdmitrys-projects.vercel.app/tonconnect-manifest.json"
 
