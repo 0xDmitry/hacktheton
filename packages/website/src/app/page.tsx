@@ -1,4 +1,4 @@
-import { LevelsList } from "@/components/Levels"
+import { LevelsList } from "@/components/LevelsList"
 import { TypewriterText } from "@/components/TypewriterText"
 import { Welcome } from "@/components/Welcome"
 
