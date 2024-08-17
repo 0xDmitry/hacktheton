@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { HackTheTon } from "@/components/assets/HackTheTon"
-import { ConnectButton } from "@/components/ConnectButton"
+import { TonConnectButton } from "@/components/ConnectButton"
 
 export const Header = () => (
   <header className="container mx-auto flex items-center justify-between p-6">
@@ -10,6 +10,6 @@ export const Header = () => (
         <div className="text-4xl hidden sm:block">HACK THE TON</div>
       </div>
     </Link>
-    <ConnectButton />
+    <TonConnectButton />
   </header>
 )
