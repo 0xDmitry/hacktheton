@@ -9,8 +9,8 @@ import description from "@/data/levels/introduction/description.md"
 
 export default function Level({ params }: { params: { name: string } }) {
   return (
-    <div className="flex justify-center bg-background py-12 px-6">
-      <div className="flex flex-col justify-center max-w-5xl border-2 border-foreground">
+    <div className="flex justify-center bg-background md:py-12 md:px-6">
+      <div className="max-md:w-full md:container md:mx-auto flex flex-col justify-center border-2 border-foreground">
         <div className="flex text-xl">
           <Link
             href="/"
@@ -23,8 +23,8 @@ export default function Level({ params }: { params: { name: string } }) {
             {params.name.replaceAll("-", " ").toUpperCase()}
           </div>
         </div>
-        <div className="m-12 text-xl">{description}</div>
-        <div className="flex justify-center mx-12 mb-16">
+        <div className="p-6 md:p-12 text-lg md:text-xl">{description}</div>
+        <div className="flex justify-center p-6 md:p-12">
           <TactCode code={tactCode} />
         </div>
         <ActionButtons />

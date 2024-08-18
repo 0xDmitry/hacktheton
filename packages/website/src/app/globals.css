@@ -16,8 +16,7 @@ body {
 
 .panelCode {
   background-color: #24292e;
-  margin: 20px 20px 5px 5px;
-  padding: 10px 10px 5px 25px;
+  padding: 20px;
   font-size: 13px;
   line-height: 18px;
   -webkit-font-smoothing: auto;
