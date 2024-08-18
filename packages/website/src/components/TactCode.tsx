@@ -2,14 +2,13 @@
 
 import { useEffect, useState } from "react"
 import { highlightTactCode } from "@/utils/highlight-tact-code"
-import tactCode from "./a.tact"
 
-export const TactCode = () => {
+export const TactCode = ({ code }: { code: string }) => {
   const [tactCodeHtml, setTactCodeHtml] = useState("")
 
   useEffect(() => {
     async function wait() {
-      setTactCodeHtml(await highlightTactCode(tactCode))
+      setTactCodeHtml(await highlightTactCode(code))
     }
     wait()
   }, [])
