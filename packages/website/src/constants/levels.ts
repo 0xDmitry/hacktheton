@@ -4,10 +4,10 @@ interface Level {
 }
 
 export const levels: Level[] = [
-  { name: "Introduction", isCompleted: true },
-  { name: "Deposit", isCompleted: true },
-  { name: "Level 2", isCompleted: true },
-  { name: "Level 3", isCompleted: false },
-  { name: "Level 4", isCompleted: false },
-  { name: "Level 5", isCompleted: false },
+  { name: "introduction", isCompleted: true },
+  { name: "deposit", isCompleted: true },
+  { name: "level-2", isCompleted: true },
+  { name: "level-3", isCompleted: false },
+  { name: "level-4", isCompleted: false },
+  { name: "level-5", isCompleted: false },
 ]

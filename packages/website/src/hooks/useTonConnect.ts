@@ -1,7 +1,9 @@
+"use client"
+
 import { useTonConnectUI } from "@tonconnect/ui-react"
 import { Sender, SenderArguments } from "ton-core"
 
-export function useTonConnect(): { sender: Sender; connected: boolean } {
+export function useTonConnect(): { sender: Sender } {
   const [tonConnectUI] = useTonConnectUI()
 
   return {
@@ -19,6 +21,5 @@ export function useTonConnect(): { sender: Sender; connected: boolean } {
         })
       },
     },
-    connected: tonConnectUI.connected,
   }
 }

@@ -9,10 +9,10 @@ const LevelItem = ({
   isCompleted?: boolean
 }) => (
   <Link
-    href={`/level/${name.toLowerCase()}`}
+    href={`/level/${name}`}
     className="flex justify-between p-3 border-b-2 last:border-b-0 border-black hover:bg-black hover:text-foreground transition"
   >
-    <div className="col-span-5">{name}</div>
+    <div className="col-span-5">{name.replaceAll("-", " ").toUpperCase()}</div>
     <div className="">{isCompleted ? "COMPLETED" : ""}</div>
   </Link>
 )
@@ -23,7 +23,7 @@ export const LevelsList = () => (
       {levels.map((level) => (
         <LevelItem
           key={level.name}
-          name={level.name.toUpperCase()}
+          name={level.name}
           isCompleted={level.isCompleted}
         />
       ))}
