@@ -13,6 +13,7 @@ const config: Config = {
         cover: "var(--cover)",
         background: "var(--background)",
         foreground: "var(--foreground)",
+        codePanel: "#24292e",
       },
       animation: {
         cursorBlink: "blink 1.1s step-end infinite 2s",

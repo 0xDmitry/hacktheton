@@ -13,12 +13,3 @@ body {
   background: var(--cover);
   font-synthesis: none;
 }
-
-.panelCode {
-  background-color: #24292e;
-  padding: 20px;
-  font-size: 13px;
-  line-height: 18px;
-  -webkit-font-smoothing: auto;
-  -moz-osx-font-smoothing: auto;
-}
