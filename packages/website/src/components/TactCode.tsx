@@ -11,7 +11,7 @@ export const TactCode = ({ code }: { code: string }) => {
       setTactCodeHtml(await highlightTactCode(code))
     }
     wait()
-  }, [])
+  }, [code])
 
   return (
     <div className="panelCode w-10/12">

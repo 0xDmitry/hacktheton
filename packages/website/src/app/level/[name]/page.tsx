@@ -1,8 +1,10 @@
 import Link from "next/link"
 import { ActionButtons } from "@/components/ActionButtons"
 import { TactCode } from "@/components/TactCode"
+// @ts-ignore
 import tactCode from "@/data/levels/introduction/code.tact"
-import levelDescription from "@/data/levels/introduction/description.md"
+// @ts-ignore
+import description from "@/data/levels/introduction/description.md"
 
 export default function Level({ params }: { params: { name: string } }) {
   return (
@@ -19,7 +21,7 @@ export default function Level({ params }: { params: { name: string } }) {
             {params.name.replaceAll("-", " ").toUpperCase()}
           </div>
         </div>
-        <div className="p-12 text-xl">{levelDescription}</div>
+        <div className="p-12 text-xl">{description}</div>
         <div className="flex justify-center p-12">
           <TactCode code={tactCode} />
         </div>
