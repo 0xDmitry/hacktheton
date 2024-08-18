@@ -23,8 +23,8 @@ export default function Level({ params }: { params: { name: string } }) {
             {params.name.replaceAll("-", " ").toUpperCase()}
           </div>
         </div>
-        <div className="p-12 text-xl">{description}</div>
-        <div className="flex justify-center p-12">
+        <div className="m-12 text-xl">{description}</div>
+        <div className="flex justify-center mx-12 mb-16">
           <TactCode code={tactCode} />
         </div>
         <ActionButtons />
