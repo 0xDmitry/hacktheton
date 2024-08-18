@@ -19,7 +19,7 @@ export default function Level({ params }: { params: { name: string } }) {
             <LeftArrow />
             <div>Back</div>
           </Link>
-          <div className="flex justify-end flex-grow p-4 border-b-2 border-foreground">
+          <div className="flex justify-end items-center flex-grow p-4 border-b-2 border-foreground">
             {params.name.replaceAll("-", " ").toUpperCase()}
           </div>
         </div>
