@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { ActionButtons } from "@/components/ActionButtons"
 import { TactCode } from "@/components/TactCode"
+import { LeftArrow } from "@/components/assets/LeftArrow"
 // @ts-ignore
 import tactCode from "@/data/levels/introduction/code.tact"
 // @ts-ignore
@@ -13,9 +14,10 @@ export default function Level({ params }: { params: { name: string } }) {
         <div className="flex text-xl">
           <Link
             href="/"
-            className="py-4 pl-4 pr-16 bg-foreground border-b-2 border-r-2 border-foreground text-black hover:bg-black hover:text-foreground transition"
+            className="flex items-center gap-5 p-4 bg-foreground border-b-2 border-r-2 border-foreground text-black hover:bg-black hover:text-foreground [&_svg]:hover:fill-foreground transition"
           >
-            BACK
+            <LeftArrow />
+            <div>Back</div>
           </Link>
           <div className="flex justify-end flex-grow p-4 border-b-2 border-foreground">
             {params.name.replaceAll("-", " ").toUpperCase()}
