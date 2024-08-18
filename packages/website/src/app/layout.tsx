@@ -19,10 +19,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${anonymousPro.className} flex flex-col justify-between h-screen subpixel-antialiased`}
+        className={`${anonymousPro.className} flex flex-col justify-between min-h-screen subpixel-antialiased`}
       >
         <Header />
-        {children}
+        <div className="grow flex bg-background">{children}</div>
         <Footer />
       </body>
     </html>
