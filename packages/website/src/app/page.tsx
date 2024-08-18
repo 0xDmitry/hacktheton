@@ -8,7 +8,10 @@ export default function Home() {
       <div className="container mx-auto flex flex-col justify-center gap-12 my-6 p-6">
         <Welcome />
         <LevelsList />
-        <TypewriterText text={"MORE LEVELS COMING SOON!"} />
+        <TypewriterText
+          className="text-4xl text-center"
+          text={"MORE LEVELS COMING SOON!"}
+        />
       </div>
     </div>
   )

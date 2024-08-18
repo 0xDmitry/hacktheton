@@ -2,6 +2,7 @@ import Link from "next/link"
 import { ActionButtons } from "@/components/ActionButtons"
 import { TactCode } from "@/components/TactCode"
 import { LeftArrow } from "@/components/assets/LeftArrow"
+import { TypewriterText } from "@/components/TypewriterText"
 // @ts-ignore
 import tactCode from "@/data/levels/introduction/code.tact"
 // @ts-ignore
@@ -19,9 +20,10 @@ export default function Level({ params }: { params: { name: string } }) {
             <LeftArrow />
             <div>BACK</div>
           </Link>
-          <div className="flex justify-end items-center flex-grow p-4 border-b-2 border-foreground">
-            {params.name.replaceAll("-", " ").toUpperCase()}
-          </div>
+          <TypewriterText
+            className="flex justify-end items-center flex-grow p-4 border-b-2 border-foreground"
+            text={params.name.replaceAll("-", " ").toUpperCase()}
+          />
         </div>
         <div className="p-6 md:p-12 text-lg md:text-xl">{description}</div>
         <div className="flex justify-center p-6 md:p-12">
