@@ -17,7 +17,7 @@ export default function Level({ params }: { params: { name: string } }) {
             className="flex items-center gap-5 p-4 bg-foreground border-b-2 border-r-2 border-foreground text-black hover:bg-black hover:text-foreground [&_svg]:hover:fill-foreground transition"
           >
             <LeftArrow />
-            <div>Back</div>
+            <div>BACK</div>
           </Link>
           <div className="flex justify-end items-center flex-grow p-4 border-b-2 border-foreground">
             {params.name.replaceAll("-", " ").toUpperCase()}
