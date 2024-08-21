@@ -22,11 +22,11 @@ export default function RootLayout({
       <body
         // TODO: Uncomment before release
         // suppressHydrationWarning
-        className={`${anonymousPro.className} flex flex-col subpixel-antialiased`}
+        className={`${anonymousPro.className} flex flex-col h-dvh subpixel-antialiased`}
       >
         <TonConnectProvider>
           <Header />
-          {children}
+          <div className="grow flex bg-background">{children}</div>
           <Footer />
         </TonConnectProvider>
       </body>

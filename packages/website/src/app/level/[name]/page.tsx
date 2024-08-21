@@ -10,8 +10,8 @@ import description from "@/data/levels/introduction/description.md"
 
 export default function Level({ params }: { params: { name: string } }) {
   return (
-    <div className="flex justify-center bg-background md:py-12 md:px-6">
-      <div className="max-md:w-full md:container md:mx-auto flex flex-col justify-center border-2 border-foreground">
+    <div className="flex justify-center w-full md:container md:mx-auto md:py-12 md:px-6">
+      <div className="flex flex-col justify-center w-full border-2 border-foreground">
         <div className="flex text-xl">
           <Link
             href="/"
