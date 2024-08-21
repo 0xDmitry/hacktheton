@@ -15,7 +15,7 @@ export const Footer = () => (
         <Telegram />
       </div>
     </a>
-    <a href="https://discord.gg/y6HAjRMC" target="_blank">
+    <a href="https://discord.gg/Ajdh6B3Qe9" target="_blank">
       <div className="rounded-full size-full hover:bg-gray-600 transition duration-500">
         <Discord />
       </div>
