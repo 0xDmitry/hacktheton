@@ -9,8 +9,8 @@
     "start:website": "cd packages/website && bun run start",
     "dev:website": "cd packages/website && bun run dev",
     "build:contracts": "cd packages/contracts && blueprint build",
-    "test:contracts": "cd packages/contracts && jest --verbose",
-    "run:contracts": "cd packages/contracts && blueprint run"
+    "test:contracts": "cd packages/contracts && blueprint build && jest --verbose",
+    "run:contracts": "cd packages/contracts && blueprint build && blueprint run"
   },
   "devDependencies": {
     "@types/bun": "latest"
