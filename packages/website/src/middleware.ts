@@ -2,6 +2,7 @@ import { match as matchLocale } from "@formatjs/intl-localematcher"
 import Negotiator from "negotiator"
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
+import { getCookie } from "cookies-next"
 import { i18n } from "@/i18n.config"
 
 function getLocale(request: NextRequest) {
@@ -28,8 +29,11 @@ export function middleware(request: NextRequest) {
 
   if (pathnameHasLocale) return
 
-  // Redirect if there is no locale
-  const locale = getLocale(request)
+  // If there is no locale, get it from cookie or create based on user preferences
+  const res = NextResponse.next()
+  const locale = getCookie("lang", { res, req: request }) || getLocale(request)
+
+  // Redirect to localized page
   request.nextUrl.pathname = `/${locale}${pathname}`
   return NextResponse.redirect(request.nextUrl)
 }
