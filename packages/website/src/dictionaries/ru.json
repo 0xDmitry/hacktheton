@@ -1,0 +1,14 @@
+{
+  "page": {
+    "notFound": {
+      "title": "Ой!",
+      "description": "Страница, которую вы ищете, не существует"
+    },
+    "home": {
+      "plugText": {
+        "firstLine": "TON BASED ИГРА ДЛЯ РАЗРАБОТЧИКОВ",
+        "secondLine": "СКОРО БУДЕТ ДОСТУПНА"
+      }
+    }
+  }
+}
