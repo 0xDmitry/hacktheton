@@ -2,8 +2,8 @@ import { match as matchLocale } from "@formatjs/intl-localematcher"
 import Negotiator from "negotiator"
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
-import { getCookie } from "cookies-next"
-import { i18n } from "@/i18n.config"
+import { deleteCookie, getCookie } from "cookies-next"
+import { i18n, Locale } from "@/i18n.config"
 
 function getLocale(request: NextRequest) {
   // Negotiator expects plain object so we need to transform headers
@@ -30,12 +30,25 @@ export function middleware(request: NextRequest) {
   if (pathnameHasLocale) return
 
   // If there is no locale, get it from cookie or create based on user preferences
-  const res = NextResponse.next()
-  const locale = getCookie("lang", { res, req: request }) || getLocale(request)
+  const cookieLocale = getCookie("lang", {
+    res: NextResponse.next(),
+    req: request,
+  })
+  const isCookieLocaleSupported =
+    cookieLocale !== undefined && i18n.locales.includes(cookieLocale as Locale)
+
+  const locale = isCookieLocaleSupported ? cookieLocale : getLocale(request)
 
   // Redirect to localized page
   request.nextUrl.pathname = `/${locale}${pathname}`
-  return NextResponse.redirect(request.nextUrl)
+  const response = NextResponse.redirect(request.nextUrl)
+
+  // Delete cookie if it is not supported
+  if (!isCookieLocaleSupported) {
+    deleteCookie("lang", { res: response, req: request })
+  }
+
+  return response
 }
 
 export const config = {
