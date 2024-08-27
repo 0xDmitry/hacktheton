@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@formatjs/intl-localematcher": "^0.5.4",
     "babel-plugin-react-compiler": "^0.0.0-experimental-334f00b-20240725",
     "cookies-next": "^4.2.1",
     "negotiator": "^0.6.3",
