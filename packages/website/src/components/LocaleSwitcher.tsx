@@ -18,10 +18,10 @@ export const LocaleSwitcher = () => {
     return segments.join("/")
   }
 
-  const [open, setOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
 
   const [currentValue, setCurrentValue] = useState<Locale>(
-    (params.lang as Locale) || i18n.defaultLocale
+    (params.locale as Locale) || i18n.defaultLocale
   )
 
   const dropdownRef = useRef<HTMLDivElement>(null)
@@ -32,7 +32,7 @@ export const LocaleSwitcher = () => {
         dropdownRef.current &&
         !dropdownRef.current.contains(e.target as Node)
       ) {
-        setOpen(false)
+        setIsOpen(false)
       }
     }
     document.body.addEventListener("click", closeDropdown)
@@ -45,31 +45,31 @@ export const LocaleSwitcher = () => {
     }
 
     setCurrentValue(locale)
-    setOpen(false)
+    setIsOpen(false)
   }
 
   return (
     <div className="relative">
       <button
-        onClick={() => setOpen(true)}
-        className="flex justify-center items-center gap-1 w-14 h-8 border border-foreground rounded-md bg-background hover:bg-gray-600 transition"
+        onClick={() => setIsOpen(true)}
+        className="flex justify-center items-center gap-1 w-14 h-8 border border-foreground bg-background hover:bg-gray-600 transition"
       >
-        {currentValue}
         <ArrowDown />
+        {currentValue.toUpperCase()}
       </button>
-      {open ? (
+      {isOpen ? (
         <div
           ref={dropdownRef}
-          className="flex flex-col w-14 absolute top-10 rounded-md border border-foreground divide-y divide-foreground transition"
+          className="flex flex-col w-14 absolute top-10 border border-foreground divide-y divide-foreground transition"
         >
           {i18n.locales.map((locale) => (
             <Link
               key={locale}
               href={redirectedPathName(locale)}
               onClick={() => handleClick(locale)}
-              className="flex items-center justify-center h-8 bg-background hover:bg-gray-600 first:rounded-t-md last:rounded-b-md"
+              className="flex items-center justify-center h-8 bg-background hover:bg-gray-600"
             >
-              {locale}
+              {locale.toUpperCase()}
             </Link>
           ))}
         </div>

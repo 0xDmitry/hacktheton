@@ -25,10 +25,10 @@ export default function RootLayout({
   params,
 }: Readonly<{
   children: React.ReactNode
-  params: { lang: Locale }
+  params: { locale: Locale }
 }>) {
   return (
-    <html lang={params.lang}>
+    <html lang={params.locale}>
       <body
         className={`${anonymousPro.className} flex flex-col justify-between h-dvh subpixel-antialiased`}
       >

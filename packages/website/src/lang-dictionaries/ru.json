@@ -5,8 +5,8 @@
       "description": "Страница, которую вы ищете, не существует"
     },
     "home": {
-      "plugText": {
-        "firstLine": "TON BASED ИГРА ДЛЯ РАЗРАБОТЧИКОВ",
+      "welcomeText": {
+        "firstLine": "ИГРА ПРО TON КОНТРАКТЫ",
         "secondLine": "СКОРО ДОСТУПНА"
       }
     }
