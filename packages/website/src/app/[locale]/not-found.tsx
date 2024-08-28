@@ -9,7 +9,7 @@ export default function NotFound() {
   const params = useParams()
   const locale = (params.locale || i18n.defaultLocale) as Locale
 
-  const [langDictionary, setLangDictionary] = useState({
+  const [content, setContent] = useState({
     title: "",
     description: "",
   })
@@ -17,7 +17,7 @@ export default function NotFound() {
   useEffect(() => {
     const getCurrentDictionary = async () => {
       const dictionary = await getLangDictionary(locale)
-      setLangDictionary(dictionary.page.notFound)
+      setContent(dictionary.page.notFound)
     }
 
     getCurrentDictionary()
@@ -25,8 +25,8 @@ export default function NotFound() {
 
   return (
     <div className="container mx-auto flex flex-col justify-center text-center gap-2 p-6">
-      <h2 className="text-3xl">{langDictionary.title}</h2>
-      <p className="text-xl">{langDictionary.description}</p>
+      <h2 className="text-3xl">{content.title}</h2>
+      <p className="text-xl">{content.description}</p>
     </div>
   )
 }
