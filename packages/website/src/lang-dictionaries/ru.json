@@ -1,0 +1,14 @@
+{
+  "page": {
+    "notFound": {
+      "title": "Ой!",
+      "description": "Страница, которую вы ищете, не существует"
+    },
+    "home": {
+      "welcomeText": {
+        "firstLine": "ИГРА ПРО TON КОНТРАКТЫ",
+        "secondLine": "СКОРО ДОСТУПНА"
+      }
+    }
+  }
+}

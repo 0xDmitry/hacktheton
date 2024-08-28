@@ -1,0 +1,14 @@
+{
+  "page": {
+    "notFound": {
+      "title": "Oh no!",
+      "description": "Looks like the page you are looking is missing"
+    },
+    "home": {
+      "welcomeText": {
+        "firstLine": "TON BASED WARGAME",
+        "secondLine": "COMING SOON"
+      }
+    }
+  }
+}
