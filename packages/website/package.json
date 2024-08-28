@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "cd ../contracts && bun run build && cd ../website && next build",
     "start": "next start",
     "lint": "next lint"
   },
