@@ -1,10 +1,9 @@
+import createMDX from "@next/mdx"
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-    config.module.rules.push({
-      test: /\.md$/,
-      type: "asset/source",
-    })
     config.module.rules.push({
       test: /\.tact$/,
       type: "asset/source",
@@ -13,4 +12,8 @@ const nextConfig = {
   },
 }
 
-export default nextConfig
+const withMDX = createMDX({
+  // Add markdown plugins here, as desired
+})
+
+export default withMDX(nextConfig)

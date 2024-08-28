@@ -8,13 +8,20 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@mdx-js/loader": "^3.0.1",
+    "@mdx-js/react": "^3.0.1",
+    "@next/mdx": "^14.2.6",
+    "@ton-api/client": "^0.1.0",
+    "@ton-api/ton-adapter": "^0.1.0",
+    "@ton/core": "^0.56.3",
+    "@ton/ton": "^14.0.0",
     "@tonconnect/ui-react": "^2.0.9",
+    "@types/mdx": "^2.0.13",
     "next": "^14.2.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-type-animation": "^3.2.0",
-    "shiki": "^0.14.1",
-    "ton-core": "^0.53.0"
+    "shiki": "^0.14.1"
   },
   "devDependencies": {
     "typescript": "^5",
