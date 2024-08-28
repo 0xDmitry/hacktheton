@@ -2,8 +2,8 @@ import { Address, OpenedContract } from "@ton/core"
 import { ContractAdapter } from "@ton-api/ton-adapter"
 import introductionCode from "../../../contracts/contracts/introduction_level.tact"
 import { IntroductionLevel } from "../../../contracts/wrappers/IntroductionLevel"
-import IntroductionDescription from "../markdown/levels/introduction/Description.mdx"
-import IntroductionCompletedDescription from "../markdown/levels/introduction/CompletedDescription.mdx"
+import IntroductionDescription from "../markdown/levels/introduction/description.mdx"
+import IntroductionCompletedDescription from "../markdown/levels/introduction/completed-description.mdx"
 
 export type LevelName = "introduction"
 
