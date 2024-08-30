@@ -40,7 +40,7 @@ Look into the level's info method `await contract.getInfo()`.
 You should have all you need to complete the level within the contract.
 To send a message to a contract, type:
 
-`await contract.send(player, {value: toNano(0.05)}, "message")`
+`await contract.send(player, {value: toNano(0.05)}, {$$type: "MessageName", ...params})`
 
 When you know you have completed the level, check the contract using the "CHECK SOLUTION" button at the bottom of the page.
-This sends your instance back to the game manager, which will determine if you have completed it.
+This sends the message to the game manager, which will determine if you have completed the level.

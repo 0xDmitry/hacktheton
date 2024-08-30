@@ -2,7 +2,7 @@ import "@stdlib/ownable";
 import "./messages";
 
 struct Level {
-    name: String;
+    factory: Address;
     address: Address?;
     completed: Bool;
 }
@@ -10,7 +10,7 @@ struct Level {
 contract PlayerStats with Ownable {
     owner: Address;
     player: Address;
-    levels: map<Address, Level>;
+    levels: map<Int, Level>;
 
     init(owner: Address, player: Address) {
         self.owner = owner;
@@ -20,14 +20,14 @@ contract PlayerStats with Ownable {
     receive(msg: CreatePlayerLevel) {
         self.requireOwner();
 
-        let level = self.levels.get(msg.factory);
+        let level = self.levels.get(sha256(msg.name));
         if (level == null) {
             level = Level{
-                name: msg.name,
+                factory: msg.factory,
                 address: null,
                 completed: false,
             };
-            self.levels.set(msg.factory, level);
+            self.levels.set(sha256(msg.name), level);
         }
 
         send(SendParameters{
@@ -43,10 +43,10 @@ contract PlayerStats with Ownable {
 
     receive(msg: LevelDeployed) {
         let ctx: Context = context();
-        foreach (factory, level in self.levels) {
-            if (factory == ctx.sender) {
-                self.levels.set(factory, Level{
-                    name: level.name,
+        foreach (key, level in self.levels) {
+            if (level.factory == ctx.sender) {
+                self.levels.set(key, Level{
+                    factory: level.factory,
                     address: msg.address,
                     completed: false,
                 });
@@ -57,25 +57,24 @@ contract PlayerStats with Ownable {
     receive(msg: CheckLevel) {
         self.requireOwner();
 
-        foreach (_, level in self.levels) {
-            if (level.name == msg.name && level.address != null) {
-                send(SendParameters{
-                    to: level.address!!,
-                    value: 0,
-                    mode: SendRemainingValue,
-                    bounce: false,
-                    body: "check".asComment()
-                });
-            }
+        let level = self.levels.get(sha256(msg.name));
+        if (level != null && level!!.address != null) {
+            send(SendParameters{
+                to: level!!.address!!,
+                value: 0,
+                mode: SendRemainingValue,
+                bounce: false,
+                body: "check".asComment()
+            });
         }
     }
 
     receive("level completed") {
         let ctx: Context = context();
-        foreach (factory, level in self.levels) {
+        foreach (key, level in self.levels) {
             if (level.address != null && level.address!! == ctx.sender) {
-                self.levels.set(factory, Level{
-                    name: level.name,
+                self.levels.set(key, Level{
+                    factory: level.factory,
                     address: level.address,
                     completed: true,
                 });
@@ -87,7 +86,7 @@ contract PlayerStats with Ownable {
         return self.player;
     }
 
-    get fun levels(): map<Address, Level> {
+    get fun levels(): map<Int, Level> {
         return self.levels;
     }
 }

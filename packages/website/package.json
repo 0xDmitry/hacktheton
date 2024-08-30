@@ -14,6 +14,7 @@
     "@ton-api/client": "^0.1.0",
     "@ton-api/ton-adapter": "^0.1.0",
     "@ton/core": "^0.56.3",
+    "@ton/crypto": "^3.3.0",
     "@ton/ton": "^14.0.0",
     "@tonconnect/ui-react": "^2.0.9",
     "next": "^14.2.5",

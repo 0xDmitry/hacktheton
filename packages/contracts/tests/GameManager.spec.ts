@@ -97,7 +97,7 @@ describe("GameManager", () => {
     let createLevelResult = await gameManager.send(
       player.getSender(),
       {
-        value: toNano("0.05"),
+        value: toNano("0.06"),
       },
       {
         $$type: "CreateLevel",
@@ -114,7 +114,7 @@ describe("GameManager", () => {
     createLevelResult = await gameManager.send(
       player.getSender(),
       {
-        value: toNano("0.05"),
+        value: toNano("0.06"),
       },
       {
         $$type: "CreateLevel",
@@ -216,7 +216,7 @@ describe("GameManager", () => {
     const createLevelResult = await gameManager.send(
       player.getSender(),
       {
-        value: toNano("0.05"),
+        value: toNano("0.06"),
       },
       {
         $$type: "CreateLevel",
@@ -303,7 +303,10 @@ describe("GameManager", () => {
       {
         value: toNano("0.05"),
       },
-      "complete",
+      {
+        $$type: "Authenticate",
+        password: "Tact and FunC for the win!",
+      },
     )
 
     expect(completeLevelResult.transactions).toHaveTransaction({

@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { sha256_sync } from "@ton/crypto"
 import { levels } from "@/constants/levels"
 import { usePlayerStats } from "@/hooks/usePlayerStats"
 
@@ -26,19 +27,19 @@ export const LevelsList = () => {
   return (
     <div className="flex justify-center">
       <div className="flex flex-col flex-grow max-w-2xl text-xl border-black bg-foreground text-black box-content">
-        {levels.map((levelName) => (
-          <LevelItem
-            key={levelName}
-            name={levelName}
-            isCompleted={
-              (playerStats?.levels
-                ?.values()
-                .findIndex(
-                  (level) => level.name === levelName && level.completed,
-                ) ?? -1) >= 0
-            }
-          />
-        ))}
+        {levels.map((levelName) => {
+          const buffer = sha256_sync(levelName)
+          const level = playerStats?.levels?.get(
+            BigInt("0x" + buffer.toString("hex")),
+          )
+          return (
+            <LevelItem
+              key={levelName}
+              name={levelName}
+              isCompleted={level?.completed}
+            />
+          )
+        })}
       </div>
     </div>
   )

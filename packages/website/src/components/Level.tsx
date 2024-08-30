@@ -2,6 +2,7 @@
 
 import { useEffect } from "react"
 import { Address } from "@ton/core"
+import { sha256_sync } from "@ton/crypto"
 import { ContractAdapter } from "@ton-api/ton-adapter"
 import { levelsConfig, LevelName } from "@/constants/levels"
 import { usePlayerStats } from "@/hooks/usePlayerStats"
@@ -17,15 +18,11 @@ export const Level = ({
 }) => {
   const clientAdapter = useTonClientAdapter()
   const playerStats = usePlayerStats()
+  const buffer = sha256_sync(name)
+  const level = playerStats?.levels?.get(BigInt("0x" + buffer.toString("hex")))
 
-  const isCompleted =
-    (playerStats?.levels
-      ?.values()
-      .findIndex((level) => level.name === name && level.completed) ?? -1) >= 0
-
-  const levelInstance = playerStats?.levels
-    ?.values()
-    .find((level) => level.name === name)?.address
+  const isCompleted = level?.completed
+  const levelInstance = level?.address
 
   useEffect(() => {
     setupConsoleUtils()

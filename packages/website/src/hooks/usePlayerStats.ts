@@ -13,7 +13,7 @@ export function usePlayerStats() {
   const { sender } = useTonConnect()
 
   const [stats, setStats] = useState<{
-    levels?: Dictionary<Address, Level>
+    levels?: Dictionary<bigint, Level>
   }>()
 
   const playerStats = useAsyncInitialize(async () => {
@@ -23,11 +23,15 @@ export function usePlayerStats() {
     const gameManagerAddress = Address.parse(
       process.env.NEXT_PUBLIC_GAME_MANAGER_ADDRESS!,
     )
-    const contract = await PlayerStats.fromInit(
-      gameManagerAddress,
-      sender.address,
-    )
-    return clientAdapter.open(contract) as OpenedContract<PlayerStats>
+    try {
+      const contract = await PlayerStats.fromInit(
+        gameManagerAddress,
+        sender.address,
+      )
+      return clientAdapter.open(contract) as OpenedContract<PlayerStats>
+    } catch {
+      return
+    }
   }, [clientAdapter, sender.address])
 
   usePollingEffect(

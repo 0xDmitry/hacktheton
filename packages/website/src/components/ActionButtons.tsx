@@ -1,6 +1,7 @@
 "use client"
 
 import { Address } from "@ton/core"
+import { sha256_sync } from "@ton/crypto"
 import { useTonConnectModal, useTonWallet } from "@tonconnect/ui-react"
 import { useGameManager } from "@/hooks/useGameManager"
 import { usePlayerStats } from "@/hooks/usePlayerStats"
@@ -11,18 +12,13 @@ export const ActionButtons = ({ levelName }: { levelName: LevelName }) => {
   const { open } = useTonConnectModal()
   const { sendCreateLevel, sendCheckLevel } = useGameManager()
   const playerStats = usePlayerStats()
+  const buffer = sha256_sync(levelName)
+  const level = playerStats?.levels?.get(BigInt("0x" + buffer.toString("hex")))
 
   if (wallet) {
     return (
       <div className="grid grid-flow-col auto-cols-fr text-xl">
-        {(playerStats?.levels
-          ?.values()
-          .findIndex(
-            (level) =>
-              level.name === levelName &&
-              Address.isAddress(level.address) &&
-              !level.completed,
-          ) ?? -1) >= 0 && (
+        {Address.isAddress(level?.address) && !level?.completed && (
           <button
             className="flex flex-grow justify-center items-center p-4 bg-foreground border-t-2 border-foreground text-black hover:bg-black hover:text-foreground transition"
             onClick={() => sendCheckLevel(levelName)}
