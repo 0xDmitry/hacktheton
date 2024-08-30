@@ -1,0 +1,26 @@
+{
+  "page": {
+    "notFound": {
+      "title": "Oh no!",
+      "description": "Looks like the page you are looking is missing"
+    },
+    "home": {
+      "welcome": {
+        "firstPart": "Hack the TON is a TON based wargame inspired by ",
+        "secondPart": ", played in the TON Virtual Machine. Each level is a smart contract that needs to be hacked. Our goal is to help you to learn how to develop safe TON smart contracts and build a thriving community around this craft.",
+        "thirdPart": "Good luck and have fun!"
+      },
+      "moreLevels": "MORE LEVELS COMING SOON!"
+    },
+    "level": {
+      "checkSolution": "CHECK SOLUTION",
+      "getNewInstance": "GET NEW INSTANCE"
+    }
+  },
+  "levels": {
+    "introduction": "INTRODUCTION"
+  },
+  "back": "BACK",
+  "completed": "COMPLETED",
+  "connectWallet": "CONNECT WALLET"
+}

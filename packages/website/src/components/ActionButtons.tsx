@@ -6,8 +6,10 @@ import { useTonConnectModal, useTonWallet } from "@tonconnect/ui-react"
 import { useGameManager } from "@/hooks/useGameManager"
 import { usePlayerStats } from "@/hooks/usePlayerStats"
 import { LevelName } from "@/constants/levels"
+import { useLangDictionary } from "@/hooks/useLangDictionary"
 
 export const ActionButtons = ({ levelName }: { levelName: LevelName }) => {
+  const langDictionary = useLangDictionary()
   const wallet = useTonWallet()
   const { open } = useTonConnectModal()
   const { sendCreateLevel, sendCheckLevel } = useGameManager()
@@ -23,14 +25,14 @@ export const ActionButtons = ({ levelName }: { levelName: LevelName }) => {
             className="flex flex-grow justify-center items-center p-4 bg-foreground border-t-2 border-foreground text-black hover:bg-black hover:text-foreground transition"
             onClick={() => sendCheckLevel(levelName)}
           >
-            CHECK SOLUTION
+            {langDictionary.page.level.checkSolution}
           </button>
         )}
         <button
           className="flex flex-grow justify-center items-center p-4 bg-foreground border-t-2 border-foreground text-black hover:bg-black hover:text-foreground transition"
           onClick={() => sendCreateLevel(levelName)}
         >
-          GET NEW INSTANCE
+          {langDictionary.page.level.getNewInstance}
         </button>
       </div>
     )
@@ -41,7 +43,7 @@ export const ActionButtons = ({ levelName }: { levelName: LevelName }) => {
       onClick={open}
       className="flex flex-grow justify-center items-center text-xl p-4 bg-foreground border-t-2 border-foreground text-black hover:bg-black hover:text-foreground transition"
     >
-      CONNECT WALLET
+      {langDictionary.connectWallet}
     </button>
   )
 }

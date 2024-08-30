@@ -15,11 +15,8 @@ body {
 }
 
 h1 {
-  margin-bottom: 0.5rem;
-  font-size: large;
-  line-height: 1.2;
-}
-
-p {
+  margin-top: 3rem;
   margin-bottom: 1rem;
+  font-size: large;
+  line-height: 1rem;
 }
