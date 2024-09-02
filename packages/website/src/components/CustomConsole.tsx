@@ -1,13 +1,18 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { isMobile } from "react-device-detect"
 import { Hook, Console, Decode, Unhook } from "console-feed"
+import { isMobile as isMobileDevice } from "react-device-detect"
 import { Message } from "console-feed/lib/definitions/Component"
-import { ArrowEnter } from "./assets/ArrowEnter"
 
 export const CustomConsole = () => {
   const [logs, setLogs] = useState<Message[]>([])
+
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    setIsMobile(isMobileDevice)
+  }, [])
 
   useEffect(() => {
     const hookedConsole = Hook(window.console, (log) => {
@@ -19,7 +24,6 @@ export const CustomConsole = () => {
   }, [])
 
   const consoleRef = useRef<HTMLDivElement>(null)
-  const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     const consoleElement = consoleRef?.current
@@ -32,52 +36,39 @@ export const CustomConsole = () => {
     }
   }, [logs])
 
-  const processConsoleInput = (inputValue: string) => {
-    console.log(inputValue)
-    try {
-      const result = Function("return " + inputValue)()
-      console.log(result)
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
   const handleKeydown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.code === "Enter") {
       const inputValue = event.currentTarget.value
       event.currentTarget.value = ""
 
-      processConsoleInput(inputValue)
-    }
-  }
-
-  const handleEnterButtonClick = () => {
-    if (inputRef.current) {
-      const inputValue = inputRef.current.value
-      inputRef.current.value = ""
-
-      processConsoleInput(inputValue)
+      console.log(inputValue)
+      try {
+        const result = Function("return " + inputValue)()
+        console.log(result)
+      } catch (error) {
+        console.error(error)
+      }
     }
   }
 
   return (
     <div
       ref={consoleRef}
-      className="w-full h-full overflow-y-scroll text-left bg-[#242424] leading-normal"
+      className="w-full h-full text-left bg-[#242424] leading-normal overflow-y-scroll"
     >
-      <Console logs={logs} variant="dark" />
-      <div className="flex pl-[13px] py-2 w-full text-[#d5d5d5] text-[12px] font-courierNew items-center">
+      <Console
+        logs={logs}
+        variant="dark"
+        styles={{ BASE_FONT_SIZE: `${isMobile ? "16px" : "12px"}` }}
+      />
+      <div
+        className={`${isMobile ? "text-base" : "text-xs"} flex pl-[13px] py-2 w-full text-[#d5d5d5] font-courierNew items-center`}
+      >
         <div>{">"}</div>
         <input
-          ref={inputRef}
           onKeyDown={handleKeydown}
           className="w-full pl-[14px] bg-transparent border-none outline-none"
         />
-        {isMobile && (
-          <div className="px-3" onClick={handleEnterButtonClick}>
-            <ArrowEnter />
-          </div>
-        )}
       </div>
     </div>
   )

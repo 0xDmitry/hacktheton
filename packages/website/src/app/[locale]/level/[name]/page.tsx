@@ -42,7 +42,7 @@ export default function LevelPage({
           code={<TactCode code={levelsConfig[name as LevelName].code} />}
         />
         <ActionButtons levelName={name as LevelName} />
-        <div className="h-[100px]">
+        <div className="h-[200px]">
           <CustomConsole />
         </div>
       </div>
