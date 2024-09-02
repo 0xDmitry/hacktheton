@@ -9,6 +9,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        anonymousPro: ["var(--anonymous-pro)"],
+        courierNew: ["var(--font-courier-new)", "monospace"],
+      },
       colors: {
         cover: "var(--cover)",
         background: "var(--background)",

@@ -8,6 +8,7 @@ import { LevelName, levelsConfig } from "@/constants/levels"
 import { Level } from "@/components/Level"
 import { TactCode } from "@/components/TactCode"
 import { getLangDictionary } from "@/utils/lang-dictionary"
+import { CustomConsole } from "@/components/CustomConsole"
 
 export default function LevelPage({
   params: { name, locale },
@@ -41,6 +42,9 @@ export default function LevelPage({
           code={<TactCode code={levelsConfig[name as LevelName].code} />}
         />
         <ActionButtons levelName={name as LevelName} />
+        <div className="h-[100px]">
+          <CustomConsole />
+        </div>
       </div>
     </div>
   )
