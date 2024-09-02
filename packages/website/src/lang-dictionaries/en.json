@@ -18,7 +18,8 @@
     }
   },
   "levels": {
-    "introduction": "INTRODUCTION"
+    "introduction": "INTRODUCTION",
+    "deposit": "DEPOSIT"
   },
   "back": "BACK",
   "completed": "COMPLETED",

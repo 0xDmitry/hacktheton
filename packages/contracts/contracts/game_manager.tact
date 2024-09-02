@@ -57,6 +57,10 @@ contract GameManager with Ownable, Deployable {
         });
     }
 
+    receive(msg: PlayerLevelCompleted) {
+        emit(msg.toCell());
+    }
+
     get fun levelFactories(): map<Int, Address> {
         return self.levelFactories;
     }

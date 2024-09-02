@@ -293,7 +293,7 @@ describe("GameManager", () => {
     expect(checkLevelResult.transactions).toHaveTransaction({
       from: playerStats.address,
       to: level.address,
-      success: true,
+      success: false,
     })
 
     console.log(await playerStats.getLevels())

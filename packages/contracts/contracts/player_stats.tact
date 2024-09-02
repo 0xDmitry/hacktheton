@@ -2,6 +2,7 @@ import "@stdlib/ownable";
 import "./messages";
 
 struct Level {
+    name: String;
     factory: Address;
     address: Address?;
     completed: Bool;
@@ -23,6 +24,7 @@ contract PlayerStats with Ownable {
         let level = self.levels.get(sha256(msg.name));
         if (level == null) {
             level = Level{
+                name: msg.name,
                 factory: msg.factory,
                 address: null,
                 completed: false,
@@ -46,6 +48,7 @@ contract PlayerStats with Ownable {
         foreach (key, level in self.levels) {
             if (level.factory == ctx.sender) {
                 self.levels.set(key, Level{
+                    name: level.name,
                     factory: level.factory,
                     address: msg.address,
                     completed: false,
@@ -74,9 +77,21 @@ contract PlayerStats with Ownable {
         foreach (key, level in self.levels) {
             if (level.address != null && level.address!! == ctx.sender) {
                 self.levels.set(key, Level{
+                    name: level.name,
                     factory: level.factory,
                     address: level.address,
                     completed: true,
+                });
+
+                send(SendParameters{
+                    to: self.owner,
+                    value: 0,
+                    mode: SendRemainingValue,
+                    bounce: false,
+                    body: PlayerLevelCompleted {
+                        player: self.player,
+                        name: level.name
+                    }.toCell()
                 });
             }
         }

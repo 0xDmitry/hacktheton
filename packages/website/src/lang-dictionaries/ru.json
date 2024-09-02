@@ -18,7 +18,8 @@
     }
   },
   "levels": {
-    "introduction": "ВВЕДЕНИЕ"
+    "introduction": "ВВЕДЕНИЕ",
+    "deposit": "ДЕПОЗИТ"
   },
   "back": "НАЗАД",
   "completed": "ПРОЙДЕНО",

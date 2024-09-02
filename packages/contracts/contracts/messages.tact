@@ -27,3 +27,8 @@ message LevelDeployed {
 message CheckLevel {
     name: String;
 }
+
+message PlayerLevelCompleted {
+    player: Address;
+    name: String;
+}

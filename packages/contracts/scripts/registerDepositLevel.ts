@@ -1,6 +1,6 @@
 import { Address, toNano } from "@ton/core"
 import { GameManager } from "../wrappers/GameManager"
-import { IntroductionLevelFactory } from "../wrappers/IntroductionLevelFactory"
+import { DepositLevelFactory } from "../wrappers/DepositLevelFactory"
 import { NetworkProvider } from "@ton/blueprint"
 
 export async function run(provider: NetworkProvider) {
@@ -10,11 +10,11 @@ export async function run(provider: NetworkProvider) {
     ),
   )
 
-  const introductionLevelFactory = provider.open(
-    await IntroductionLevelFactory.fromInit(gameManager.address),
+  const depositLevelFactory = provider.open(
+    await DepositLevelFactory.fromInit(gameManager.address),
   )
 
-  await introductionLevelFactory.send(
+  await depositLevelFactory.send(
     provider.sender(),
     {
       value: toNano("0.05"),
@@ -25,7 +25,7 @@ export async function run(provider: NetworkProvider) {
     },
   )
 
-  await provider.waitForDeploy(introductionLevelFactory.address)
+  await provider.waitForDeploy(depositLevelFactory.address)
 
   await gameManager.send(
     provider.sender(),
@@ -34,8 +34,8 @@ export async function run(provider: NetworkProvider) {
     },
     {
       $$type: "RegisterLevel",
-      name: "introduction",
-      factory: introductionLevelFactory.address,
+      name: "deposit",
+      factory: depositLevelFactory.address,
     },
   )
 }

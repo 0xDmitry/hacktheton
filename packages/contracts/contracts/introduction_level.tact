@@ -22,15 +22,14 @@ contract IntroductionLevel with Deployable {
 
     receive("check") {
         let ctx: Context = context();
-        if (self.isCompleted) {
-            send(SendParameters{
-                to: ctx.sender,
-                value: 0,
-                mode: SendRemainingValue,
-                bounce: false,
-                body: "level completed".asComment()
-            });
-        }
+        require(self.isCompleted, "Level not completed.");
+        send(SendParameters{
+            to: ctx.sender,
+            value: 0,
+            mode: SendRemainingValue,
+            bounce: false,
+            body: "level completed".asComment()
+        });
     }
 
     get fun password(): String {
