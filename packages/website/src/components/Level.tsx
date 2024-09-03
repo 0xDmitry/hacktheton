@@ -10,6 +10,7 @@ import { levelsConfig, LevelName } from "@/constants/levels"
 import { usePlayerStats } from "@/hooks/usePlayerStats"
 import { useTonClientAdapter } from "@/hooks/useTonClientAdapter"
 import { setupConsoleUtils } from "@/utils/console"
+import { CustomConsole } from "@/components/CustomConsole"
 
 export const Level = ({
   name,
@@ -66,6 +67,10 @@ export const Level = ({
           <div className="flex justify-center">{code}</div>
         </>
       )}
+      <br />
+      <div className="h-[20rem]">
+        <CustomConsole />
+      </div>
     </div>
   )
 }

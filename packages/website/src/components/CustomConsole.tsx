@@ -54,7 +54,7 @@ export const CustomConsole = () => {
   return (
     <div
       ref={consoleRef}
-      className="w-full h-full text-left bg-[#242424] leading-normal overflow-y-scroll"
+      className="w-full h-full text-left bg-[#242424] leading-normal overflow-y-scroll border border-[#555555]"
     >
       <Console
         logs={logs}
