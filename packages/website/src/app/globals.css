@@ -12,6 +12,7 @@ body {
   color: var(--foreground);
   background: var(--cover);
   font-synthesis: none;
+  font-family: var(--anonymous-pro);
 }
 
 h1 {

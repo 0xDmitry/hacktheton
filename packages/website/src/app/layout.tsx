@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { Anonymous_Pro } from "next/font/google"
+import localFont from "next/font/local"
 import { TonConnectProvider } from "@/providers/TonConnectProvider"
 import Script from "next/script"
 import "@/app/globals.css"
@@ -15,6 +16,13 @@ export const metadata: Metadata = {
 const anonymousPro = Anonymous_Pro({
   weight: "400",
   subsets: ["latin", "cyrillic"],
+  variable: "--anonymous-pro",
+})
+
+const courierNew = localFont({
+  src: "../fonts/CourierNew.ttf",
+  display: "swap",
+  variable: "--font-courier-new",
 })
 
 export async function generateStaticParams() {
@@ -31,7 +39,7 @@ export default function RootLayout({
       <body
         // TODO: Uncomment before release
         // suppressHydrationWarning
-        className={`${anonymousPro.className} flex flex-col h-dvh subpixel-antialiased`}
+        className={`${anonymousPro.variable} ${courierNew.variable} flex flex-col h-dvh subpixel-antialiased`}
       >
         <TonConnectProvider>
           <Header />
