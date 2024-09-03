@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { useParams } from "next/navigation"
 import { sha256_sync } from "@ton/crypto"
 import { LevelName, levels } from "@/constants/levels"
 import { usePlayerStats } from "@/hooks/usePlayerStats"
@@ -14,14 +15,15 @@ const LevelItem = ({
   isCompleted?: boolean
 }) => {
   const langDictionary = useLangDictionary()
+  const params = useParams()
 
   return (
     <Link
-      href={`/level/${name}`}
+      href={`/${params.locale}/level/${name}`}
       className="flex justify-between p-3 border-b-2 last:border-b-0 border-black hover:bg-black hover:text-foreground transition"
     >
       <div className="col-span-5">{langDictionary.levels[name]}</div>
-      <div className="">{isCompleted ? langDictionary.completed : ""}</div>
+      <div>{isCompleted ? langDictionary.completed : ""}</div>
     </Link>
   )
 }

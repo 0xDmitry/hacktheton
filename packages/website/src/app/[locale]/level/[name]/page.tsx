@@ -25,7 +25,7 @@ export default function LevelPage({
       <div className="flex flex-col justify-center w-full border-2 border-foreground">
         <div className="flex text-xl">
           <Link
-            href="/"
+            href={`/${locale}`}
             className="flex items-center gap-5 p-4 bg-foreground border-b-2 border-r-2 border-foreground text-black hover:bg-black hover:text-foreground [&_svg]:hover:fill-foreground transition"
           >
             <LeftArrow />
