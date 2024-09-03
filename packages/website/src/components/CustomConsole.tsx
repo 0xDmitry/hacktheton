@@ -59,10 +59,13 @@ export const CustomConsole = () => {
       <Console
         logs={logs}
         variant="dark"
-        styles={{ BASE_FONT_SIZE: `${isMobile ? "16px" : "12px"}` }}
+        styles={{
+          BASE_FONT_SIZE: `${isMobile ? "16px" : "14px"}`,
+          BASE_FONT_FAMILY: "Courier New",
+        }}
       />
       <div
-        className={`${isMobile ? "text-base" : "text-xs"} flex pl-[13px] py-2 w-full text-[#d5d5d5] font-courierNew items-center`}
+        className={`${isMobile ? "text-base" : "text-sm"} flex pl-[13px] py-2 w-full text-[#d5d5d5] font-courierNew items-center`}
       >
         <div>{">"}</div>
         <input
