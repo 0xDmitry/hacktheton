@@ -20,7 +20,8 @@
   "levels": {
     "introduction": "ВВЕДЕНИЕ",
     "deposit": "ДЕПОЗИТ",
-    "scanner": "СКАНЕР"
+    "scanner": "СКАНЕР",
+    "bounce": "ОТСКОК"
   },
   "back": "НАЗАД",
   "completed": "ПРОЙДЕНО",

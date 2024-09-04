@@ -3,9 +3,11 @@ import { ContractAdapter } from "@ton-api/ton-adapter"
 import introductionCode from "../../../contracts/contracts/introduction_level.tact"
 import depositCode from "../../../contracts/contracts/deposit_level.tact"
 import scannerCode from "../../../contracts/contracts/scanner_level.tact"
+import bounceCode from "../../../contracts/contracts/bounce_level.tact"
 import { IntroductionLevel } from "../../../contracts/wrappers/IntroductionLevel"
 import { DepositLevel } from "../../../contracts/wrappers/DepositLevel"
 import { ScannerLevel } from "../../../contracts/wrappers/ScannerLevel"
+import { BounceLevel } from "../../../contracts/wrappers/BounceLevel"
 import IntroductionEnDescription from "@/markdown/en/levels/introduction/description.mdx"
 import IntroductionEnCompletedDescription from "@/markdown/en/levels/introduction/completed-description.mdx"
 import IntroductionRuDescription from "@/markdown/ru/levels/introduction/description.mdx"
@@ -18,10 +20,19 @@ import ScannerEnDescription from "@/markdown/en/levels/scanner/description.mdx"
 import ScannerEnCompletedDescription from "@/markdown/en/levels/scanner/completed-description.mdx"
 import ScannerRuDescription from "@/markdown/ru/levels/scanner/description.mdx"
 import ScannerRuCompletedDescription from "@/markdown/ru/levels/scanner/completed-description.mdx"
+import BounceEnDescription from "@/markdown/en/levels/bounce/description.mdx"
+import BounceEnCompletedDescription from "@/markdown/en/levels/bounce/completed-description.mdx"
+import BounceRuDescription from "@/markdown/ru/levels/bounce/description.mdx"
+import BounceRuCompletedDescription from "@/markdown/ru/levels/bounce/completed-description.mdx"
 
-export type LevelName = "introduction" | "deposit" | "scanner"
+export type LevelName = "introduction" | "deposit" | "scanner" | "bounce"
 
-export const levels: LevelName[] = ["introduction", "deposit", "scanner"]
+export const levels: LevelName[] = [
+  "introduction",
+  "deposit",
+  "scanner",
+  "bounce",
+]
 
 export const levelsConfig = {
   introduction: {
@@ -78,6 +89,25 @@ export const levelsConfig = {
       clientAdapter: ContractAdapter,
     ) => {
       const contract = await ScannerLevel.fromAddress(levelInstance!)
+      return clientAdapter!.open(contract) as OpenedContract<DepositLevel>
+    },
+  },
+  bounce: {
+    description: {
+      en: <BounceEnDescription />,
+      ru: <BounceRuDescription />,
+    },
+    completedDescription: {
+      en: <BounceEnCompletedDescription />,
+      ru: <BounceRuCompletedDescription />,
+    },
+    code: bounceCode,
+    revealCode: true,
+    openLevelContract: async (
+      levelInstance: Address,
+      clientAdapter: ContractAdapter,
+    ) => {
+      const contract = await BounceLevel.fromAddress(levelInstance!)
       return clientAdapter!.open(contract) as OpenedContract<DepositLevel>
     },
   },

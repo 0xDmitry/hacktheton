@@ -20,7 +20,8 @@
   "levels": {
     "introduction": "INTRODUCTION",
     "deposit": "DEPOSIT",
-    "scanner": "SCANNER"
+    "scanner": "SCANNER",
+    "bounce": "BOUNCE"
   },
   "back": "BACK",
   "completed": "COMPLETED",
