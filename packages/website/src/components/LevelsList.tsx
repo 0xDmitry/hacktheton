@@ -9,9 +9,11 @@ import { useLangDictionary } from "@/hooks/useLangDictionary"
 
 const LevelItem = ({
   name,
+  index,
   isCompleted,
 }: {
   name: LevelName
+  index: Number
   isCompleted?: boolean
 }) => {
   const langDictionary = useLangDictionary()
@@ -22,7 +24,7 @@ const LevelItem = ({
       href={`/${params.locale}/level/${name}`}
       className="flex justify-between p-3 border-b-2 last:border-b-0 border-black hover:bg-black hover:text-foreground transition"
     >
-      <div className="col-span-5">{langDictionary.levels[name]}</div>
+      <div className="col-span-5">{`${index}. ${langDictionary.levels[name]}`}</div>
       <div>{isCompleted ? langDictionary.completed : ""}</div>
     </Link>
   )
@@ -34,7 +36,7 @@ export const LevelsList = () => {
   return (
     <div className="flex justify-center">
       <div className="flex flex-col flex-grow max-w-2xl text-xl border-black bg-foreground text-black box-content">
-        {levels.map((levelName) => {
+        {levels.map((levelName, index) => {
           const buffer = sha256_sync(levelName)
           const level = playerStats?.levels?.get(
             BigInt("0x" + buffer.toString("hex")),
@@ -43,6 +45,7 @@ export const LevelsList = () => {
             <LevelItem
               key={levelName}
               name={levelName}
+              index={index}
               isCompleted={level?.completed}
             />
           )
