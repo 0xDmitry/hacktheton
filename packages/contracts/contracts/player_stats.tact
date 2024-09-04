@@ -21,16 +21,13 @@ contract PlayerStats with Ownable {
     receive(msg: CreatePlayerLevel) {
         self.requireOwner();
 
-        let level = self.levels.get(sha256(msg.name));
-        if (level == null) {
-            level = Level{
-                name: msg.name,
-                factory: msg.factory,
-                address: null,
-                completed: false,
-            };
-            self.levels.set(sha256(msg.name), level);
-        }
+        let level = Level{
+            name: msg.name,
+            factory: msg.factory,
+            address: null,
+            completed: false,
+        };
+        self.levels.set(sha256(msg.name), level);
 
         send(SendParameters{
             to: msg.factory,

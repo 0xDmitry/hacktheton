@@ -13,12 +13,26 @@ contract GameManager with Ownable, Deployable {
 
     receive(msg: RegisterLevel) {
         self.requireOwner();
-        self.levelFactories.set(sha256(msg.name), msg.factory)
+        self.levelFactories.set(sha256(msg.name), msg.factory);
+
+        send(SendParameters{
+            to: sender(),
+            bounce: false,
+            value: 0,
+            mode: SendRemainingValue
+        });
     }
 
     receive(msg: UnregisterLevel) {
         self.requireOwner();
         self.levelFactories.del(sha256(msg.name));
+
+        send(SendParameters{
+            to: sender(),
+            bounce: false,
+            value: 0,
+            mode: SendRemainingValue
+        });
     }
 
     receive(msg: CreateLevel) {

@@ -19,7 +19,8 @@
   },
   "levels": {
     "introduction": "INTRODUCTION",
-    "deposit": "DEPOSIT"
+    "deposit": "DEPOSIT",
+    "scanner": "SCANNER"
   },
   "back": "BACK",
   "completed": "COMPLETED",

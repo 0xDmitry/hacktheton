@@ -1,4 +1,11 @@
-import { Contract, fromNano, OpenedContract, Sender, toNano } from "@ton/core"
+import {
+  Address,
+  Contract,
+  fromNano,
+  OpenedContract,
+  Sender,
+  toNano,
+} from "@ton/core"
 
 declare global {
   interface Window {
@@ -7,12 +14,14 @@ declare global {
     contract?: OpenedContract<Contract>
     toNano: (src: number | string | bigint) => bigint
     fromNano: (src: bigint | number | string) => string
+    Address: typeof Address
   }
 }
 
 export function setupConsoleUtils() {
   window.toNano = toNano
   window.fromNano = fromNano
+  window.Address = Address
 
   window.help = function () {
     console.table({
