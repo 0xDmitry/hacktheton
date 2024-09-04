@@ -1,31 +1,43 @@
 {
-  "name": "hacktheton-website",
+  "name": "website",
   "version": "0.1.0",
-  "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "cd ../contracts && bun run build && cd ../website && next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.5.4",
+    "@mdx-js/loader": "^3.0.1",
+    "@mdx-js/react": "^3.0.1",
+    "@next/mdx": "^14.2.6",
+    "@ton-api/client": "^0.1.0",
+    "@ton-api/ton-adapter": "^0.1.0",
+    "@ton/core": "^0.56.3",
+    "@ton/crypto": "^3.3.0",
+    "@ton/ton": "^14.0.0",
+    "@tonconnect/ui-react": "^2.0.9",
+    "console-feed": "^3.6.0",
     "cookies-next": "^4.2.1",
     "negotiator": "^0.6.3",
     "next": "^14.2.5",
     "react": "^18.3.1",
+    "react-device-detect": "^2.2.3",
     "react-dom": "^18.3.1",
-    "react-type-animation": "^3.2.0"
+    "react-type-animation": "^3.2.0",
+    "shiki": "^0.14.1"
   },
   "devDependencies": {
     "@types/negotiator": "^0.6.3",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "eslint": "^8",
-    "eslint-config-next": "^14.2.5",
+    "@types/mdx": "^2.0.13",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
+    "eslint": "^8",
+    "eslint-config-next": "^14.2.5",
     "typescript": "^5"
   }
 }

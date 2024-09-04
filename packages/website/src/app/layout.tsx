@@ -1,10 +1,12 @@
 import type { Metadata } from "next"
 import { Anonymous_Pro } from "next/font/google"
+import localFont from "next/font/local"
+import { TonConnectProvider } from "@/providers/TonConnectProvider"
 import Script from "next/script"
 import "@/app/globals.css"
 import { Header } from "@/components/Header"
 import { Footer } from "@/components/Footer"
-import { i18n, Locale } from "@/i18n.config"
+import { i18n } from "@/i18n.config"
 
 export const metadata: Metadata = {
   title: "Hack the TON",
@@ -14,6 +16,13 @@ export const metadata: Metadata = {
 const anonymousPro = Anonymous_Pro({
   weight: "400",
   subsets: ["latin", "cyrillic"],
+  variable: "--anonymous-pro",
+})
+
+const courierNew = localFont({
+  src: "../fonts/CourierNew.ttf",
+  display: "swap",
+  variable: "--font-courier-new",
 })
 
 export async function generateStaticParams() {
@@ -22,19 +31,21 @@ export async function generateStaticParams() {
 
 export default function RootLayout({
   children,
-  params,
 }: Readonly<{
   children: React.ReactNode
-  params: { locale: Locale }
 }>) {
   return (
-    <html lang={params.locale}>
+    <html>
       <body
-        className={`${anonymousPro.className} flex flex-col justify-between h-dvh subpixel-antialiased`}
+        // TODO: Uncomment before release
+        // suppressHydrationWarning
+        className={`${anonymousPro.variable} ${courierNew.variable} flex flex-col h-dvh subpixel-antialiased`}
       >
-        <Header />
-        <div className="grow flex bg-background">{children}</div>
-        <Footer />
+        <TonConnectProvider>
+          <Header />
+          <div className="grow flex bg-background">{children}</div>
+          <Footer />
+        </TonConnectProvider>
       </body>
       <Script
         defer

@@ -1,11 +1,10 @@
 import { Locale } from "@/i18n.config"
+import en from "@/lang-dictionaries/en.json"
+import ru from "@/lang-dictionaries/ru.json"
 
 const dictionaries = {
-  en: () =>
-    import("@/lang-dictionaries/en.json").then((module) => module.default),
-  ru: () =>
-    import("@/lang-dictionaries/ru.json").then((module) => module.default),
+  en,
+  ru,
 }
 
-export const getLangDictionary = async (locale: Locale) =>
-  dictionaries[locale]()
+export const getLangDictionary = (locale: Locale) => dictionaries[locale]

@@ -1,0 +1,46 @@
+This level walks you through the very basics of how to play the game.
+
+# 1. Set up the wallet
+
+If you don't have it already, install the TON wallet (e.g. [Tonkeeper](https://tonkeeper.com/)) and connect.
+
+# 2. Look at the console
+
+Look at the console at the bottom of the page. You should see a few messages from the game.
+
+Keep an eye out for warnings and errors, since they could provide important information during gameplay.
+
+# 3. Use the console helpers
+
+You can always see what other utility functions you have in the console, type:
+
+`help()`
+
+These will be super handy during gameplay.
+
+# 4. Get testnet TON
+
+To play the game, you will need testnet TON. Go to [@testgiver_ton_bot](https://t.me/testgiver_ton_bot) and get your TON in the testnet.
+
+# 5. Getting a level instance
+
+Before playing a level, you ask the game manager to generate a **level instance** for you. To do so, click the "GET NEW INSTANCE" button at the bottom of the page. Go do it now and come back!
+
+You should be prompted by Tonkeeper to authorize the transaction. Note that this is deploying a new contract in the blockchain and might take a few seconds, so please be patient when requesting new level instances!
+
+# 6. Inspecting the contract
+
+You can inspect this contract's ABI through the console using the `contract` variable.
+
+# 7. Interact with the contract to complete the level
+
+Look into the level's info method `await contract.getInfo()`.
+You should have all you need to complete the level within the contract.
+To send a message to a contract, type:
+
+`await contract.send(player, {value: toNano(0.05)}, {$$type: "MessageName", ...params})`
+
+When you know you have completed the level, check the contract using the "CHECK SOLUTION" button at the bottom of the page.
+This sends the message to the game manager, which will determine if you have completed the level.
+
+# If you have any questions or face any problems - you can always ask a question on our [Discord](https://discord.com/invite/vaFRDfG4uz) or [Telegram chat](https://t.me/hacktheton)!

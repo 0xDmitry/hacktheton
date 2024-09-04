@@ -21,7 +21,7 @@ export const LocaleSwitcher = () => {
   const [isOpen, setIsOpen] = useState(false)
 
   const [currentValue, setCurrentValue] = useState<Locale>(
-    (params.locale as Locale) || i18n.defaultLocale
+    (params.locale as Locale) || i18n.defaultLocale,
   )
 
   const dropdownRef = useRef<HTMLDivElement>(null)

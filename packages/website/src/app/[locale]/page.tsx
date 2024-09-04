@@ -1,21 +1,23 @@
+import { LevelsList } from "@/components/LevelsList"
 import { TypewriterText } from "@/components/TypewriterText"
+import { Welcome } from "@/components/Welcome"
 import { Locale } from "@/i18n.config"
 import { getLangDictionary } from "@/utils/lang-dictionary"
 
-export default async function Home({
+export default function Home({
   params: { locale },
 }: {
   params: { locale: Locale }
 }) {
   const {
     page: { home },
-  } = await getLangDictionary(locale)
+  } = getLangDictionary(locale)
 
   return (
-    <div className="flex items-center justify-center grow p-6 text-5xl text-center">
-      <TypewriterText
-        text={`${home.welcomeText.firstLine}\n${home.welcomeText.secondLine}`}
-      />
+    <div className="container mx-auto flex flex-col justify-center gap-12 my-6 p-6">
+      <Welcome locale={locale} />
+      <LevelsList />
+      <TypewriterText className="text-4xl text-center" text={home.moreLevels} />
     </div>
   )
 }
