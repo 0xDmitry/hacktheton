@@ -36,14 +36,17 @@ export const CustomConsole = () => {
     }
   }, [logs])
 
-  const handleKeydown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeydown = async (
+    event: React.KeyboardEvent<HTMLInputElement>,
+  ) => {
     if (event.code === "Enter") {
       const inputValue = event.currentTarget.value
       event.currentTarget.value = ""
 
       console.log(inputValue)
       try {
-        const result = Function("return " + inputValue)()
+        const AsyncFunction = async function () {}.constructor
+        const result = await AsyncFunction("return " + inputValue)()
         console.log(result)
       } catch (error) {
         console.error(error)
@@ -75,4 +78,7 @@ export const CustomConsole = () => {
       </div>
     </div>
   )
+}
+function AsyncFunction(arg0: string) {
+  throw new Error("Function not implemented.")
 }
