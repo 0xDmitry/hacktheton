@@ -14,14 +14,14 @@ declare global {
     contract?: OpenedContract<Contract>
     toNano: (src: number | string | bigint) => bigint
     fromNano: (src: bigint | number | string) => string
-    Address: typeof Address
+    parseAddress: (address: string) => Address
   }
 }
 
 export function setupConsoleUtils() {
   window.toNano = toNano
   window.fromNano = fromNano
-  window.Address = Address
+  window.parseAddress = Address.parse
 
   window.help = function () {
     console.table({
@@ -29,6 +29,7 @@ export function setupConsoleUtils() {
       contract: "current level contract instance (if created)",
       "toNano(ton)": "convert ton units to nano",
       "fromNano(nano)": "convert nano units to ton",
+      "parseAddress(addressString)": "parse Address from string",
     })
   }
 }
