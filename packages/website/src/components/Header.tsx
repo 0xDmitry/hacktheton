@@ -8,7 +8,6 @@ import { LocaleSwitcher } from "@/components/LocaleSwitcher"
 
 export const Header = () => {
   const params = useParams()
-
   return (
     <header className="container mx-auto flex items-center justify-between p-6">
       <Link href={`/${params.locale}`}>
