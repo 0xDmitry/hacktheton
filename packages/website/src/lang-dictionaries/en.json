@@ -21,7 +21,8 @@
     "introduction": "INTRODUCTION",
     "deposit": "DEPOSIT",
     "scanner": "SCANNER",
-    "bounce": "BOUNCE"
+    "bounce": "BOUNCE",
+    "partial": "PARTIAL"
   },
   "back": "BACK",
   "completed": "COMPLETED",

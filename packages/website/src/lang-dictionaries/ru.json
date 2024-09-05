@@ -21,7 +21,8 @@
     "introduction": "ВВЕДЕНИЕ",
     "deposit": "ДЕПОЗИТ",
     "scanner": "СКАНЕР",
-    "bounce": "ОТСКОК"
+    "bounce": "ОТСКОК",
+    "partial": "ЧАСТИЧНО"
   },
   "back": "НАЗАД",
   "completed": "ПРОЙДЕНО",

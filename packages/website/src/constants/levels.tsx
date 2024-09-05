@@ -4,10 +4,12 @@ import introductionCode from "../../../contracts/contracts/introduction_level.ta
 import depositCode from "../../../contracts/contracts/deposit_level.tact"
 import scannerCode from "../../../contracts/contracts/scanner_level.tact"
 import bounceCode from "../../../contracts/contracts/bounce_level.tact"
+import partialCode from "../../../contracts/contracts/partial_level.tact"
 import { IntroductionLevel } from "../../../contracts/wrappers/IntroductionLevel"
 import { DepositLevel } from "../../../contracts/wrappers/DepositLevel"
 import { ScannerLevel } from "../../../contracts/wrappers/ScannerLevel"
 import { BounceLevel } from "../../../contracts/wrappers/BounceLevel"
+import { PartialLevel } from "../../../contracts/wrappers/PartialLevel"
 import IntroductionEnDescription from "@/markdown/en/levels/introduction/description.mdx"
 import IntroductionEnCompletedDescription from "@/markdown/en/levels/introduction/completed-description.mdx"
 import IntroductionRuDescription from "@/markdown/ru/levels/introduction/description.mdx"
@@ -24,14 +26,24 @@ import BounceEnDescription from "@/markdown/en/levels/bounce/description.mdx"
 import BounceEnCompletedDescription from "@/markdown/en/levels/bounce/completed-description.mdx"
 import BounceRuDescription from "@/markdown/ru/levels/bounce/description.mdx"
 import BounceRuCompletedDescription from "@/markdown/ru/levels/bounce/completed-description.mdx"
+import PartialEnDescription from "@/markdown/en/levels/partial/description.mdx"
+import PartialEnCompletedDescription from "@/markdown/en/levels/partial/completed-description.mdx"
+import PartialRuDescription from "@/markdown/ru/levels/partial/description.mdx"
+import PartialRuCompletedDescription from "@/markdown/ru/levels/partial/completed-description.mdx"
 
-export type LevelName = "introduction" | "deposit" | "scanner" | "bounce"
+export type LevelName =
+  | "introduction"
+  | "deposit"
+  | "scanner"
+  | "bounce"
+  | "partial"
 
 export const levels: LevelName[] = [
   "introduction",
   "deposit",
   "scanner",
   "bounce",
+  "partial",
 ]
 
 export const levelsConfig = {
@@ -89,7 +101,7 @@ export const levelsConfig = {
       clientAdapter: ContractAdapter,
     ) => {
       const contract = await ScannerLevel.fromAddress(levelInstance!)
-      return clientAdapter!.open(contract) as OpenedContract<DepositLevel>
+      return clientAdapter!.open(contract) as OpenedContract<ScannerLevel>
     },
   },
   bounce: {
@@ -108,7 +120,26 @@ export const levelsConfig = {
       clientAdapter: ContractAdapter,
     ) => {
       const contract = await BounceLevel.fromAddress(levelInstance!)
-      return clientAdapter!.open(contract) as OpenedContract<DepositLevel>
+      return clientAdapter!.open(contract) as OpenedContract<BounceLevel>
+    },
+  },
+  partial: {
+    description: {
+      en: <PartialEnDescription />,
+      ru: <PartialRuDescription />,
+    },
+    completedDescription: {
+      en: <PartialEnCompletedDescription />,
+      ru: <PartialRuCompletedDescription />,
+    },
+    code: partialCode,
+    revealCode: true,
+    openLevelContract: async (
+      levelInstance: Address,
+      clientAdapter: ContractAdapter,
+    ) => {
+      const contract = await PartialLevel.fromAddress(levelInstance!)
+      return clientAdapter!.open(contract) as OpenedContract<PartialLevel>
     },
   },
 } as const
