@@ -4,11 +4,13 @@ import introductionCode from "../../../contracts/contracts/introduction_level.ta
 import depositCode from "../../../contracts/contracts/deposit_level.tact"
 import scannerCode from "../../../contracts/contracts/scanner_level.tact"
 import bounceCode from "../../../contracts/contracts/bounce_level.tact"
+import intruderCode from "../../../contracts/contracts/intruder_level.tact"
 import partialCode from "../../../contracts/contracts/partial_level.tact"
 import { IntroductionLevel } from "../../../contracts/wrappers/IntroductionLevel"
 import { DepositLevel } from "../../../contracts/wrappers/DepositLevel"
 import { ScannerLevel } from "../../../contracts/wrappers/ScannerLevel"
 import { BounceLevel } from "../../../contracts/wrappers/BounceLevel"
+import { IntruderLevel } from "../../../contracts/wrappers/IntruderLevel"
 import { PartialLevel } from "../../../contracts/wrappers/PartialLevel"
 import IntroductionEnDescription from "@/markdown/en/levels/introduction/description.mdx"
 import IntroductionEnCompletedDescription from "@/markdown/en/levels/introduction/completed-description.mdx"
@@ -26,6 +28,10 @@ import BounceEnDescription from "@/markdown/en/levels/bounce/description.mdx"
 import BounceEnCompletedDescription from "@/markdown/en/levels/bounce/completed-description.mdx"
 import BounceRuDescription from "@/markdown/ru/levels/bounce/description.mdx"
 import BounceRuCompletedDescription from "@/markdown/ru/levels/bounce/completed-description.mdx"
+import IntruderEnDescription from "@/markdown/en/levels/intruder/description.mdx"
+import IntruderEnCompletedDescription from "@/markdown/en/levels/intruder/completed-description.mdx"
+import IntruderRuDescription from "@/markdown/ru/levels/intruder/description.mdx"
+import IntruderRuCompletedDescription from "@/markdown/ru/levels/intruder/completed-description.mdx"
 import PartialEnDescription from "@/markdown/en/levels/partial/description.mdx"
 import PartialEnCompletedDescription from "@/markdown/en/levels/partial/completed-description.mdx"
 import PartialRuDescription from "@/markdown/ru/levels/partial/description.mdx"
@@ -36,6 +42,7 @@ export type LevelName =
   | "deposit"
   | "scanner"
   | "bounce"
+  | "intruder"
   | "partial"
 
 export const levels: LevelName[] = [
@@ -43,6 +50,7 @@ export const levels: LevelName[] = [
   "deposit",
   "scanner",
   "bounce",
+  "intruder",
   "partial",
 ]
 
@@ -121,6 +129,25 @@ export const levelsConfig = {
     ) => {
       const contract = await BounceLevel.fromAddress(levelInstance!)
       return clientAdapter!.open(contract) as OpenedContract<BounceLevel>
+    },
+  },
+  intruder: {
+    description: {
+      en: <IntruderEnDescription />,
+      ru: <IntruderRuDescription />,
+    },
+    completedDescription: {
+      en: <IntruderEnCompletedDescription />,
+      ru: <IntruderRuCompletedDescription />,
+    },
+    code: intruderCode,
+    revealCode: true,
+    openLevelContract: async (
+      levelInstance: Address,
+      clientAdapter: ContractAdapter,
+    ) => {
+      const contract = await IntruderLevel.fromAddress(levelInstance!)
+      return clientAdapter!.open(contract) as OpenedContract<IntruderLevel>
     },
   },
   partial: {

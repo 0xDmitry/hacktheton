@@ -35,6 +35,10 @@ export function useTonConnect(): { sender: Sender } {
   )
 
   useEffect(() => {
+    window.sendTransaction = tonConnectUI.sendTransaction
+  }, [tonConnectUI])
+
+  useEffect(() => {
     window.player = sender
   }, [sender])
 
