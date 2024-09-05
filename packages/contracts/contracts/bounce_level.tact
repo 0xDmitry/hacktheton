@@ -85,7 +85,7 @@ contract BounceLevel with Ownable, Deployable {
 
     receive("check") {
         let ctx: Context = context();
-        require(self.owner == self.player, "Level not completed.");
+        require(self.owner == self.player, "Level is not completed.");
         send(SendParameters{
             to: ctx.sender,
             value: 0,

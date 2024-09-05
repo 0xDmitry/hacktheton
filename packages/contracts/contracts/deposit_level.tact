@@ -29,7 +29,7 @@ contract DepositLevel with Ownable, Deployable {
 
     receive("check") {
         let ctx: Context = context();
-        require((myBalance() - ctx.value) == 0 && self.owner == self.player, "Level not completed.");
+        require((myBalance() - ctx.value) == 0 && self.owner == self.player, "Level is not completed.");
         send(SendParameters{
             to: ctx.sender,
             value: 0,

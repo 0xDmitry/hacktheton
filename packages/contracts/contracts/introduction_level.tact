@@ -22,7 +22,7 @@ contract IntroductionLevel with Deployable {
 
     receive("check") {
         let ctx: Context = context();
-        require(self.isCompleted, "Level not completed.");
+        require(self.isCompleted, "Level is not completed.");
         send(SendParameters{
             to: ctx.sender,
             value: 0,
