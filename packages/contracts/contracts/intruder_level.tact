@@ -27,7 +27,7 @@ contract Manager with Deployable {
             value: 0,
             bounce: false,
             mode: SendRemainingValue,
-            body: ChangeClientOwner{
+            body: ChangeOwnerInternal{
                 newOwner: msg.newOwner
             }.toCell()
         });
@@ -84,5 +84,9 @@ contract IntruderLevel with Deployable {
             bounce: false,
             body: "level completed".asComment()
         });
+    }
+
+    get fun owner(): Address {
+        return self.owner;
     }
 }
