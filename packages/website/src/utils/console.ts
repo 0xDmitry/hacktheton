@@ -8,11 +8,7 @@ import {
   beginCell,
   Builder,
 } from "@ton/core"
-import {
-  ActionConfiguration,
-  SendTransactionRequest,
-  SendTransactionResponse,
-} from "@tonconnect/ui-react"
+import { TonConnectUI } from "@tonconnect/ui-react"
 
 declare global {
   interface Window {
@@ -21,11 +17,8 @@ declare global {
     contract?: OpenedContract<Contract>
     toNano: (src: number | string | bigint) => bigint
     fromNano: (src: bigint | number | string) => string
-    parseAddress: (address: string) => Address
-    sendTransaction: (
-      tx: SendTransactionRequest,
-      options?: ActionConfiguration,
-    ) => Promise<SendTransactionResponse>
+    Address: typeof Address
+    tonConnectUI: TonConnectUI
     beginCell: () => Builder
   }
 }
@@ -33,7 +26,7 @@ declare global {
 export function setupConsoleUtils() {
   window.toNano = toNano
   window.fromNano = fromNano
-  window.parseAddress = Address.parse
+  window.Address = Address
   window.beginCell = beginCell
 
   window.help = function () {
@@ -50,10 +43,10 @@ export function setupConsoleUtils() {
       "fromNano(nano)": {
         description: "convert nano units to ton",
       },
-      "parseAddress(addressString)": {
+      "Address.parse(addressString)": {
         description: "parse Address from string",
       },
-      "sendTransaction(tx, options)": {
+      "tonConnectUI.sendTransaction(tx, options)": {
         description: "send custom transaction to arbitrary address",
       },
       "beginCell()": { description: "start building a cell" },
