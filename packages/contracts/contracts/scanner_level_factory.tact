@@ -35,7 +35,7 @@ contract ScannerLevelFactory with Deployable {
         
         send(SendParameters{
             to: ctx.sender,
-            value: ton("0.01"),
+            value: ton("0.02"),
             bounce: false,
             body: LevelDeployed{
                 address: level_address,

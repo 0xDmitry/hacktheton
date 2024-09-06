@@ -42,6 +42,7 @@ contract PlayerStats with Ownable {
 
     receive(msg: LevelDeployed) {
         let ctx: Context = context();
+        // Send level name in msg
         foreach (key, level in self.levels) {
             if (level.factory == ctx.sender) {
                 self.levels.set(key, Level{
