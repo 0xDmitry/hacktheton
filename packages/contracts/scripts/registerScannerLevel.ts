@@ -6,7 +6,7 @@ import { NetworkProvider } from "@ton/blueprint"
 export async function run(provider: NetworkProvider) {
   const gameManager = provider.open(
     await GameManager.fromAddress(
-      Address.parse("EQDQK3Z-JAPhdYx9giabBn2TBulSDtiT5nTyhpoevdtDEW8Q"),
+      Address.parse("EQBIdaDsXQ13Gbddcgi7Vl_9DfyB17sUkJylYqx-OqZWP50-"),
     ),
   )
 
