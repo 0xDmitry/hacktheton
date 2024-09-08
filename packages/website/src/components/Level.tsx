@@ -56,11 +56,9 @@ export const Level = ({
 
   return (
     <div className="p-6 md:p-12">
-      <div className="text-md [&_*_a]:text-slate-400 [&_*_code]:text-slate-400">
-        {isCompleted
-          ? levelsConfig[name].completedDescription[locale]
-          : levelsConfig[name].description[locale]}
-      </div>
+      {isCompleted
+        ? levelsConfig[name].completedDescription[locale]
+        : levelsConfig[name].description[locale]}
       {(levelsConfig[name].revealCode || isCompleted) && (
         <>
           <br />

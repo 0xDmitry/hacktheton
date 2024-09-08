@@ -14,10 +14,3 @@ body {
   font-synthesis: none;
   font-family: var(--anonymous-pro);
 }
-
-h1 {
-  margin-top: 3rem;
-  margin-bottom: 1rem;
-  font-size: large;
-  line-height: 1rem;
-}
