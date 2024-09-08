@@ -58,17 +58,16 @@ export const Level = ({
     <div className="p-6 md:p-12">
       {!isCompleted && (
         <>
-          <br />
           {levelsConfig[name].description[locale]}
+          <br />
         </>
       )}
       {(levelsConfig[name].revealCode || isCompleted) && (
         <>
-          <br />
           <div className="flex justify-center">{code}</div>
+          <br />
         </>
       )}
-      <br />
       <div className="h-[20rem]">
         <CustomConsole />
       </div>
