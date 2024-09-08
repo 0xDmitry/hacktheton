@@ -11,7 +11,7 @@ export const Welcome = ({ locale }: { locale: Locale }) => {
       <div className="max-w-4xl text-xl text-center">
         {home.welcome.firstPart}
         <a
-          className="text-slate-400"
+          className="text-slate-400 hover:text-slate-300"
           href="https://ethernaut.openzeppelin.com/"
           target="_blank"
         >
