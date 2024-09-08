@@ -1,4 +1,5 @@
 import "@stdlib/deploy";
+import "./messages";
 
 message Authenticate {
     password: String;
@@ -21,14 +22,15 @@ contract IntroductionLevel with Deployable {
     }
 
     receive("check") {
-        let ctx: Context = context();
-        require(self.isCompleted, "Level is not completed.");
         send(SendParameters{
-            to: ctx.sender,
+            to: sender(),
             value: 0,
             mode: SendRemainingValue,
             bounce: false,
-            body: "level completed".asComment()
+            body: CheckLevelResult{
+                name: "introduction",
+                completed: self.isCompleted
+            }.toCell()
         });
     }
 

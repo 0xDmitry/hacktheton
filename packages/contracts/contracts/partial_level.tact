@@ -1,5 +1,6 @@
 import "@stdlib/ownable";
 import "@stdlib/deploy";
+import "./messages";
 
 message DepositToVault {
     amount: Int as coins;
@@ -96,14 +97,15 @@ contract PartialLevel with Deployable {
     }
 
     receive("check") {
-        let ctx: Context = context();
-        require(self.balance >= 1000, "Level is not completed.");
         send(SendParameters{
-            to: ctx.sender,
+            to: sender(),
             value: 0,
             mode: SendRemainingValue,
             bounce: false,
-            body: "level completed".asComment()
+            body: CheckLevelResult{
+                name: "partial",
+                completed: self.balance >= 1000
+            }.toCell()
         });
     }
 

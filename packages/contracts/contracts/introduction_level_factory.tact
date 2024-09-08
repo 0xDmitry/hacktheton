@@ -3,6 +3,9 @@ import "./introduction_level";
 import "./player_stats";
 import "./messages";
 
+const deploy_value: Int = ton("0.01");
+const gas_consumption: Int = ton("0.015");
+
 contract IntroductionLevelFactory with Deployable {
     game_manager: Address;
     nonce: Int = 0;
@@ -21,7 +24,7 @@ contract IntroductionLevelFactory with Deployable {
         let level_address: Address = contractAddress(level_init);
         send(SendParameters{
             to: level_address,
-            value: ton("0.01"),
+            value: deploy_value,
             bounce: false,
             data: level_init.data,
             code: level_init.code,
@@ -34,9 +37,10 @@ contract IntroductionLevelFactory with Deployable {
         
         send(SendParameters{
             to: ctx.sender,
-            value: ton("0.02"),
+            value: ctx.value - deploy_value - gas_consumption,
             bounce: false,
             body: LevelDeployed{
+                name: "introduction",
                 address: level_address,
             }.toCell()
         });

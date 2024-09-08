@@ -1,5 +1,6 @@
 import "@stdlib/ownable";
 import "@stdlib/deploy";
+import "./messages";
 
 message Start {
     time: Int as uint32;
@@ -84,14 +85,15 @@ contract BounceLevel with Ownable, Deployable {
     }
 
     receive("check") {
-        let ctx: Context = context();
-        require(self.owner == self.player, "Level is not completed.");
         send(SendParameters{
-            to: ctx.sender,
+            to: sender(),
             value: 0,
             mode: SendRemainingValue,
             bounce: false,
-            body: "level completed".asComment()
+            body: CheckLevelResult{
+                name: "bounce",
+                completed: self.owner == self.player
+            }.toCell()
         });
     }
 }

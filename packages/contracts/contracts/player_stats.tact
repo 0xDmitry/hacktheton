@@ -29,10 +29,10 @@ contract PlayerStats with Ownable {
         };
         self.levels.set(sha256(msg.name), level);
 
+        let ctx: Context = context();
         send(SendParameters{
             to: msg.factory,
-            value: 0,
-            mode: SendRemainingValue,
+            value: ctx.value - ton("0.02"),
             bounce: false,
             body: DeployLevel{
                 player: self.player,
@@ -41,18 +41,22 @@ contract PlayerStats with Ownable {
     }
 
     receive(msg: LevelDeployed) {
-        let ctx: Context = context();
-        // Send level name in msg
-        foreach (key, level in self.levels) {
-            if (level.factory == ctx.sender) {
-                self.levels.set(key, Level{
-                    name: level.name,
-                    factory: level.factory,
-                    address: msg.address,
-                    completed: false,
-                });
-            }
+        let level = self.levels.get(sha256(msg.name));
+        if (level != null && level!!.factory == sender()) {
+            self.levels.set(sha256(msg.name), Level{
+                name: level!!.name,
+                factory: level!!.factory,
+                address: msg.address,
+                completed: false,
+            });
         }
+
+        send(SendParameters{
+            to: self.player,
+            bounce: false,
+            value: 0,
+            mode: SendRemainingValue
+        });
     }
 
     receive(msg: CheckLevel) {
@@ -70,29 +74,42 @@ contract PlayerStats with Ownable {
         }
     }
 
-    receive("level completed") {
-        let ctx: Context = context();
-        foreach (key, level in self.levels) {
-            if (level.address != null && level.address!! == ctx.sender) {
-                self.levels.set(key, Level{
-                    name: level.name,
-                    factory: level.factory,
-                    address: level.address,
-                    completed: true,
-                });
+    receive(msg: CheckLevelResult) {
+        let level = self.levels.get(sha256(msg.name));
+        if (msg.completed && level != null && level!!.address != null && level!!.address!! == sender()) {
+            self.levels.set(sha256(msg.name), Level{
+                name: level!!.name,
+                factory: level!!.factory,
+                address: level!!.address,
+                completed: true,
+            });
+        }
 
-                send(SendParameters{
-                    to: self.owner,
-                    value: 0,
-                    mode: SendRemainingValue,
-                    bounce: false,
-                    body: PlayerLevelCompleted {
-                        player: self.player,
-                        name: level.name
-                    }.toCell()
-                });
+        send(SendParameters{
+            to: self.player,
+            bounce: false,
+            value: 0,
+            mode: SendRemainingValue
+        });
+    }
+
+    receive("request stats") {
+        let levelsCompleted: Int = 0;
+        foreach (_, level in self.levels) {
+            if (level.completed) {
+                levelsCompleted += 1;
             }
         }
+
+        send(SendParameters{
+            to: sender(),
+            value: 0,
+            mode: SendRemainingValue,
+            bounce: false,
+            body: ResponseStats{
+                levelsCompleted: levelsCompleted
+            }.toCell()
+        });
     }
 
     get fun player(): Address {

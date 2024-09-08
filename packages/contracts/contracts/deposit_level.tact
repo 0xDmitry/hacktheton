@@ -1,5 +1,6 @@
 import "@stdlib/ownable";
 import "@stdlib/deploy";
+import "./messages";
 
 contract DepositLevel with Ownable, Deployable {
     owner: Address;
@@ -29,13 +30,15 @@ contract DepositLevel with Ownable, Deployable {
 
     receive("check") {
         let ctx: Context = context();
-        require((myBalance() - ctx.value) == 0 && self.owner == self.player, "Level is not completed.");
         send(SendParameters{
             to: ctx.sender,
             value: 0,
             mode: SendRemainingValue,
             bounce: false,
-            body: "level completed".asComment()
+            body: CheckLevelResult{
+                name: "deposit",
+                completed: (myBalance() - ctx.value) == 0 && self.owner == self.player,
+            }.toCell()
         });
     }
 

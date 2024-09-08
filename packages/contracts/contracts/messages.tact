@@ -21,6 +21,7 @@ message DeployLevel {
 }
 
 message LevelDeployed {
+    name: String;
     address: Address;
 }
 
@@ -28,7 +29,11 @@ message CheckLevel {
     name: String;
 }
 
-message PlayerLevelCompleted {
-    player: Address;
+message CheckLevelResult {
     name: String;
+    completed: Bool;
+}
+
+message ResponseStats {
+    levelsCompleted: Int;
 }

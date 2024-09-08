@@ -39,8 +39,7 @@ contract GameManager with Ownable, Deployable {
         let levelFactory = self.levelFactories.get(sha256(msg.name));
         require(levelFactory != null, "Unknown level");
 
-        let ctx: Context = context();
-        let player_stats_init: StateInit = initOf PlayerStats(myAddress(), ctx.sender);
+        let player_stats_init: StateInit = initOf PlayerStats(myAddress(), sender());
         let player_stats_address: Address = contractAddress(player_stats_init);
         send(SendParameters{
             to: player_stats_address,
@@ -57,8 +56,7 @@ contract GameManager with Ownable, Deployable {
     }
 
     receive(msg: CheckLevel) {
-        let ctx: Context = context();
-        let player_stats_init: StateInit = initOf PlayerStats(myAddress(), ctx.sender);
+        let player_stats_init: StateInit = initOf PlayerStats(myAddress(), sender());
         let player_stats_address: Address = contractAddress(player_stats_init);
         send(SendParameters{
             to: player_stats_address,
@@ -69,10 +67,6 @@ contract GameManager with Ownable, Deployable {
                 name: msg.name,
             }.toCell()
         });
-    }
-
-    receive(msg: PlayerLevelCompleted) {
-        emit(msg.toCell());
     }
 
     get fun levelFactories(): map<Int, Address> {

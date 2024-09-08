@@ -3,6 +3,9 @@ import "./partial_level";
 import "./player_stats";
 import "./messages";
 
+const deploy_value: Int = ton("0.03");
+const gas_consumption: Int = ton("0.015");
+
 contract PartialLevelFactory with Deployable {
     game_manager: Address;
     nonce: Int = 0;
@@ -21,8 +24,7 @@ contract PartialLevelFactory with Deployable {
         let level_address: Address = contractAddress(level_init);
         send(SendParameters{
             to: level_address,
-            value: ton("0.03"),
-            mode: SendPayGasSeparately,
+            value: deploy_value,
             bounce: false,
             data: level_init.data,
             code: level_init.code,
@@ -35,9 +37,10 @@ contract PartialLevelFactory with Deployable {
         
         send(SendParameters{
             to: ctx.sender,
-            value: ton("0.02"),
+            value: ctx.value - deploy_value - gas_consumption,
             bounce: false,
             body: LevelDeployed{
+                name: "partial",
                 address: level_address,
             }.toCell()
         });

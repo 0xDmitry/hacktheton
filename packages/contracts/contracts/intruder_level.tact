@@ -1,4 +1,5 @@
 import "@stdlib/deploy";
+import "./messages";
 
 message(0x6e38a063) ChangeLevelOwner {
     newOwner: Address;
@@ -75,14 +76,15 @@ contract IntruderLevel with Deployable {
     }
 
     receive("check") {
-        let ctx: Context = context();
-        require(self.owner == self.player, "Level is not completed.");
         send(SendParameters{
-            to: ctx.sender,
+            to: sender(),
             value: 0,
             mode: SendRemainingValue,
             bounce: false,
-            body: "level completed".asComment()
+            body: CheckLevelResult{
+                name: "intruder",
+                completed: self.owner == self.player
+            }.toCell()
         });
     }
 

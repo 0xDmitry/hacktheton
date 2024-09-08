@@ -1,5 +1,6 @@
 import "@stdlib/ownable";
 import "@stdlib/deploy";
+import "./messages";
 
 contract Child with Deployable {
     parent: Address;
@@ -47,14 +48,15 @@ contract ScannerLevel with Ownable, Deployable {
     }
 
     receive("check") {
-        let ctx: Context = context();
-        require(self.owner == self.player, "Level is not completed.");
         send(SendParameters{
-            to: ctx.sender,
+            to: sender(),
             value: 0,
             mode: SendRemainingValue,
             bounce: false,
-            body: "level completed".asComment()
+            body: CheckLevelResult{
+                name: "scanner",
+                completed: self.owner == self.player
+            }.toCell()
         });
     }
 }

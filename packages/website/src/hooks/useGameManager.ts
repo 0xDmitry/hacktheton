@@ -22,7 +22,6 @@ export function useGameManager() {
     sendCreateLevel: (name: string) => {
       return gameManager?.send(
         sender,
-        // TODO: Try to make it smaller
         { value: toNano(0.1) },
         {
           $$type: "CreateLevel",
