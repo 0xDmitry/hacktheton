@@ -37,8 +37,7 @@ export default function RootLayout({
   return (
     <html>
       <body
-        // TODO: Uncomment before release
-        // suppressHydrationWarning
+        suppressHydrationWarning
         className={`${anonymousPro.variable} ${courierNew.variable} flex flex-col h-dvh subpixel-antialiased`}
       >
         <TonConnectProvider>
