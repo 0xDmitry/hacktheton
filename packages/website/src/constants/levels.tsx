@@ -6,12 +6,14 @@ import scannerCode from "../../../contracts/contracts/scanner_level.tact"
 import bounceCode from "../../../contracts/contracts/bounce_level.tact"
 import intruderCode from "../../../contracts/contracts/intruder_level.tact"
 import partialCode from "../../../contracts/contracts/partial_level.tact"
+import peekCode from "../../../contracts/contracts/peek_level.tact"
 import { IntroductionLevel } from "../../../contracts/wrappers/IntroductionLevel"
 import { DepositLevel } from "../../../contracts/wrappers/DepositLevel"
 import { ScannerLevel } from "../../../contracts/wrappers/ScannerLevel"
 import { BounceLevel } from "../../../contracts/wrappers/BounceLevel"
 import { IntruderLevel } from "../../../contracts/wrappers/IntruderLevel"
 import { PartialLevel } from "../../../contracts/wrappers/PartialLevel"
+import { PeekLevel } from "../../../contracts/wrappers/PeekLevel"
 import IntroductionEnDescription from "@/markdown/en/levels/introduction/description.mdx"
 import IntroductionEnCompletedDescription from "@/markdown/en/levels/introduction/completed-description.mdx"
 import IntroductionRuDescription from "@/markdown/ru/levels/introduction/description.mdx"
@@ -36,6 +38,10 @@ import PartialEnDescription from "@/markdown/en/levels/partial/description.mdx"
 import PartialEnCompletedDescription from "@/markdown/en/levels/partial/completed-description.mdx"
 import PartialRuDescription from "@/markdown/ru/levels/partial/description.mdx"
 import PartialRuCompletedDescription from "@/markdown/ru/levels/partial/completed-description.mdx"
+import PeekEnDescription from "@/markdown/en/levels/peek/description.mdx"
+import PeekEnCompletedDescription from "@/markdown/en/levels/peek/completed-description.mdx"
+import PeekRuDescription from "@/markdown/ru/levels/peek/description.mdx"
+import PeekRuCompletedDescription from "@/markdown/ru/levels/peek/completed-description.mdx"
 
 export type LevelName =
   | "introduction"
@@ -44,6 +50,7 @@ export type LevelName =
   | "bounce"
   | "intruder"
   | "partial"
+  | "peek"
 
 export const levels: LevelName[] = [
   "introduction",
@@ -52,6 +59,7 @@ export const levels: LevelName[] = [
   "bounce",
   "intruder",
   "partial",
+  "peek",
 ]
 
 export const levelsConfig = {
@@ -167,6 +175,25 @@ export const levelsConfig = {
     ) => {
       const contract = await PartialLevel.fromAddress(levelInstance!)
       return clientAdapter!.open(contract) as OpenedContract<PartialLevel>
+    },
+  },
+  peek: {
+    description: {
+      en: <PeekEnDescription />,
+      ru: <PeekRuDescription />,
+    },
+    completedDescription: {
+      en: <PeekEnCompletedDescription />,
+      ru: <PeekRuCompletedDescription />,
+    },
+    code: peekCode,
+    revealCode: true,
+    openLevelContract: async (
+      levelInstance: Address,
+      clientAdapter: ContractAdapter,
+    ) => {
+      const contract = await PeekLevel.fromAddress(levelInstance!)
+      return clientAdapter!.open(contract) as OpenedContract<PeekLevel>
     },
   },
 } as const

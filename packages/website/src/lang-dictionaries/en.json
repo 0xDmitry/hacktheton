@@ -23,7 +23,8 @@
     "scanner": "SCANNER",
     "bounce": "BOUNCE",
     "intruder": "INTRUDER",
-    "partial": "PARTIAL"
+    "partial": "PARTIAL",
+    "peek": "PEEK"
   },
   "back": "BACK",
   "completed": "COMPLETED",
