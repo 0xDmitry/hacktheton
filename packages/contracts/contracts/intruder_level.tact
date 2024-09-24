@@ -46,14 +46,14 @@ contract IntruderLevel with Deployable {
         self.player = player;
         self.nonce = nonce;
 
-        let level_init: StateInit = initOf Manager(myAddress(), nonce);
-        self.manager = contractAddress(level_init);
+        let manager_init: StateInit = initOf Manager(myAddress(), nonce);
+        self.manager = contractAddress(manager_init);
         send(SendParameters{
             to: self.manager,
             value: ton("0.01"),
             bounce: false,
-            data: level_init.data,
-            code: level_init.code
+            data: manager_init.data,
+            code: manager_init.code
         });
     }
 

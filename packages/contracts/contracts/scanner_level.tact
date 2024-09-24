@@ -27,15 +27,15 @@ contract ScannerLevel with Ownable, Deployable {
         self.player = player;
         self.nonce = nonce;
 
-        let level_init: StateInit = initOf Child(myAddress(), nonce);
-        self.child = contractAddress(level_init);
+        let child_init: StateInit = initOf Child(myAddress(), nonce);
+        self.child = contractAddress(child_init);
         send(SendParameters{
             to: self.child,
             value: ton("0.001"),
             mode: SendPayGasSeparately,
             bounce: false,
-            data: level_init.data,
-            code: level_init.code,
+            data: child_init.data,
+            code: child_init.code,
             body: Deploy {
                 queryId: 0,
             }.toCell()

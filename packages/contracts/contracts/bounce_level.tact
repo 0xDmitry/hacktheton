@@ -45,14 +45,14 @@ contract BounceLevel with Ownable, Deployable {
         self.player = player;
         self.nonce = nonce;
 
-        let level_init: StateInit = initOf Timer(myAddress(), nonce);
-        self.timer = contractAddress(level_init);
+        let timer_init: StateInit = initOf Timer(myAddress(), nonce);
+        self.timer = contractAddress(timer_init);
         send(SendParameters{
             to: self.timer,
             value: ton("0.01"),
             bounce: false,
-            data: level_init.data,
-            code: level_init.code
+            data: timer_init.data,
+            code: timer_init.code
         });
     }
 

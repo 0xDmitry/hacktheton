@@ -54,14 +54,14 @@ contract PartialLevel with Deployable {
         self.player = player;
         self.nonce = nonce;
 
-        let level_init: StateInit = initOf Vault(myAddress(), nonce);
-        self.vault = contractAddress(level_init);
+        let vault_init: StateInit = initOf Vault(myAddress(), nonce);
+        self.vault = contractAddress(vault_init);
         send(SendParameters{
             to: self.vault,
             value: ton("0.01"),
             bounce: false,
-            data: level_init.data,
-            code: level_init.code
+            data: vault_init.data,
+            code: vault_init.code
         });
     }
 
