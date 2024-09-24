@@ -24,7 +24,8 @@
     "bounce": "BOUNCE",
     "intruder": "INTRUDER",
     "partial": "PARTIAL",
-    "peek": "PEEK"
+    "peek": "PEEK",
+    "swap": "SWAP"
   },
   "back": "BACK",
   "completed": "COMPLETED",
