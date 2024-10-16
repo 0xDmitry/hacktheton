@@ -742,8 +742,7 @@ describe("GameManager", () => {
     expect(isLevelCompleted).toEqual(true)
   })
 
-  // TODO: Make it faster
-  xit("check bounce level", async () => {
+  it("check bounce level", async () => {
     const levelName = "bounce"
     const bounceLevelFactory = blockchain.openContract(
       await BounceLevelFactory.fromInit(gameManager.address),
@@ -900,6 +899,8 @@ describe("GameManager", () => {
 
     // Solve level
 
+    blockchain.now = Math.floor(Date.now() / 1000)
+
     const startResult = await level.send(
       player.getSender(),
       {
@@ -914,7 +915,7 @@ describe("GameManager", () => {
       success: true,
     })
 
-    await new Promise((resolve) => setTimeout(resolve, 185000))
+    blockchain.now = Math.floor(Date.now() / 1000) + 185
 
     const finishResult = await level.send(
       player.getSender(),
