@@ -1,1 +1,1 @@
-export * from '../build/PlayerStats/tact_PlayerStats';
+export * from "../build/PlayerStats/tact_PlayerStats"

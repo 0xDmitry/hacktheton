@@ -1,1 +1,1 @@
-export * from '../build/PartialLevel/tact_PartialLevel';
+export * from "../build/PartialLevel/tact_PartialLevel"

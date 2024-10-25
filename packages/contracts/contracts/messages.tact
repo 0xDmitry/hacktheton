@@ -1,39 +1,31 @@
 message RegisterLevel {
-    name: String;
-    factory: Address;
+  name: String;
+  factory: Address;
 }
-
 message UnregisterLevel {
-    name: String;
+  name: String;
 }
-
 message CreateLevel {
-    name: String;
+  name: String;
 }
-
 message CreatePlayerLevel {
-    name: String;
-    factory: Address;
+  name: String;
+  factory: Address;
 }
-
 message DeployLevel {
-    player: Address;
+  player: Address;
 }
-
 message LevelDeployed {
-    name: String;
-    address: Address;
+  name: String;
+  address: Address;
 }
-
 message CheckLevel {
-    name: String;
+  name: String;
 }
-
 message CheckLevelResult {
-    name: String;
-    completed: Bool;
+  name: String;
+  completed: Bool;
 }
-
 message ResponseStats {
-    levelsCompleted: Int;
+  levelsCompleted: Int;
 }

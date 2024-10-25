@@ -1,9 +1,9 @@
-import { CompilerConfig } from '@ton/blueprint';
+import { CompilerConfig } from "@ton/blueprint"
 
 export const compile: CompilerConfig = {
-    lang: 'tact',
-    target: 'contracts/peek_level_factory.tact',
-    options: {
-        debug: true,
-    },
-};
+  lang: "tact",
+  target: "contracts/factories/peek_level_factory.tact",
+  options: {
+    debug: true,
+  },
+}

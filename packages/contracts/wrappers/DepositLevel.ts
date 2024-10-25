@@ -1,1 +1,1 @@
-export * from '../build/DepositLevel/tact_DepositLevel';
+export * from "../build/DepositLevel/tact_DepositLevel"

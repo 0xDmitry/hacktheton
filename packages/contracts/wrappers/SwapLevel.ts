@@ -1,1 +1,1 @@
-export * from '../build/SwapLevel/tact_SwapLevel';
+export * from "../build/SwapLevel/tact_SwapLevel"

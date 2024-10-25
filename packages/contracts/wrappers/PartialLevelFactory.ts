@@ -1,1 +1,1 @@
-export * from '../build/PartialLevelFactory/tact_PartialLevelFactory';
+export * from "../build/PartialLevelFactory/tact_PartialLevelFactory"

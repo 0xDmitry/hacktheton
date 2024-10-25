@@ -1,6 +1,6 @@
 import "@stdlib/ownable";
 import "@stdlib/deploy";
-import "./messages";
+import "../messages";
 
 message Start {
     time: Int as uint32;
