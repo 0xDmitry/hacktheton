@@ -2,7 +2,7 @@ import "@stdlib/deploy";
 import "../levels/scanner_level";
 import "../player_stats";
 import "../messages";
-const deploy_value: Int = ton("0.02");
+const deploy_value: Int = ton("0.03");
 const gas_consumption: Int = ton("0.015");
 
 contract ScannerLevelFactory with Deployable {
