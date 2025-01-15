@@ -26,7 +26,8 @@
     "partial": "PARTIAL",
     "peek": "PEEK",
     "swap": "SWAP",
-    "coin": "COIN"
+    "coin": "COIN",
+    "gatekeeper": "GATEKEEPER"
   },
   "back": "BACK",
   "completed": "COMPLETED",
