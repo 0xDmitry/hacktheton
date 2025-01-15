@@ -26,10 +26,7 @@ contract PeekLevel with Deployable {
         value: 0,
         mode: SendRemainingValue,
         bounce: false,
-        body: CheckLevelResult{
-          name: "peek",
-          completed: self.locked == false
-        }.toCell()
+        body: CheckLevelResult{name: "peek", completed: !self.locked}.toCell()
       }
     );
   }

@@ -7,7 +7,7 @@ message Flip {
 contract Contract {
   nonce: Int;
 
-  init(nonce: Int) {
+  init(nonce: Int){
     self.nonce = nonce;
   }
 }
@@ -18,12 +18,12 @@ contract CoinLevel with Deployable {
   consecutiveWins: Int = 0;
   flipsCount: Int = 0;
 
-  init(player: Address, nonce: Int) {
+  init(player: Address, nonce: Int){
     self.player = player;
     self.nonce = nonce;
   }
 
-  receive(msg: Flip) {
+  receive(msg: Flip){
     let init: StateInit = initOf Contract(self.flipsCount);
     let contractAddress: Address = contractAddress(init);
     let side = contractAddress.asSlice().asCell().hash() % 2 == 0;

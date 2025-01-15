@@ -27,7 +27,7 @@ contract ScannerLevel with Ownable, Deployable {
     self.child = contractAddress(child_init);
     send(SendParameters{
         to: self.child,
-        value: ton("0.001"),
+        value: ton("0.01"),
         mode: SendPayGasSeparately,
         bounce: false,
         data: child_init.data,
