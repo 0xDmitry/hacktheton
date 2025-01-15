@@ -10,6 +10,7 @@ import peekCode from "../../../contracts/contracts/levels/peek_level.tact"
 import swapCode from "../../../contracts/contracts/levels/swap_level.tact"
 import coinCode from "../../../contracts/contracts/levels/coin_level.tact"
 import gatekeeperCode from "../../../contracts/contracts/levels/gatekeeper_level.tact"
+import bruteforceCode from "../../../contracts/contracts/levels/bruteforce_level.tact"
 import { IntroductionLevel } from "../../../contracts/wrappers/IntroductionLevel"
 import { DepositLevel } from "../../../contracts/wrappers/DepositLevel"
 import { ScannerLevel } from "../../../contracts/wrappers/ScannerLevel"
@@ -20,6 +21,7 @@ import { PeekLevel } from "../../../contracts/wrappers/PeekLevel"
 import { SwapLevel } from "../../../contracts/wrappers/SwapLevel"
 import { CoinLevel } from "../../../contracts/wrappers/CoinLevel"
 import { GatekeeperLevel } from "../../../contracts/wrappers/GatekeeperLevel"
+import { BruteforceLevel } from "../../../contracts/wrappers/BruteforceLevel"
 import IntroductionEnDescription from "@/markdown/en/levels/introduction/description.mdx"
 import IntroductionEnCompletedDescription from "@/markdown/en/levels/introduction/completed-description.mdx"
 import IntroductionRuDescription from "@/markdown/ru/levels/introduction/description.mdx"
@@ -60,6 +62,10 @@ import GatekeeperEnDescription from "@/markdown/en/levels/gatekeeper/description
 import GatekeeperEnCompletedDescription from "@/markdown/en/levels/gatekeeper/completed-description.mdx"
 import GatekeeperRuDescription from "@/markdown/ru/levels/gatekeeper/description.mdx"
 import GatekeeperRuCompletedDescription from "@/markdown/ru/levels/gatekeeper/completed-description.mdx"
+import BruteforceEnDescription from "@/markdown/en/levels/bruteforce/description.mdx"
+import BruteforceEnCompletedDescription from "@/markdown/en/levels/bruteforce/completed-description.mdx"
+import BruteforceRuDescription from "@/markdown/ru/levels/bruteforce/description.mdx"
+import BruteforceRuCompletedDescription from "@/markdown/ru/levels/bruteforce/completed-description.mdx"
 
 export type LevelName =
   | "introduction"
@@ -72,6 +78,7 @@ export type LevelName =
   | "swap"
   | "coin"
   | "gatekeeper"
+  | "bruteforce"
 
 export const levels: LevelName[] = [
   "introduction",
@@ -84,6 +91,7 @@ export const levels: LevelName[] = [
   "swap",
   "coin",
   "gatekeeper",
+  "bruteforce",
 ]
 
 export const levelsConfig = {
@@ -275,6 +283,25 @@ export const levelsConfig = {
     ) => {
       const contract = await GatekeeperLevel.fromAddress(levelInstance!)
       return clientAdapter!.open(contract) as OpenedContract<GatekeeperLevel>
+    },
+  },
+  bruteforce: {
+    description: {
+      en: <BruteforceEnDescription />,
+      ru: <BruteforceRuDescription />,
+    },
+    completedDescription: {
+      en: <BruteforceEnCompletedDescription />,
+      ru: <BruteforceRuCompletedDescription />,
+    },
+    code: bruteforceCode,
+    revealCode: true,
+    openLevelContract: async (
+      levelInstance: Address,
+      clientAdapter: ContractAdapter,
+    ) => {
+      const contract = await BruteforceLevel.fromAddress(levelInstance!)
+      return clientAdapter!.open(contract) as OpenedContract<BruteforceLevel>
     },
   },
 } as const

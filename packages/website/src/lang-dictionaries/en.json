@@ -27,7 +27,8 @@
     "peek": "PEEK",
     "swap": "SWAP",
     "coin": "COIN",
-    "gatekeeper": "GATEKEEPER"
+    "gatekeeper": "GATEKEEPER",
+    "bruteforce": "BRUTE-FORCE"
   },
   "back": "BACK",
   "completed": "COMPLETED",

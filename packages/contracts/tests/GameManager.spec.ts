@@ -12,6 +12,7 @@ import { PeekLevelFactory } from "../wrappers/PeekLevelFactory"
 import { SwapLevelFactory } from "../wrappers/SwapLevelFactory"
 import { CoinLevelFactory } from "../wrappers/CoinLevelFactory"
 import { GatekeeperLevelFactory } from "../wrappers/GatekeeperLevelFactory"
+import { BruteforceLevelFactory } from "../wrappers/BruteforceLevelFactory"
 import { IntroductionLevel } from "../wrappers/IntroductionLevel"
 import { DepositLevel } from "../wrappers/DepositLevel"
 import { ScannerLevel } from "../wrappers/ScannerLevel"
@@ -24,6 +25,7 @@ import { PeekLevel } from "../wrappers/PeekLevel"
 import { SwapLevel } from "../wrappers/SwapLevel"
 import { CoinLevel } from "../wrappers/CoinLevel"
 import { GatekeeperLevel } from "../wrappers/GatekeeperLevel"
+import { BruteforceLevel } from "../wrappers/BruteforceLevel"
 import { PlayerStats } from "../wrappers/PlayerStats"
 import "@ton/test-utils"
 
@@ -31,6 +33,7 @@ describe("GameManager", () => {
   let blockchain: Blockchain
   let owner: SandboxContract<TreasuryContract>
   let deployer: SandboxContract<TreasuryContract>
+  let player: SandboxContract<TreasuryContract>
   let gameManager: SandboxContract<GameManager>
 
   beforeEach(async () => {
@@ -40,8 +43,8 @@ describe("GameManager", () => {
     gameManager = blockchain.openContract(
       await GameManager.fromInit(owner.address),
     )
-
     deployer = await blockchain.treasury("deployer")
+    player = await blockchain.treasury("player")
 
     const deployResult = await gameManager.send(
       deployer.getSender(),
@@ -109,8 +112,6 @@ describe("GameManager", () => {
       to: owner.address,
       success: true,
     })
-
-    const player = await blockchain.treasury("user")
 
     const createLevelResult = await gameManager.send(
       player.getSender(),
@@ -332,8 +333,6 @@ describe("GameManager", () => {
       to: owner.address,
       success: true,
     })
-
-    const player = await blockchain.treasury("user")
 
     const createLevelResult = await gameManager.send(
       player.getSender(),
@@ -570,8 +569,6 @@ describe("GameManager", () => {
       success: true,
     })
 
-    const player = await blockchain.treasury("user")
-
     const createLevelResult = await gameManager.send(
       player.getSender(),
       {
@@ -793,8 +790,6 @@ describe("GameManager", () => {
       to: owner.address,
       success: true,
     })
-
-    const player = await blockchain.treasury("user")
 
     const createLevelResult = await gameManager.send(
       player.getSender(),
@@ -1032,8 +1027,6 @@ describe("GameManager", () => {
       success: true,
     })
 
-    const player = await blockchain.treasury("user")
-
     const createLevelResult = await gameManager.send(
       player.getSender(),
       {
@@ -1258,8 +1251,6 @@ describe("GameManager", () => {
       success: true,
     })
 
-    const player = await blockchain.treasury("user")
-
     const createLevelResult = await gameManager.send(
       player.getSender(),
       {
@@ -1481,8 +1472,6 @@ describe("GameManager", () => {
       success: true,
     })
 
-    const player = await blockchain.treasury("user")
-
     const createLevelResult = await gameManager.send(
       player.getSender(),
       {
@@ -1703,8 +1692,6 @@ describe("GameManager", () => {
       to: owner.address,
       success: true,
     })
-
-    const player = await blockchain.treasury("user")
 
     const createLevelResult = await gameManager.send(
       player.getSender(),
@@ -1938,8 +1925,6 @@ describe("GameManager", () => {
       to: owner.address,
       success: true,
     })
-
-    const player = await blockchain.treasury("user")
 
     const createLevelResult = await gameManager.send(
       player.getSender(),
@@ -2326,8 +2311,6 @@ describe("GameManager", () => {
       success: true,
     })
 
-    const player = await blockchain.treasury("user")
-
     const createLevelResult = await gameManager.send(
       player.getSender(),
       {
@@ -2453,8 +2436,243 @@ describe("GameManager", () => {
       },
       {
         $$type: "Unlock",
-        a: 1305123397914670267521590109023733202421777246676122109022453126136640598871n,
-        b: 2n,
+        a: 8989822887764667005644902914736932105128400472607769166540447545917080736621n,
+        b: 3n,
+      },
+    )
+
+    expect(unlockResult.transactions).toHaveTransaction({
+      from: player.address,
+      to: level.address,
+      success: true,
+    })
+
+    checkLevelResult = await gameManager.send(
+      player.getSender(),
+      {
+        value: toNano("0.05"),
+      },
+      {
+        $$type: "CheckLevel",
+        name: levelName,
+      },
+    )
+
+    expect(checkLevelResult.transactions).toHaveTransaction({
+      from: player.address,
+      to: gameManager.address,
+      success: true,
+    })
+
+    expect(checkLevelResult.transactions).toHaveTransaction({
+      from: gameManager.address,
+      to: playerStats.address,
+      success: true,
+    })
+
+    expect(checkLevelResult.transactions).toHaveTransaction({
+      from: playerStats.address,
+      to: level.address,
+      success: true,
+    })
+
+    expect(checkLevelResult.transactions).toHaveTransaction({
+      from: level.address,
+      to: playerStats.address,
+      success: true,
+    })
+
+    expect(checkLevelResult.transactions).toHaveTransaction({
+      from: playerStats.address,
+      to: player.address,
+      success: true,
+    })
+
+    levels = await playerStats.getLevels()
+    key = sha256_sync(levelName)
+    isLevelCompleted = levels?.get(
+      BigInt("0x" + key.toString("hex")),
+    )?.completed
+    expect(isLevelCompleted).toEqual(true)
+  })
+
+  it("check bruteforce level", async () => {
+    const levelName = "bruteforce"
+    const bruteforceLevelFactory = blockchain.openContract(
+      await BruteforceLevelFactory.fromInit(gameManager.address),
+    )
+
+    const deployResult = await bruteforceLevelFactory.send(
+      deployer.getSender(),
+      {
+        value: toNano("0.05"),
+      },
+      {
+        $$type: "Deploy",
+        queryId: 0n,
+      },
+    )
+
+    expect(deployResult.transactions).toHaveTransaction({
+      from: deployer.address,
+      to: bruteforceLevelFactory.address,
+      deploy: true,
+      success: true,
+    })
+
+    const registerResult = await gameManager.send(
+      owner.getSender(),
+      {
+        value: toNano("0.05"),
+      },
+      {
+        $$type: "RegisterLevel",
+        name: levelName,
+        factory: bruteforceLevelFactory.address,
+      },
+    )
+
+    expect(registerResult.transactions).toHaveTransaction({
+      from: owner.address,
+      to: gameManager.address,
+      success: true,
+    })
+
+    expect(registerResult.transactions).toHaveTransaction({
+      from: gameManager.address,
+      to: owner.address,
+      success: true,
+    })
+
+    const createLevelResult = await gameManager.send(
+      player.getSender(),
+      {
+        value: toNano("0.1"),
+      },
+      {
+        $$type: "CreateLevel",
+        name: levelName,
+      },
+    )
+
+    expect(createLevelResult.transactions).toHaveTransaction({
+      from: player.address,
+      to: gameManager.address,
+      success: true,
+    })
+
+    const playerStats = blockchain.openContract(
+      await PlayerStats.fromInit(gameManager.address, player.address),
+    )
+
+    expect(createLevelResult.transactions).toHaveTransaction({
+      from: gameManager.address,
+      to: playerStats.address,
+      deploy: true,
+      success: true,
+    })
+
+    expect(createLevelResult.transactions).toHaveTransaction({
+      from: playerStats.address,
+      to: bruteforceLevelFactory.address,
+      success: true,
+    })
+
+    const level = blockchain.openContract(
+      await BruteforceLevel.fromInit(player.address, 0n),
+    )
+
+    expect(createLevelResult.transactions).toHaveTransaction({
+      from: bruteforceLevelFactory.address,
+      to: level.address,
+      deploy: true,
+      success: true,
+    })
+
+    expect(createLevelResult.transactions).toHaveTransaction({
+      from: bruteforceLevelFactory.address,
+      to: playerStats.address,
+      success: true,
+    })
+
+    expect(createLevelResult.transactions).toHaveTransaction({
+      from: playerStats.address,
+      to: player.address,
+      success: true,
+    })
+
+    await gameManager.send(
+      player.getSender(),
+      {
+        value: toNano("0.05"),
+      },
+      {
+        $$type: "CheckLevel",
+        name: levelName,
+      },
+    )
+
+    let checkLevelResult = await gameManager.send(
+      player.getSender(),
+      {
+        value: toNano("0.05"),
+      },
+      {
+        $$type: "CheckLevel",
+        name: levelName,
+      },
+    )
+
+    expect(checkLevelResult.transactions).toHaveTransaction({
+      from: player.address,
+      to: gameManager.address,
+      success: true,
+    })
+
+    expect(checkLevelResult.transactions).toHaveTransaction({
+      from: gameManager.address,
+      to: playerStats.address,
+      success: true,
+    })
+
+    expect(checkLevelResult.transactions).toHaveTransaction({
+      from: playerStats.address,
+      to: level.address,
+      success: true,
+    })
+
+    expect(checkLevelResult.transactions).toHaveTransaction({
+      from: level.address,
+      to: playerStats.address,
+      success: true,
+    })
+
+    expect(checkLevelResult.transactions).toHaveTransaction({
+      from: playerStats.address,
+      to: player.address,
+      success: true,
+    })
+
+    let levels = await playerStats.getLevels()
+    let key = sha256_sync(levelName)
+    let isLevelCompleted = levels?.get(
+      BigInt("0x" + key.toString("hex")),
+    )?.completed
+    expect(isLevelCompleted).toEqual(false)
+
+    // Solve level
+
+    const unlockResult = await level.send(
+      player.getSender(),
+      {
+        value: toNano("0.05"),
+      },
+      {
+        $$type: "Unlock",
+        a: 1200n,
+        b: 850n,
+        c: -1199n,
+        d: -849n,
       },
     )
 

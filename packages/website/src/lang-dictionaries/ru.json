@@ -27,7 +27,8 @@
     "peek": "ПЕРЕХВАТ",
     "swap": "ОБМЕН",
     "coin": "МОНЕТА",
-    "gatekeeper": "ПРИВРАТНИК"
+    "gatekeeper": "ПРИВРАТНИК",
+    "bruteforce": "ПЕРЕБОР"
   },
   "back": "НАЗАД",
   "completed": "ПРОЙДЕНО",
