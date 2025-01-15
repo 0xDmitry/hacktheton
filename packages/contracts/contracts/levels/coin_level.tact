@@ -6,7 +6,6 @@ message Flip {
 
 contract Contract {
   nonce: Int;
-
   init(nonce: Int){
     self.nonce = nonce;
   }
@@ -17,7 +16,6 @@ contract CoinLevel with Deployable {
   nonce: Int;
   consecutiveWins: Int = 0;
   flipsCount: Int = 0;
-
   init(player: Address, nonce: Int){
     self.player = player;
     self.nonce = nonce;

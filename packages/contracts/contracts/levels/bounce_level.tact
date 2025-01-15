@@ -13,7 +13,6 @@ contract Timer with Deployable {
   parent: Address;
   nonce: Int;
   startTime: Int? as uint32;
-
   init(parent: Address, nonce: Int){
     self.parent = parent;
     self.nonce = nonce;
@@ -38,7 +37,6 @@ contract BounceLevel with Ownable, Deployable {
   player: Address;
   nonce: Int;
   timer: Address;
-
   init(player: Address, nonce: Int){
     self.owner = sender();
     self.player = player;
