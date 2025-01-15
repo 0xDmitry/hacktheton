@@ -25,7 +25,8 @@
     "intruder": "INTRUDER",
     "partial": "PARTIAL",
     "peek": "PEEK",
-    "swap": "SWAP"
+    "swap": "SWAP",
+    "coin": "COIN"
   },
   "back": "BACK",
   "completed": "COMPLETED",

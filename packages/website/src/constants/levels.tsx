@@ -8,6 +8,7 @@ import intruderCode from "../../../contracts/contracts/levels/intruder_level.tac
 import partialCode from "../../../contracts/contracts/levels/partial_level.tact"
 import peekCode from "../../../contracts/contracts/levels/peek_level.tact"
 import swapCode from "../../../contracts/contracts/levels/swap_level.tact"
+import coinCode from "../../../contracts/contracts/levels/coin_level.tact"
 import { IntroductionLevel } from "../../../contracts/wrappers/IntroductionLevel"
 import { DepositLevel } from "../../../contracts/wrappers/DepositLevel"
 import { ScannerLevel } from "../../../contracts/wrappers/ScannerLevel"
@@ -16,6 +17,7 @@ import { IntruderLevel } from "../../../contracts/wrappers/IntruderLevel"
 import { PartialLevel } from "../../../contracts/wrappers/PartialLevel"
 import { PeekLevel } from "../../../contracts/wrappers/PeekLevel"
 import { SwapLevel } from "../../../contracts/wrappers/SwapLevel"
+import { CoinLevel } from "../../../contracts/wrappers/CoinLevel"
 import IntroductionEnDescription from "@/markdown/en/levels/introduction/description.mdx"
 import IntroductionEnCompletedDescription from "@/markdown/en/levels/introduction/completed-description.mdx"
 import IntroductionRuDescription from "@/markdown/ru/levels/introduction/description.mdx"
@@ -48,6 +50,10 @@ import SwapEnDescription from "@/markdown/en/levels/swap/description.mdx"
 import SwapEnCompletedDescription from "@/markdown/en/levels/swap/completed-description.mdx"
 import SwapRuDescription from "@/markdown/ru/levels/swap/description.mdx"
 import SwapRuCompletedDescription from "@/markdown/ru/levels/swap/completed-description.mdx"
+import CoinEnDescription from "@/markdown/en/levels/coin/description.mdx"
+import CoinEnCompletedDescription from "@/markdown/en/levels/coin/completed-description.mdx"
+import CoinRuDescription from "@/markdown/ru/levels/coin/description.mdx"
+import CoinRuCompletedDescription from "@/markdown/ru/levels/coin/completed-description.mdx"
 
 export type LevelName =
   | "introduction"
@@ -58,6 +64,7 @@ export type LevelName =
   | "partial"
   | "peek"
   | "swap"
+  | "coin"
 
 export const levels: LevelName[] = [
   "introduction",
@@ -68,6 +75,7 @@ export const levels: LevelName[] = [
   "partial",
   "peek",
   "swap",
+  "coin",
 ]
 
 export const levelsConfig = {
@@ -221,6 +229,25 @@ export const levelsConfig = {
     ) => {
       const contract = await SwapLevel.fromAddress(levelInstance!)
       return clientAdapter!.open(contract) as OpenedContract<SwapLevel>
+    },
+  },
+  coin: {
+    description: {
+      en: <CoinEnDescription />,
+      ru: <CoinRuDescription />,
+    },
+    completedDescription: {
+      en: <CoinEnCompletedDescription />,
+      ru: <CoinRuCompletedDescription />,
+    },
+    code: coinCode,
+    revealCode: true,
+    openLevelContract: async (
+      levelInstance: Address,
+      clientAdapter: ContractAdapter,
+    ) => {
+      const contract = await CoinLevel.fromAddress(levelInstance!)
+      return clientAdapter!.open(contract) as OpenedContract<CoinLevel>
     },
   },
 } as const
