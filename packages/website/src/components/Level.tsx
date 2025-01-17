@@ -32,7 +32,7 @@ export const Level = ({
 
   useEffect(() => {
     setupConsoleUtils()
-    console.log("Helper methods:")
+    console.log("Helpers:")
     window.help()
   }, [])
 
@@ -68,7 +68,7 @@ export const Level = ({
           <br />
         </>
       )}
-      <div className="h-[20rem]">
+      <div className="h-[26rem]">
         <CustomConsole />
       </div>
       {isCompleted && (
