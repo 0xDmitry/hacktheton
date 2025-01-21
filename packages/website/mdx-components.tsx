@@ -2,13 +2,11 @@ import type { MDXComponents } from "mdx/types"
 
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
-    h1: ({ children }) => <h1 className="text-lg py-2">{children}</h1>,
-    h2: ({ children }) => <h2 className="text-base py-2">{children}</h2>,
-    p: ({ children }) => <p className="text-sm">{children}</p>,
-    ol: ({ children }) => (
-      <ol className="list-decimal py-2 pb-4">{children}</ol>
+    h1: ({ children }) => (
+      <h1 className="text-xl py-3 text-center">{children}</h1>
     ),
-    li: ({ children }) => <li className="pb-2">{children}</li>,
+    h2: ({ children }) => <h2 className="text-lg py-2">{children}</h2>,
+    p: ({ children }) => <p className="text-base py-1">{children}</p>,
     code: ({ children }) => (
       <code className="font-anonymousPro text-slate-400">{children}</code>
     ),

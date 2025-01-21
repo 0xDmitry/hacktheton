@@ -1,33 +1,41 @@
 # Before the game:
 
-1. ## Set up the wallet
+## 1. Set up the wallet
 
-   If you don't already have one, install the TON wallet (e.g. [Tonkeeper](https://tonkeeper.com/)) and connect. Don't forget to [switch to Testnet](https://answers.ton.org/question/1561527682871595008/how-do-you-change-ton-keeper-to-testnet).
-   To play the game, you will need testnet TON. Visit [@testgiver_ton_bot](https://t.me/testgiver_ton_bot) to get your TON on the testnet.
+If you don't already have one, install the TON wallet (e.g. [Tonkeeper](https://tonkeeper.com/)) and connect. Don't forget to [switch to Testnet](https://answers.ton.org/question/1561527682871595008/how-do-you-change-ton-keeper-to-testnet).
+To play the game, you will need testnet TON. Visit [@testgiver_ton_bot](https://t.me/testgiver_ton_bot) to get your TON on the testnet.
 
-2. ## Get the level instance
+&nbsp;
 
-   Ask the game manager for a **level instance**. Click the "GET NEW INSTANCE" button at the bottom of the page and authorize the transaction with your wallet. This will deploy a new contract on the blockchain, so please be patient while waiting for the process to complete!
+## 2. Get the level instance
 
-3. ## Check the information in the console
+Click the "GET NEW INSTANCE" button at the bottom of the page and authorize the transaction with your wallet. This will deploy a new contract on the blockchain, so please be patient while waiting for the process to complete!
 
-   You should see a table with useful utilities that are available to you in the console. You can call this table again by typing the command `help()`.
+&nbsp;
+
+## 3. Check the information in the console
+
+You should see a table with useful utilities that are available to you in the console. You can call this table again by typing the command `help()`.
+
+&nbsp;
 
 # To complete the level:
 
-1. ## Inspect the contract
+## 1. Inspect the contract
 
-   You can inspect the contract's ABI by using the `contract` variable in the console.
+You can inspect the contract's ABI by typing `contract` in the console.
 
-2. ## Interact with the contract
+&nbsp;
 
-   Look into the level information using the `await contract.getInfo()` method. Then follow the prompts you receive.
+## 2. Interact with the contract
 
-   To send a message to the contract, use the following code:
+Start by calling the `await contract.getInfo()` method. Then follow the prompts you receive.
 
-   `await contract.send(player, {value: toNano(0.05)}, {$$type: "MessageName", ...params})`
+To send a message to the contract, use the following code: `await contract.send(player, {value: toNano(0.05)}, {$$type: "MessageName", ...params})`
 
-   When you are confident that you have completed the level, please click the "Check Solution" button at the bottom of this page.
-   This way you will send a message to the game manager, which will determine if you have completed the level.
+When you are confident that you have completed the level, please click the "CHECK SOLUTION" button at the bottom of this page.
+This way you will send a message to the game manager, which will determine if you have completed the level.
 
-## If you have any questions or face any problems, please don't hesitate to ask us in our [Discord](https://discord.com/invite/vaFRDfG4uz) or [Telegram chat](https://t.me/hacktheton)!
+&nbsp;
+
+If you have any questions or face any problems, please don't hesitate to ask in our [Discord](https://discord.com/invite/vaFRDfG4uz) or [Telegram chat](https://t.me/hacktheton)!
