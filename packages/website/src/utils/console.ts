@@ -37,19 +37,23 @@ export function setupConsoleUtils() {
       contract: {
         description: "current level contract instance (if created)",
       },
-      "toNano(ton)": {
+      "contract.send(from: Address, args: { value: bigint, bounce?: boolean | null | undefined }, message: null | string | Message)":
+        { description: "send transaction to the current level contract" },
+      "toNano(ton: number | string | bigint): bigint": {
         description: "convert ton units to nano",
       },
-      "fromNano(nano)": {
+      "fromNano(nano: number | string | bigint): string": {
         description: "convert nano units to ton",
       },
-      "Address.parse(addressString)": {
+      "Address.parse(address: string): Address": {
         description: "parse Address from string",
       },
-      "tonConnectUI.sendTransaction(tx, options)": {
-        description: "send custom transaction to arbitrary address",
-      },
-      "beginCell()": { description: "start building a cell" },
+      "tonConnectUI.sendTransaction(tx: SendTransactionRequest, options?: ActionConfiguration)":
+        {
+          description:
+            "send custom transaction to arbitrary address, for details visit https://www.npmjs.com/package/@tonconnect/ui",
+        },
+      "beginCell(): Builder": { description: "start building a cell" },
     })
   }
 }
