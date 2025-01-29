@@ -20,6 +20,11 @@ export function useGameManager() {
 
   return {
     sendCreateLevel: (name: string) => {
+      console.log(
+        "%cA level instance has been requested, please wait.",
+        "color: var(--foreground)",
+      )
+
       return gameManager?.send(
         sender,
         { value: toNano(0.1) },
@@ -30,6 +35,11 @@ export function useGameManager() {
       )
     },
     sendCheckLevel: (name: string) => {
+      console.log(
+        "%cYou have requested a verification of your solution. If there is no change after a period of time, it is likely that not all conditions for completing the level have been met.",
+        "color: var(--foreground)",
+      )
+
       return gameManager?.send(
         sender,
         { value: toNano(0.05) },

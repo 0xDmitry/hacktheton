@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useParams } from "next/navigation"
 import { Locale } from "@/i18n.config"
 import { Address } from "@ton/core"
@@ -24,9 +24,11 @@ export const Level = ({
 
   const clientAdapter = useTonClientAdapter()
   const playerStats = usePlayerStats()
+  const [prevLevelInstance, setPrevLevelInstance] = useState<
+    Address | undefined
+  >()
   const buffer = sha256_sync(name)
   const level = playerStats?.levels?.get(BigInt("0x" + buffer.toString("hex")))
-
   const isCompleted = level?.completed
   const levelInstance = level?.address
 
@@ -45,6 +47,18 @@ export const Level = ({
         levelInstance,
         clientAdapter,
       )
+      if (
+        !(
+          prevLevelInstance &&
+          prevLevelInstance.toString() === levelInstance.toString()
+        )
+      ) {
+        console.log(
+          `%cThe level instance is available at ${levelInstance} address.`,
+          "color: var(--foreground)",
+        )
+        setPrevLevelInstance(levelInstance)
+      }
     }
 
     if (levelInstance && clientAdapter) {

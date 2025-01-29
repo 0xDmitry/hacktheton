@@ -1,12 +1,12 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { memo, useEffect, useRef, useState } from "react"
 import { isMobile as isMobileDevice } from "react-device-detect"
 import { RingBuffer } from "ring-buffer-ts"
 import { Hook, Console, Decode, Unhook } from "console-feed"
 import { Message } from "console-feed/lib/definitions/Component"
 
-export const CustomConsole = () => {
+export const CustomConsole = memo(function CustomConsole() {
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
@@ -150,4 +150,4 @@ export const CustomConsole = () => {
       </div>
     </div>
   )
-}
+})
