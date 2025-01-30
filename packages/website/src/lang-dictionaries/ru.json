@@ -14,7 +14,8 @@
     },
     "level": {
       "checkSolution": "ПРОВЕРИТЬ РЕШЕНИЕ",
-      "getNewInstance": "ПОЛУЧИТЬ НОВЫЙ ИНСТАНС"
+      "getNewInstance": "ПОЛУЧИТЬ НОВЫЙ ИНСТАНС",
+      "nextLevel": "СЛЕДУЮЩИЙ УРОВЕНЬ"
     }
   },
   "levels": {
