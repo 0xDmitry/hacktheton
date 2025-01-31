@@ -8,7 +8,7 @@ export const Welcome = ({ locale }: { locale: Locale }) => {
 
   return (
     <div className="flex justify-center">
-      <div className="max-w-4xl text-xl text-center">
+      <div className="max-w-7xl text-lg text-center">
         {home.welcome.firstPart}
         <a
           className="text-slate-400 hover:text-slate-300"
