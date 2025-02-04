@@ -14,7 +14,8 @@
     },
     "level": {
       "checkSolution": "CHECK SOLUTION",
-      "getNewInstance": "GET NEW INSTANCE"
+      "getNewInstance": "GET NEW INSTANCE",
+      "nextLevel": "NEXT LEVEL"
     }
   },
   "levels": {

@@ -70,27 +70,14 @@ export const Level = ({
 
   return (
     <div className="p-6 md:p-12">
-      {!isCompleted && (
-        <>
-          {levelsConfig[name].description[locale]}
-          <br />
-        </>
-      )}
+      <div className="pb-4">{levelsConfig[name].description[locale]}</div>
       {(levelsConfig[name].revealCode || isCompleted) && (
-        <>
-          <div className="flex justify-center">{code}</div>
-          <br />
-        </>
+        <div className="flex justify-center pb-8">{code}</div>
       )}
-      <div className="h-[26rem]">
+      <div className="h-[26rem] pb-4">
         <CustomConsole />
       </div>
-      {isCompleted && (
-        <>
-          <br />
-          {levelsConfig[name].completedDescription[locale]}
-        </>
-      )}
+      {isCompleted && <>{levelsConfig[name].completedDescription[locale]}</>}
     </div>
   )
 }
