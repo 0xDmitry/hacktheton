@@ -29,7 +29,8 @@
     "swap": "ОБМЕН",
     "coin": "МОНЕТА",
     "gatekeeper": "ПРИВРАТНИК",
-    "bruteforce": "ПЕРЕБОР"
+    "bruteforce": "ПЕРЕБОР",
+    "tolk": "TOLK"
   },
   "back": "НАЗАД",
   "completed": "ПРОЙДЕНО",

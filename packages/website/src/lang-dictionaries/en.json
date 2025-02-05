@@ -29,7 +29,8 @@
     "swap": "SWAP",
     "coin": "COIN",
     "gatekeeper": "GATEKEEPER",
-    "bruteforce": "BRUTE-FORCE"
+    "bruteforce": "BRUTE-FORCE",
+    "tolk": "TOLK"
   },
   "back": "BACK",
   "completed": "COMPLETED",
