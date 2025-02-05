@@ -8,6 +8,10 @@ const nextConfig = {
       test: /\.tact$/,
       type: "asset/source",
     })
+    config.module.rules.push({
+      test: /\.tolk$/,
+      type: "asset/source",
+    })
     return config
   },
 }
