@@ -17,7 +17,6 @@ export default function Home({
     <div className="container mx-auto flex flex-col justify-center gap-12 my-6 p-6">
       <Welcome locale={locale} />
       <LevelsList />
-      <TypewriterText className="text-4xl text-center" text={home.moreLevels} />
     </div>
   )
 }
