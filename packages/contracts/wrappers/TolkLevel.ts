@@ -19,7 +19,7 @@ export function tolkLevelConfigToCell(config: TolkLevelConfig): Cell {
   return beginCell()
     .storeAddress(config.player)
     .storeUint(config.nonce, 32)
-    .storeInt(config.locked ? -1n : 0n, 1)
+    .storeInt(config.locked ? BigInt(-1) : BigInt(0), 1)
     .endCell()
 }
 
