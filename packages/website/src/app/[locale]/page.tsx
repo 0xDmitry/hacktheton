@@ -1,5 +1,4 @@
 import { LevelsList } from "@/components/LevelsList"
-import { TypewriterText } from "@/components/TypewriterText"
 import { Welcome } from "@/components/Welcome"
 import { Locale } from "@/i18n.config"
 import { getLangDictionary } from "@/utils/lang-dictionary"
