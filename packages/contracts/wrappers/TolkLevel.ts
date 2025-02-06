@@ -47,10 +47,15 @@ export class TolkLevel implements Contract {
     })
   }
 
-  async sendUnlock(provider: ContractProvider, via: Sender, value: bigint) {
+  async send(
+    provider: ContractProvider,
+    via: Sender,
+    body: Cell,
+    value: bigint,
+  ) {
     await provider.internal(via, {
       sendMode: SendMode.PAY_GAS_SEPARATELY,
-      body: beginCell().storeUint(0xf0fd50bb, 32).endCell(),
+      body,
       value: value,
     })
   }

@@ -1,6 +1,6 @@
 import { compile } from "@ton/blueprint"
 import { Blockchain, SandboxContract, TreasuryContract } from "@ton/sandbox"
-import { toNano } from "@ton/core"
+import { beginCell, toNano } from "@ton/core"
 import { sha256_sync } from "@ton/crypto"
 import { GameManager } from "../wrappers/GameManager"
 import { IntroductionLevelFactory } from "../wrappers/IntroductionLevelFactory"
@@ -2910,8 +2910,9 @@ describe("GameManager", () => {
 
     // Solve level
 
-    const unlockResult = await level.sendUnlock(
+    const unlockResult = await level.send(
       player.getSender(),
+      beginCell().storeUint(0xf0fd50bb, 32).endCell(),
       toNano("0.05"),
     )
 
