@@ -30,7 +30,8 @@
     "gatekeeper": "GATEKEEPER",
     "bruteforce": "BRUTE-FORCE",
     "tolk": "TOLK",
-    "upgrade": "UPGRADE"
+    "upgrade": "UPGRADE",
+    "seed": "SEED"
   },
   "back": "BACK",
   "completed": "COMPLETED",

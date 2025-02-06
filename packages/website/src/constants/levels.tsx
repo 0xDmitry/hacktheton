@@ -13,6 +13,7 @@ import gatekeeperCode from "../../../contracts/contracts/levels/gatekeeper_level
 import bruteforceCode from "../../../contracts/contracts/levels/bruteforce_level.tact"
 import tolkCode from "../../../contracts/contracts/levels/tolk_level.tolk"
 import upgradeCode from "../../../contracts/contracts/levels/upgrade_level.tolk"
+import seedCode from "../../../contracts/contracts/levels/seed_level.tolk"
 import { IntroductionLevel } from "../../../contracts/wrappers/IntroductionLevel"
 import { DepositLevel } from "../../../contracts/wrappers/DepositLevel"
 import { ScannerLevel } from "../../../contracts/wrappers/ScannerLevel"
@@ -26,6 +27,7 @@ import { GatekeeperLevel } from "../../../contracts/wrappers/GatekeeperLevel"
 import { BruteforceLevel } from "../../../contracts/wrappers/BruteforceLevel"
 import { TolkLevel } from "../../../contracts/wrappers/TolkLevel"
 import { UpgradeLevel } from "../../../contracts/wrappers/UpgradeLevel"
+import { SeedLevel } from "../../../contracts/wrappers/SeedLevel"
 import IntroductionEnDescription from "@/markdown/en/levels/introduction/description.mdx"
 import IntroductionEnCompletedDescription from "@/markdown/en/levels/introduction/completed-description.mdx"
 import IntroductionRuDescription from "@/markdown/ru/levels/introduction/description.mdx"
@@ -78,6 +80,10 @@ import UpgradeEnDescription from "@/markdown/en/levels/upgrade/description.mdx"
 import UpgradeEnCompletedDescription from "@/markdown/en/levels/upgrade/completed-description.mdx"
 import UpgradeRuDescription from "@/markdown/ru/levels/upgrade/description.mdx"
 import UpgradeRuCompletedDescription from "@/markdown/ru/levels/upgrade/completed-description.mdx"
+import SeedEnDescription from "@/markdown/en/levels/seed/description.mdx"
+import SeedEnCompletedDescription from "@/markdown/en/levels/seed/completed-description.mdx"
+import SeedRuDescription from "@/markdown/ru/levels/seed/description.mdx"
+import SeedRuCompletedDescription from "@/markdown/ru/levels/seed/completed-description.mdx"
 
 export type LevelName =
   | "introduction"
@@ -93,6 +99,7 @@ export type LevelName =
   | "bruteforce"
   | "tolk"
   | "upgrade"
+  | "seed"
 
 export const levels: LevelName[] = [
   "introduction",
@@ -108,6 +115,7 @@ export const levels: LevelName[] = [
   "bruteforce",
   "tolk",
   "upgrade",
+  "seed",
 ]
 
 export const levelsConfig = {
@@ -356,6 +364,25 @@ export const levelsConfig = {
     ) => {
       const contract = await UpgradeLevel.createFromAddress(levelInstance!)
       return clientAdapter!.open(contract) as OpenedContract<UpgradeLevel>
+    },
+  },
+  seed: {
+    description: {
+      en: <SeedEnDescription />,
+      ru: <SeedRuDescription />,
+    },
+    completedDescription: {
+      en: <SeedEnCompletedDescription />,
+      ru: <SeedRuCompletedDescription />,
+    },
+    code: seedCode,
+    revealCode: true,
+    openLevelContract: async (
+      levelInstance: Address,
+      clientAdapter: ContractAdapter,
+    ) => {
+      const contract = await SeedLevel.createFromAddress(levelInstance!)
+      return clientAdapter!.open(contract) as OpenedContract<SeedLevel>
     },
   },
 } as const

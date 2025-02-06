@@ -30,7 +30,8 @@
     "gatekeeper": "ПРИВРАТНИК",
     "bruteforce": "ПЕРЕБОР",
     "tolk": "TOLK",
-    "upgrade": "АПГРЕЙД"
+    "upgrade": "АПГРЕЙД",
+    "seed": "СИД"
   },
   "back": "НАЗАД",
   "completed": "ПРОЙДЕНО",
