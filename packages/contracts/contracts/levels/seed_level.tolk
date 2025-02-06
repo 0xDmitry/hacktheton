@@ -31,7 +31,7 @@ fun saveData() {
     );
 }
 
-// recv_internal is the main function of the contract and is called when it receives a message from other contracts
+// onInternalMessage is the main function of the contract and is called when it receives a message from other contracts
 fun onInternalMessage(myBalance: int, msgValue: int, inMsgFull: cell, inMsgBody: slice) {
     if (inMsgBody.isEndOfSlice()) { // ignore all empty messages
         return;
@@ -86,7 +86,6 @@ fun onInternalMessage(myBalance: int, msgValue: int, inMsgFull: cell, inMsgBody:
 }
 
 // get methods are a means to conveniently read contract data using, for example, HTTP APIs
-// they are marked with method_id
 // note that unlike in many other smart contract VMs, get methods cannot be called by other contracts
 
 get get_locked(): bool {
