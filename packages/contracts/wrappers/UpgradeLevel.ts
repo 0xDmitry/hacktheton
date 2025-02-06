@@ -58,9 +58,14 @@ export class UpgradeLevel implements Contract {
     value: bigint,
   ) {
     await provider.internal(via, {
+      value,
       sendMode: SendMode.PAY_GAS_SEPARATELY,
       body,
-      value: value,
     })
+  }
+
+  async getLocked(provider: ContractProvider) {
+    const { stack } = await provider.get("get_locked", [])
+    return stack.readBoolean()
   }
 }
