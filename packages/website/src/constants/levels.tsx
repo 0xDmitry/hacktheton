@@ -12,6 +12,7 @@ import coinCode from "../../../contracts/contracts/levels/coin_level.tact"
 import gatekeeperCode from "../../../contracts/contracts/levels/gatekeeper_level.tact"
 import bruteforceCode from "../../../contracts/contracts/levels/bruteforce_level.tact"
 import tolkCode from "../../../contracts/contracts/levels/tolk_level.tolk"
+import upgradeCode from "../../../contracts/contracts/levels/upgrade_level.tolk"
 import { IntroductionLevel } from "../../../contracts/wrappers/IntroductionLevel"
 import { DepositLevel } from "../../../contracts/wrappers/DepositLevel"
 import { ScannerLevel } from "../../../contracts/wrappers/ScannerLevel"
@@ -24,6 +25,7 @@ import { CoinLevel } from "../../../contracts/wrappers/CoinLevel"
 import { GatekeeperLevel } from "../../../contracts/wrappers/GatekeeperLevel"
 import { BruteforceLevel } from "../../../contracts/wrappers/BruteforceLevel"
 import { TolkLevel } from "../../../contracts/wrappers/TolkLevel"
+import { UpgradeLevel } from "../../../contracts/wrappers/UpgradeLevel"
 import IntroductionEnDescription from "@/markdown/en/levels/introduction/description.mdx"
 import IntroductionEnCompletedDescription from "@/markdown/en/levels/introduction/completed-description.mdx"
 import IntroductionRuDescription from "@/markdown/ru/levels/introduction/description.mdx"
@@ -72,6 +74,10 @@ import TolkEnDescription from "@/markdown/en/levels/tolk/description.mdx"
 import TolkEnCompletedDescription from "@/markdown/en/levels/tolk/completed-description.mdx"
 import TolkRuDescription from "@/markdown/ru/levels/tolk/description.mdx"
 import TolkRuCompletedDescription from "@/markdown/ru/levels/tolk/completed-description.mdx"
+import UpgradeEnDescription from "@/markdown/en/levels/upgrade/description.mdx"
+import UpgradeEnCompletedDescription from "@/markdown/en/levels/upgrade/completed-description.mdx"
+import UpgradeRuDescription from "@/markdown/ru/levels/upgrade/description.mdx"
+import UpgradeRuCompletedDescription from "@/markdown/ru/levels/upgrade/completed-description.mdx"
 
 export type LevelName =
   | "introduction"
@@ -86,6 +92,7 @@ export type LevelName =
   | "gatekeeper"
   | "bruteforce"
   | "tolk"
+  | "upgrade"
 
 export const levels: LevelName[] = [
   "introduction",
@@ -100,6 +107,7 @@ export const levels: LevelName[] = [
   "gatekeeper",
   "bruteforce",
   "tolk",
+  "upgrade",
 ]
 
 export const levelsConfig = {
@@ -329,6 +337,25 @@ export const levelsConfig = {
     ) => {
       const contract = await TolkLevel.createFromAddress(levelInstance!)
       return clientAdapter!.open(contract) as OpenedContract<TolkLevel>
+    },
+  },
+  upgrade: {
+    description: {
+      en: <UpgradeEnDescription />,
+      ru: <UpgradeRuDescription />,
+    },
+    completedDescription: {
+      en: <UpgradeEnCompletedDescription />,
+      ru: <UpgradeRuCompletedDescription />,
+    },
+    code: upgradeCode,
+    revealCode: true,
+    openLevelContract: async (
+      levelInstance: Address,
+      clientAdapter: ContractAdapter,
+    ) => {
+      const contract = await UpgradeLevel.createFromAddress(levelInstance!)
+      return clientAdapter!.open(contract) as OpenedContract<UpgradeLevel>
     },
   },
 } as const

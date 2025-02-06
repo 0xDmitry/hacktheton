@@ -29,7 +29,8 @@
     "coin": "COIN",
     "gatekeeper": "GATEKEEPER",
     "bruteforce": "BRUTE-FORCE",
-    "tolk": "TOLK"
+    "tolk": "TOLK",
+    "upgrade": "UPGRADE"
   },
   "back": "BACK",
   "completed": "COMPLETED",

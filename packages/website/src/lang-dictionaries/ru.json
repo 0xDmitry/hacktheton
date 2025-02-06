@@ -29,7 +29,8 @@
     "coin": "МОНЕТА",
     "gatekeeper": "ПРИВРАТНИК",
     "bruteforce": "ПЕРЕБОР",
-    "tolk": "TOLK"
+    "tolk": "TOLK",
+    "upgrade": "АПГРЕЙД"
   },
   "back": "НАЗАД",
   "completed": "ПРОЙДЕНО",
