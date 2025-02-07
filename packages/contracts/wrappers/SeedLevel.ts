@@ -63,12 +63,12 @@ export class SeedLevel implements Contract {
   }
 
   async getLocked(provider: ContractProvider) {
-    const { stack } = await provider.get("get_locked", [])
+    const { stack } = await provider.get("locked", [])
     return stack.readBoolean()
   }
 
   async getSeed(provider: ContractProvider) {
-    const { stack } = await provider.get("get_seed", [])
+    const { stack } = await provider.get("seed", [])
     return stack.readBigNumber()
   }
 }

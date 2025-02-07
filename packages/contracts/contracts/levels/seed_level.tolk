@@ -2,19 +2,19 @@ const OP_UNLOCK = "op::unlock"c; // create an opcode from string using the "c" p
 
 // storage variables
 
-global ctx_player: slice;
-global ctx_nonce: int;
-global ctx_locked: bool;
-global ctx_seed: int;
+global ctxPlayer: slice;
+global ctxNonce: int;
+global ctxLocked: bool;
+global ctxSeed: int;
 
 // loadData populates storage variables using stored data
 fun loadData() {
     var ds = getContractData().beginParse();
 
-    ctx_player = ds.loadAddress();
-    ctx_nonce = ds.loadUint(32);
-    ctx_locked = ds.loadBool();
-    ctx_seed = ds.loadUint(256);
+    ctxPlayer = ds.loadAddress();
+    ctxNonce = ds.loadUint(32);
+    ctxLocked = ds.loadBool();
+    ctxSeed = ds.loadUint(256);
 
     ds.assertEndOfSlice();
 }
@@ -23,10 +23,10 @@ fun loadData() {
 fun saveData() {
     setContractData(
         beginCell()
-            .storeSlice(ctx_player)
-            .storeUint(ctx_nonce, 32)
-            .storeBool(ctx_locked)
-            .storeUint(ctx_seed, 256)
+            .storeSlice(ctxPlayer)
+            .storeUint(ctxNonce, 32)
+            .storeBool(ctxLocked)
+            .storeUint(ctxSeed, 256)
         .endCell()
     );
 }
@@ -52,7 +52,7 @@ fun onInternalMessage(myBalance: int, msgValue: int, inMsgFull: cell, inMsgBody:
         var msgBody: cell = beginCell()
             .storeUint(0x6df37b4d, 32)
             .storeRef(beginCell().storeSlice("seed").endCell())
-            .storeBool(!ctx_locked)
+            .storeBool(!ctxLocked)
         .endCell();
         var msg: builder = beginCell()
             .storeUint(0x18, 6)
@@ -70,13 +70,13 @@ fun onInternalMessage(myBalance: int, msgValue: int, inMsgFull: cell, inMsgBody:
 
     if (op == OP_UNLOCK) {
         var guess: int = inMsgBody.loadUint(256);
-        if (ctx_seed == 0) {
-            ctx_seed = random();
+        if (ctxSeed == 0) {
+            ctxSeed = random();
         }
-        randomSetSeed(ctx_seed);
-        ctx_seed = random();
-        if (guess == ctx_seed) {
-            ctx_locked = false;
+        randomSetSeed(ctxSeed);
+        ctxSeed = random();
+        if (guess == ctxSeed) {
+            ctxLocked = false;
         }
         saveData();
         return;
@@ -88,12 +88,12 @@ fun onInternalMessage(myBalance: int, msgValue: int, inMsgFull: cell, inMsgBody:
 // get methods are a means to conveniently read contract data using, for example, HTTP APIs
 // note that unlike in many other smart contract VMs, get methods cannot be called by other contracts
 
-get get_locked(): bool {
+get locked(): bool {
     loadData();
-    return ctx_locked;
+    return ctxLocked;
 }
 
-get get_seed(): int {
+get seed(): int {
     loadData();
-    return ctx_seed;
+    return ctxSeed;
 }

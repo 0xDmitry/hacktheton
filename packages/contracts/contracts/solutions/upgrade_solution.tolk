@@ -2,17 +2,17 @@ const OP_UNLOCK = "op::unlock"c; // create an opcode from string using the "c" p
 
 // storage variables
 
-global ctx_player: slice;
-global ctx_nonce: int;
-global ctx_locked: bool;
+global ctxPlayer: slice;
+global ctxNonce: int;
+global ctxLocked: bool;
 
 // loadData populates storage variables using stored data
 fun loadData() {
     var ds = getContractData().beginParse();
 
-    ctx_player = ds.loadAddress();
-    ctx_nonce = ds.loadUint(32);
-    ctx_locked = ds.loadBool();
+    ctxPlayer = ds.loadAddress();
+    ctxNonce = ds.loadUint(32);
+    ctxLocked = ds.loadBool();
 
     ds.assertEndOfSlice();
 }
@@ -21,9 +21,9 @@ fun loadData() {
 fun saveData() {
     setContractData(
         beginCell()
-            .storeSlice(ctx_player)
-            .storeUint(ctx_nonce, 32)
-            .storeBool(ctx_locked)
+            .storeSlice(ctxPlayer)
+            .storeUint(ctxNonce, 32)
+            .storeBool(ctxLocked)
         .endCell()
     );
 }
@@ -49,7 +49,7 @@ fun onInternalMessage(myBalance: int, msgValue: int, inMsgFull: cell, inMsgBody:
         var msgBody: cell = beginCell()
             .storeUint(0x6df37b4d, 32)
             .storeRef(beginCell().storeSlice("upgrade").endCell())
-            .storeBool(!ctx_locked)
+            .storeBool(!ctxLocked)
         .endCell();
         var msg: builder = beginCell()
             .storeUint(0x18, 6)
@@ -66,7 +66,7 @@ fun onInternalMessage(myBalance: int, msgValue: int, inMsgFull: cell, inMsgBody:
     var op: int = inMsgBody.loadUint(32); // by convention, the first 32 bits of incoming message is the op
 
     if (op == OP_UNLOCK) {
-        ctx_locked = false;
+        ctxLocked = false;
         saveData();
         return;
     }
@@ -77,7 +77,7 @@ fun onInternalMessage(myBalance: int, msgValue: int, inMsgFull: cell, inMsgBody:
 // get methods are a means to conveniently read contract data using, for example, HTTP APIs
 // note that unlike in many other smart contract VMs, get methods cannot be called by other contracts
 
-get get_locked(): bool {
+get locked(): bool {
     loadData();
-    return ctx_locked;
+    return ctxLocked;
 }

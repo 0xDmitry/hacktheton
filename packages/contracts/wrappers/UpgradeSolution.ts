@@ -65,4 +65,9 @@ export class UpgradeSolution implements Contract {
       value: value,
     })
   }
+
+  async getLocked(provider: ContractProvider) {
+    const { stack } = await provider.get("locked", [])
+    return stack.readBoolean()
+  }
 }
