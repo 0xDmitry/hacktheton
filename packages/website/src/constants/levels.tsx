@@ -14,6 +14,7 @@ import bruteforceCode from "../../../contracts/contracts/levels/bruteforce_level
 import tolkCode from "../../../contracts/contracts/levels/tolk_level.tolk"
 import upgradeCode from "../../../contracts/contracts/levels/upgrade_level.tolk"
 import seedCode from "../../../contracts/contracts/levels/seed_level.tolk"
+import logicalCode from "../../../contracts/contracts/levels/logical_level.tolk"
 import { IntroductionLevel } from "../../../contracts/wrappers/IntroductionLevel"
 import { DepositLevel } from "../../../contracts/wrappers/DepositLevel"
 import { ScannerLevel } from "../../../contracts/wrappers/ScannerLevel"
@@ -28,6 +29,7 @@ import { BruteforceLevel } from "../../../contracts/wrappers/BruteforceLevel"
 import { TolkLevel } from "../../../contracts/wrappers/TolkLevel"
 import { UpgradeLevel } from "../../../contracts/wrappers/UpgradeLevel"
 import { SeedLevel } from "../../../contracts/wrappers/SeedLevel"
+import { LogicalLevel } from "../../../contracts/wrappers/LogicalLevel"
 import IntroductionEnDescription from "@/markdown/en/levels/introduction/description.mdx"
 import IntroductionEnCompletedDescription from "@/markdown/en/levels/introduction/completed-description.mdx"
 import IntroductionRuDescription from "@/markdown/ru/levels/introduction/description.mdx"
@@ -84,6 +86,10 @@ import SeedEnDescription from "@/markdown/en/levels/seed/description.mdx"
 import SeedEnCompletedDescription from "@/markdown/en/levels/seed/completed-description.mdx"
 import SeedRuDescription from "@/markdown/ru/levels/seed/description.mdx"
 import SeedRuCompletedDescription from "@/markdown/ru/levels/seed/completed-description.mdx"
+import LogicalEnDescription from "@/markdown/en/levels/logical/description.mdx"
+import LogicalEnCompletedDescription from "@/markdown/en/levels/logical/completed-description.mdx"
+import LogicalRuDescription from "@/markdown/ru/levels/logical/description.mdx"
+import LogicalRuCompletedDescription from "@/markdown/ru/levels/logical/completed-description.mdx"
 
 export type LevelName =
   | "introduction"
@@ -100,6 +106,7 @@ export type LevelName =
   | "tolk"
   | "upgrade"
   | "seed"
+  | "logical"
 
 export const levels: LevelName[] = [
   "introduction",
@@ -116,6 +123,7 @@ export const levels: LevelName[] = [
   "tolk",
   "upgrade",
   "seed",
+  "logical",
 ]
 
 export const levelsConfig = {
@@ -383,6 +391,25 @@ export const levelsConfig = {
     ) => {
       const contract = await SeedLevel.createFromAddress(levelInstance!)
       return clientAdapter!.open(contract) as OpenedContract<SeedLevel>
+    },
+  },
+  logical: {
+    description: {
+      en: <LogicalEnDescription />,
+      ru: <LogicalRuDescription />,
+    },
+    completedDescription: {
+      en: <LogicalEnCompletedDescription />,
+      ru: <LogicalRuCompletedDescription />,
+    },
+    code: logicalCode,
+    revealCode: true,
+    openLevelContract: async (
+      levelInstance: Address,
+      clientAdapter: ContractAdapter,
+    ) => {
+      const contract = await LogicalLevel.createFromAddress(levelInstance!)
+      return clientAdapter!.open(contract) as OpenedContract<LogicalLevel>
     },
   },
 } as const

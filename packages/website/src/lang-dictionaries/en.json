@@ -31,7 +31,8 @@
     "bruteforce": "BRUTE-FORCE",
     "tolk": "TOLK",
     "upgrade": "UPGRADE",
-    "seed": "SEED"
+    "seed": "SEED",
+    "logical": "LOGICAL"
   },
   "back": "BACK",
   "completed": "COMPLETED",

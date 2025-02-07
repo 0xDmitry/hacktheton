@@ -31,7 +31,8 @@
     "bruteforce": "ПЕРЕБОР",
     "tolk": "TOLK",
     "upgrade": "АПГРЕЙД",
-    "seed": "СИД"
+    "seed": "СИД",
+    "logical": "ПОСЛЕДОВАТЕЛЬНОЕ"
   },
   "back": "НАЗАД",
   "completed": "ПРОЙДЕНО",
