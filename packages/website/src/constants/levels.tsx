@@ -96,7 +96,6 @@ import AccessEnDescription from "@/markdown/en/levels/access/description.mdx"
 import AccessEnCompletedDescription from "@/markdown/en/levels/access/completed-description.mdx"
 import AccessRuDescription from "@/markdown/ru/levels/access/description.mdx"
 import AccessRuCompletedDescription from "@/markdown/ru/levels/access/completed-description.mdx"
-import { access } from "fs"
 
 export type LevelName =
   | "introduction"
@@ -135,6 +134,8 @@ export const levels: LevelName[] = [
   "access",
 ]
 
+export type SourceLanguage = "tact" | "func" | "tolk"
+
 export const levelsConfig = {
   introduction: {
     description: {
@@ -146,6 +147,7 @@ export const levelsConfig = {
       ru: <IntroductionRuCompletedDescription />,
     },
     code: introductionCode,
+    lang: "tact",
     revealCode: false,
     openLevelContract: async (
       levelInstance: Address,
@@ -165,6 +167,7 @@ export const levelsConfig = {
       ru: <DepositRuCompletedDescription />,
     },
     code: depositCode,
+    lang: "tact",
     revealCode: true,
     openLevelContract: async (
       levelInstance: Address,
@@ -184,6 +187,7 @@ export const levelsConfig = {
       ru: <ScannerRuCompletedDescription />,
     },
     code: scannerCode,
+    lang: "tact",
     revealCode: true,
     openLevelContract: async (
       levelInstance: Address,
@@ -203,6 +207,7 @@ export const levelsConfig = {
       ru: <BounceRuCompletedDescription />,
     },
     code: bounceCode,
+    lang: "tact",
     revealCode: true,
     openLevelContract: async (
       levelInstance: Address,
@@ -222,6 +227,7 @@ export const levelsConfig = {
       ru: <IntruderRuCompletedDescription />,
     },
     code: intruderCode,
+    lang: "tact",
     revealCode: true,
     openLevelContract: async (
       levelInstance: Address,
@@ -241,6 +247,7 @@ export const levelsConfig = {
       ru: <PartialRuCompletedDescription />,
     },
     code: partialCode,
+    lang: "tact",
     revealCode: true,
     openLevelContract: async (
       levelInstance: Address,
@@ -260,6 +267,7 @@ export const levelsConfig = {
       ru: <PeekRuCompletedDescription />,
     },
     code: peekCode,
+    lang: "tact",
     revealCode: true,
     openLevelContract: async (
       levelInstance: Address,
@@ -279,6 +287,7 @@ export const levelsConfig = {
       ru: <SwapRuCompletedDescription />,
     },
     code: swapCode,
+    lang: "tact",
     revealCode: true,
     openLevelContract: async (
       levelInstance: Address,
@@ -298,6 +307,7 @@ export const levelsConfig = {
       ru: <CoinRuCompletedDescription />,
     },
     code: coinCode,
+    lang: "tact",
     revealCode: true,
     openLevelContract: async (
       levelInstance: Address,
@@ -317,6 +327,7 @@ export const levelsConfig = {
       ru: <GatekeeperRuCompletedDescription />,
     },
     code: gatekeeperCode,
+    lang: "tact",
     revealCode: true,
     openLevelContract: async (
       levelInstance: Address,
@@ -336,6 +347,7 @@ export const levelsConfig = {
       ru: <BruteforceRuCompletedDescription />,
     },
     code: bruteforceCode,
+    lang: "tact",
     revealCode: true,
     openLevelContract: async (
       levelInstance: Address,
@@ -355,6 +367,7 @@ export const levelsConfig = {
       ru: <TolkRuCompletedDescription />,
     },
     code: tolkCode,
+    lang: "tolk",
     revealCode: true,
     openLevelContract: async (
       levelInstance: Address,
@@ -374,6 +387,7 @@ export const levelsConfig = {
       ru: <UpgradeRuCompletedDescription />,
     },
     code: upgradeCode,
+    lang: "tolk",
     revealCode: true,
     openLevelContract: async (
       levelInstance: Address,
@@ -393,6 +407,7 @@ export const levelsConfig = {
       ru: <SeedRuCompletedDescription />,
     },
     code: seedCode,
+    lang: "tolk",
     revealCode: true,
     openLevelContract: async (
       levelInstance: Address,
@@ -412,6 +427,7 @@ export const levelsConfig = {
       ru: <LogicalRuCompletedDescription />,
     },
     code: logicalCode,
+    lang: "tolk",
     revealCode: true,
     openLevelContract: async (
       levelInstance: Address,
@@ -431,6 +447,7 @@ export const levelsConfig = {
       ru: <AccessRuCompletedDescription />,
     },
     code: accessCode,
+    lang: "func",
     revealCode: true,
     openLevelContract: async (
       levelInstance: Address,
