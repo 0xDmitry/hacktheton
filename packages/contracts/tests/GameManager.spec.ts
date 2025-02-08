@@ -18,6 +18,7 @@ import { TolkLevelFactory } from "../wrappers/TolkLevelFactory"
 import { UpgradeLevelFactory } from "../wrappers/UpgradeLevelFactory"
 import { SeedLevelFactory } from "../wrappers/SeedLevelFactory"
 import { LogicalLevelFactory } from "../wrappers/LogicalLevelFactory"
+import { AccessLevelFactory } from "../wrappers/AccessLevelFactory"
 import { IntroductionLevel } from "../wrappers/IntroductionLevel"
 import { DepositLevel } from "../wrappers/DepositLevel"
 import { ScannerLevel } from "../wrappers/ScannerLevel"
@@ -35,6 +36,7 @@ import { TolkLevel } from "../wrappers/TolkLevel"
 import { UpgradeLevel } from "../wrappers/UpgradeLevel"
 import { SeedLevel } from "../wrappers/SeedLevel"
 import { LogicalLevel } from "../wrappers/LogicalLevel"
+import { AccessLevel } from "../wrappers/AccessLevel"
 import { PlayerStats } from "../wrappers/PlayerStats"
 import { LogicalSolution } from "../wrappers/LogicalSolution"
 import "@ton/test-utils"
@@ -3672,14 +3674,279 @@ describe("GameManager", () => {
       success: true,
     })
 
-    const tx = await logicalSolution.send(
+    const solveResult = await logicalSolution.send(
       player.getSender(),
       beginCell().storeAddress(level.address).endCell(),
       toNano("0.05"),
     )
 
-    expect(tx.transactions).toHaveTransaction({
+    expect(solveResult.transactions).toHaveTransaction({
       from: logicalSolution.address,
+      to: level.address,
+      success: true,
+    })
+
+    checkLevelResult = await gameManager.send(
+      player.getSender(),
+      {
+        value: toNano("0.05"),
+      },
+      {
+        $$type: "CheckLevel",
+        name: levelName,
+      },
+    )
+
+    expect(checkLevelResult.transactions).toHaveTransaction({
+      from: player.address,
+      to: gameManager.address,
+      success: true,
+    })
+
+    expect(checkLevelResult.transactions).toHaveTransaction({
+      from: gameManager.address,
+      to: playerStats.address,
+      success: true,
+    })
+
+    expect(checkLevelResult.transactions).toHaveTransaction({
+      from: playerStats.address,
+      to: level.address,
+      success: true,
+    })
+
+    expect(checkLevelResult.transactions).toHaveTransaction({
+      from: level.address,
+      to: playerStats.address,
+      success: true,
+    })
+
+    expect(checkLevelResult.transactions).toHaveTransaction({
+      from: playerStats.address,
+      to: player.address,
+      success: true,
+    })
+
+    levels = await playerStats.getLevels()
+    key = sha256_sync(levelName)
+    isLevelCompleted = levels?.get(
+      BigInt("0x" + key.toString("hex")),
+    )?.completed
+    expect(isLevelCompleted).toEqual(true)
+  })
+
+  it("check access level", async () => {
+    const levelName = "access"
+    const accessLevelFactory = blockchain.openContract(
+      await AccessLevelFactory.fromInit(
+        gameManager.address,
+        await compile("AccessLevel"),
+      ),
+    )
+
+    const deployResult = await accessLevelFactory.send(
+      deployer.getSender(),
+      {
+        value: toNano("0.05"),
+      },
+      {
+        $$type: "Deploy",
+        queryId: 0n,
+      },
+    )
+
+    expect(deployResult.transactions).toHaveTransaction({
+      from: deployer.address,
+      to: accessLevelFactory.address,
+      deploy: true,
+      success: true,
+    })
+
+    const registerResult = await gameManager.send(
+      owner.getSender(),
+      {
+        value: toNano("0.05"),
+      },
+      {
+        $$type: "RegisterLevel",
+        name: levelName,
+        factory: accessLevelFactory.address,
+      },
+    )
+
+    expect(registerResult.transactions).toHaveTransaction({
+      from: owner.address,
+      to: gameManager.address,
+      success: true,
+    })
+
+    expect(registerResult.transactions).toHaveTransaction({
+      from: gameManager.address,
+      to: owner.address,
+      success: true,
+    })
+
+    const createLevelResult = await gameManager.send(
+      player.getSender(),
+      {
+        value: toNano("0.1"),
+      },
+      {
+        $$type: "CreateLevel",
+        name: levelName,
+      },
+    )
+
+    expect(createLevelResult.transactions).toHaveTransaction({
+      from: player.address,
+      to: gameManager.address,
+      success: true,
+    })
+
+    const playerStats = blockchain.openContract(
+      await PlayerStats.fromInit(gameManager.address, player.address),
+    )
+
+    expect(createLevelResult.transactions).toHaveTransaction({
+      from: gameManager.address,
+      to: playerStats.address,
+      deploy: true,
+      success: true,
+    })
+
+    expect(createLevelResult.transactions).toHaveTransaction({
+      from: playerStats.address,
+      to: accessLevelFactory.address,
+      success: true,
+    })
+
+    const level = blockchain.openContract(
+      await AccessLevel.createFromConfig(
+        {
+          player: player.address,
+          nonce: 0n,
+          owner: accessLevelFactory.address,
+          locked: true,
+        },
+        await compile("AccessLevel"),
+      ),
+    )
+
+    expect(createLevelResult.transactions).toHaveTransaction({
+      from: accessLevelFactory.address,
+      to: level.address,
+      deploy: true,
+      success: true,
+    })
+
+    expect(createLevelResult.transactions).toHaveTransaction({
+      from: accessLevelFactory.address,
+      to: playerStats.address,
+      success: true,
+    })
+
+    expect(createLevelResult.transactions).toHaveTransaction({
+      from: playerStats.address,
+      to: player.address,
+      success: true,
+    })
+
+    await gameManager.send(
+      player.getSender(),
+      {
+        value: toNano("0.05"),
+      },
+      {
+        $$type: "CheckLevel",
+        name: levelName,
+      },
+    )
+
+    let checkLevelResult = await gameManager.send(
+      player.getSender(),
+      {
+        value: toNano("0.05"),
+      },
+      {
+        $$type: "CheckLevel",
+        name: levelName,
+      },
+    )
+
+    expect(checkLevelResult.transactions).toHaveTransaction({
+      from: player.address,
+      to: gameManager.address,
+      success: true,
+    })
+
+    expect(checkLevelResult.transactions).toHaveTransaction({
+      from: gameManager.address,
+      to: playerStats.address,
+      success: true,
+    })
+
+    expect(checkLevelResult.transactions).toHaveTransaction({
+      from: playerStats.address,
+      to: level.address,
+      success: true,
+    })
+
+    expect(checkLevelResult.transactions).toHaveTransaction({
+      from: level.address,
+      to: playerStats.address,
+      success: true,
+    })
+
+    expect(checkLevelResult.transactions).toHaveTransaction({
+      from: playerStats.address,
+      to: player.address,
+      success: true,
+    })
+
+    let levels = await playerStats.getLevels()
+    let key = sha256_sync(levelName)
+    let isLevelCompleted = levels?.get(
+      BigInt("0x" + key.toString("hex")),
+    )?.completed
+    expect(isLevelCompleted).toEqual(false)
+
+    // Solve level
+
+    const changeNonceResult = await level.send(
+      player.getSender(),
+      beginCell().storeUint(0x8caa87bd, 32).storeUint(9999, 32).endCell(),
+      toNano("0.05"),
+    )
+
+    expect(changeNonceResult.transactions).toHaveTransaction({
+      from: player.address,
+      to: level.address,
+      success: true,
+    })
+
+    const changeOwnerResult = await level.send(
+      player.getSender(),
+      beginCell()
+        .storeUint(0xf1eef33c, 32)
+        .storeAddress(player.address)
+        .endCell(),
+      toNano("0.05"),
+    )
+
+    expect(changeOwnerResult.transactions).toHaveTransaction({
+      from: player.address,
+      to: level.address,
+      success: true,
+    })
+
+    const unlockResult = await level.send(
+      player.getSender(),
+      beginCell().storeUint(0xf0fd50bb, 32).endCell(),
+      toNano("0.05"),
+    )
+
+    expect(unlockResult.transactions).toHaveTransaction({
+      from: player.address,
       to: level.address,
       success: true,
     })

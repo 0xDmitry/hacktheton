@@ -32,7 +32,8 @@
     "tolk": "TOLK",
     "upgrade": "UPGRADE",
     "seed": "SEED",
-    "logical": "LOGICAL"
+    "logical": "LOGICAL",
+    "access": "ACCESS"
   },
   "back": "BACK",
   "completed": "COMPLETED",
