@@ -19,7 +19,6 @@
     "@ton/crypto": "^3.2.0",
     "ts-jest": "^29.2.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.5.3",
-    "@tact-lang/compiler": "^1.5.3"
+    "typescript": "^5.5.3"
   }
 }
