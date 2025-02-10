@@ -12,6 +12,7 @@
     "@mdx-js/loader": "^3.0.1",
     "@mdx-js/react": "^3.0.1",
     "@next/mdx": "^14.2.6",
+    "@tanstack/react-table": "^8.20.6",
     "@ton-api/client": "^0.1.0",
     "@ton-api/ton-adapter": "^0.1.0",
     "@ton/core": "^0.59.0",

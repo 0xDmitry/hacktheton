@@ -1,11 +1,14 @@
 export const ArrowDown = () => (
   <svg
-    viewBox="0 0 320 512"
-    height="16px"
-    width="16px"
-    xmlns="http://www.w3.org/2000/svg"
+    stroke="currentColor"
     fill="currentColor"
+    strokeWidth="0"
+    viewBox="0 0 24 24"
+    height="20px"
+    width="20px"
+    xmlns="http://www.w3.org/2000/svg"
   >
-    <path d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"></path>
+    <path fill="none" d="M0 0h24v24H0V0z"></path>
+    <path d="M7.41 8.59 12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path>
   </svg>
 )
