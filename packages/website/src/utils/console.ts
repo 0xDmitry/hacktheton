@@ -8,7 +8,6 @@ import {
   beginCell,
   Builder,
 } from "@ton/core"
-import { TonConnectUI } from "@tonconnect/ui-react"
 
 declare global {
   interface Window {
@@ -18,7 +17,6 @@ declare global {
     toNano: (src: number | string | bigint) => bigint
     fromNano: (src: bigint | number | string) => string
     Address: typeof Address
-    tonConnectUI: TonConnectUI
     beginCell: () => Builder
   }
 }
@@ -31,14 +29,25 @@ export function setupConsoleUtils() {
 
   window.help = function () {
     console.table({
-      player: {
+      "player: Sender": {
         description: "current player (if wallet connected)",
       },
-      contract: {
+      "player.send({value: bigint, to: Address, body?: Maybe<Cell>, sendMode?: Maybe<SendMode>, bounce?: Maybe<boolean>, init?: Maybe<StateInit>})":
+        {
+          description: "send custom transaction to arbitrary address",
+        },
+      "contract: Contract": {
         description: "current level contract instance (if created)",
       },
-      "contract.send(from: Address, args: { value: bigint, bounce?: boolean | null | undefined }, message: null | string | Message)":
-        { description: "send transaction to the current level contract" },
+      "contract.send(via: Sender, args: { value: bigint, bounce?: boolean | null | undefined }, message: null | string | Message)":
+        {
+          description:
+            "send transaction to the current level contract (Tact levels)",
+        },
+      "contract.send(via: Sender, body: Cell, value: bigint)": {
+        description:
+          "send transaction to the current level contract (Func/Tolk levels)",
+      },
       "toNano(ton: number | string | bigint): bigint": {
         description: "convert ton units to nano",
       },
@@ -48,11 +57,6 @@ export function setupConsoleUtils() {
       "Address.parse(address: string): Address": {
         description: "parse Address from string",
       },
-      "tonConnectUI.sendTransaction(tx: SendTransactionRequest, options?: ActionConfiguration)":
-        {
-          description:
-            "send custom transaction to arbitrary address, for details visit https://www.npmjs.com/package/@tonconnect/ui",
-        },
       "beginCell(): Builder": { description: "start building a cell" },
     })
   }
