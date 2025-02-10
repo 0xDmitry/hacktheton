@@ -33,7 +33,8 @@
     "upgrade": "UPGRADE",
     "seed": "SEED",
     "logical": "LOGICAL",
-    "access": "ACCESS"
+    "access": "ACCESS",
+    "token": "TOKEN"
   },
   "back": "BACK",
   "completed": "COMPLETED",
