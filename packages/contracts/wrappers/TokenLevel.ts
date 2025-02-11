@@ -70,10 +70,10 @@ export class TokenLevel implements Contract {
     return stack.readAddress()
   }
 
-  async getBalance(provider: ContractProvider, account: Address) {
+  async getBalanceOf(provider: ContractProvider, account: Address) {
     let builder = new TupleBuilder()
     builder.writeAddress(account)
-    const { stack } = await provider.get("balance", builder.build())
+    const { stack } = await provider.get("balanceOf", builder.build())
     return stack.readBigNumber()
   }
 

@@ -48,7 +48,7 @@ fun getBalance(balances: cell, account: slice): int {
 fun setBalance(mutate self: cell, account: slice, amount: int): void {
     // will throw if amount is negative
     var isSuccess: bool = self.prefixDictSet(account.getRemainingBitsCount(), account, beginCell().storeUint(amount, 256).endCell().beginParse());
-    assert(isSuccess, 502);
+    assert(isSuccess, 501);
 }
 
 fun mint(balances: cell, to: slice, amount: int): cell {
@@ -67,7 +67,7 @@ fun transfer(balances: cell, from: slice, to: slice, amount: int): cell {
     fromBalance -= amount;
     toBalance += amount;
 
-    assert(fromBalance > 0, 503);
+    assert(fromBalance > 0, 502);
   
     balances.setBalance(from, fromBalance);
     balances.setBalance(to, toBalance);
@@ -112,7 +112,7 @@ fun onInternalMessage(myBalance: int, msgValue: int, inMsgFull: cell, inMsgBody:
     var op: int = inMsgBody.loadUint(32); // by convention, the first 32 bits of incoming message is the op
 
     if (op == OP_MINT) {
-        assert(isSliceBitsEqual(senderAddress, ctxOwner), 501);
+        assert(isSliceBitsEqual(senderAddress, ctxOwner), 503);
         var to: slice = inMsgBody.loadAddress();
         var amount: int = inMsgBody.loadInt(256);
         ctxTotalSupply += amount;
@@ -140,7 +140,7 @@ get owner(): slice {
     return ctxOwner;
 }
 
-get balance(account: slice): int {
+get balanceOf(account: slice): int {
     loadData();
     return getBalance(ctxBalances, account);
 }
