@@ -34,7 +34,8 @@
     "seed": "SEED",
     "logical": "LOGICAL",
     "access": "ACCESS",
-    "token": "TOKEN"
+    "token": "TOKEN",
+    "jackpot": "JACKPOT"
   },
   "back": "BACK",
   "completed": "COMPLETED",
