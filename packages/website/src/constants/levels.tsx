@@ -18,6 +18,7 @@ import logicalCode from "../../../contracts/contracts/levels/logical_level.tolk"
 import accessCode from "../../../contracts/contracts/levels/access_level.fc"
 import tokenCode from "../../../contracts/contracts/levels/token_level.tolk"
 import jackpotCode from "../../../contracts/contracts/levels/jackpot_level.fc"
+import proxyCode from "../../../contracts/contracts/levels/proxy_level.tolk"
 import { IntroductionLevel } from "../../../contracts/wrappers/IntroductionLevel"
 import { DepositLevel } from "../../../contracts/wrappers/DepositLevel"
 import { ScannerLevel } from "../../../contracts/wrappers/ScannerLevel"
@@ -36,6 +37,7 @@ import { LogicalLevel } from "../../../contracts/wrappers/LogicalLevel"
 import { AccessLevel } from "../../../contracts/wrappers/AccessLevel"
 import { TokenLevel } from "../../../contracts/wrappers/TokenLevel"
 import { JackpotLevel } from "../../../contracts/wrappers/JackpotLevel"
+import { ProxyLevel } from "../../../contracts/wrappers/ProxyLevel"
 import IntroductionEnDescription from "@/markdown/en/levels/introduction/description.mdx"
 import IntroductionEnCompletedDescription from "@/markdown/en/levels/introduction/completed-description.mdx"
 import IntroductionRuDescription from "@/markdown/ru/levels/introduction/description.mdx"
@@ -108,6 +110,10 @@ import JackpotEnDescription from "@/markdown/en/levels/jackpot/description.mdx"
 import JackpotEnCompletedDescription from "@/markdown/en/levels/jackpot/completed-description.mdx"
 import JackpotRuDescription from "@/markdown/ru/levels/jackpot/description.mdx"
 import JackpotRuCompletedDescription from "@/markdown/ru/levels/jackpot/completed-description.mdx"
+import ProxyEnDescription from "@/markdown/en/levels/proxy/description.mdx"
+import ProxyEnCompletedDescription from "@/markdown/en/levels/proxy/completed-description.mdx"
+import ProxyRuDescription from "@/markdown/ru/levels/proxy/description.mdx"
+import ProxyRuCompletedDescription from "@/markdown/ru/levels/proxy/completed-description.mdx"
 
 export type LevelName =
   | "introduction"
@@ -128,6 +134,7 @@ export type LevelName =
   | "access"
   | "token"
   | "jackpot"
+  | "proxy"
 
 export const levels: LevelName[] = [
   "introduction",
@@ -148,6 +155,7 @@ export const levels: LevelName[] = [
   "access",
   "token",
   "jackpot",
+  "proxy",
 ]
 
 export type SourceLanguage = "tact" | "func" | "tolk"
@@ -511,6 +519,26 @@ export const levelsConfig = {
     ) => {
       const contract = await JackpotLevel.createFromAddress(levelInstance!)
       return clientAdapter!.open(contract) as OpenedContract<JackpotLevel>
+    },
+  },
+  proxy: {
+    description: {
+      en: <ProxyEnDescription />,
+      ru: <ProxyRuDescription />,
+    },
+    completedDescription: {
+      en: <ProxyEnCompletedDescription />,
+      ru: <ProxyRuCompletedDescription />,
+    },
+    code: proxyCode,
+    lang: "tolk",
+    revealCode: true,
+    openLevelContract: async (
+      levelInstance: Address,
+      clientAdapter: ContractAdapter,
+    ) => {
+      const contract = await ProxyLevel.createFromAddress(levelInstance!)
+      return clientAdapter!.open(contract) as OpenedContract<ProxyLevel>
     },
   },
 } as const

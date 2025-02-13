@@ -35,7 +35,8 @@
     "logical": "LOGICAL",
     "access": "ACCESS",
     "token": "TOKEN",
-    "jackpot": "JACKPOT"
+    "jackpot": "JACKPOT",
+    "proxy": "PROXY"
   },
   "back": "BACK",
   "completed": "COMPLETED",
