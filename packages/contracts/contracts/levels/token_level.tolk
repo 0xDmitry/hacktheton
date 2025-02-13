@@ -47,7 +47,7 @@ fun getBalance(balances: cell, account: slice): int {
 
 fun setBalance(mutate self: cell, account: slice, amount: int): void {
     // will throw if amount is negative
-    var isSuccess: bool = self.prefixDictSet(account.getRemainingBitsCount(), account, beginCell().storeUint(amount, 256).endCell().beginParse());
+    val isSuccess: bool = self.prefixDictSet(account.getRemainingBitsCount(), account, beginCell().storeUint(amount, 256).endCell().beginParse());
     assert(isSuccess, 501);
 }
 
@@ -81,23 +81,25 @@ fun onInternalMessage(myBalance: int, msgValue: int, inMsgFull: cell, inMsgBody:
     }
 
     var cs: slice = inMsgFull.beginParse();
-    var flags: int = cs.loadUint(4);
+    val flags: int = cs.loadUint(4);
     if (flags & 1) { // ignore all bounced messages
         return;
     }
-    var senderAddress: slice = cs.loadAddress();
+    val senderAddress: slice = cs.loadAddress();
 
     loadData(); // here we populate the storage variables
 
+    val op: int = inMsgBody.loadUint(32); // by convention, the first 32 bits of incoming message is the op
+
     // receive "check" message
-    if (sliceHash(inMsgBody) == 0xb92ab1b3504a092e6e10b90beb85a7ceb990452ba73c09375bf2dd2a56cbcf7f) {
+    if (isSliceBitsEqual(inMsgBody, "check")) {
         // send CheckLevelResult msg
-        var msgBody: cell = beginCell()
+        val msgBody: cell = beginCell()
             .storeUint(0x6df37b4d, 32)
             .storeRef(beginCell().storeSlice("token").endCell())
             .storeBool(getBalance(ctxBalances, ctxPlayer) == ctxTotalSupply)
         .endCell();
-        var msg: builder = beginCell()
+        val msg: builder = beginCell()
             .storeUint(0x18, 6)
             .storeSlice(senderAddress)
             .storeCoins(0)
@@ -109,12 +111,10 @@ fun onInternalMessage(myBalance: int, msgValue: int, inMsgFull: cell, inMsgBody:
         return;
     }
 
-    var op: int = inMsgBody.loadUint(32); // by convention, the first 32 bits of incoming message is the op
-
     if (op == OP_MINT) {
         assert(isSliceBitsEqual(senderAddress, ctxOwner), 503);
-        var to: slice = inMsgBody.loadAddress();
-        var amount: int = inMsgBody.loadInt(256);
+        val to: slice = inMsgBody.loadAddress();
+        val amount: int = inMsgBody.loadInt(256);
         ctxTotalSupply += amount;
         ctxBalances = mint(ctxBalances, to, amount);
         saveData();
@@ -122,8 +122,8 @@ fun onInternalMessage(myBalance: int, msgValue: int, inMsgFull: cell, inMsgBody:
     }
 
     if (op == OP_TRANSFER) {
-        var to: slice = inMsgBody.loadAddress();
-        var amount: int = inMsgBody.loadInt(256);
+        val to: slice = inMsgBody.loadAddress();
+        val amount: int = inMsgBody.loadInt(256);
         ctxBalances = transfer(ctxBalances, senderAddress, to, amount);
         saveData();
         return;

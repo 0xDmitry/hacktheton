@@ -12,7 +12,7 @@ import {
 export type SeedLevelConfig = {
   player: Address
   nonce: bigint
-  locked: Boolean
+  locked: boolean
   seed: bigint
 }
 

@@ -12,7 +12,7 @@ import {
 export type LogicalLevelConfig = {
   player: Address
   nonce: bigint
-  locked: Boolean
+  locked: boolean
   prevLogicalTime: bigint
   logicalTimeDiff: bigint
 }

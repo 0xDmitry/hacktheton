@@ -13,7 +13,7 @@ export type AccessLevelConfig = {
   player: Address
   nonce: bigint
   owner: Address
-  locked: Boolean
+  locked: boolean
 }
 
 export function accessLevelConfigToCell(config: AccessLevelConfig): Cell {

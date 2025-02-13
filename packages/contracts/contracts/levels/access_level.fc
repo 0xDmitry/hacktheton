@@ -35,8 +35,8 @@ global int ctx_locked;
     );
 }
 
-() check_owner() {
-    throw_unless(501, equal_slice_bits(ctx_player, ctx_owner));
+() check_owner(slice sender) {
+    throw_unless(501, equal_slice_bits(sender, ctx_owner));
 }
 
 ;; recv_internal is the main function of the contract and is called when it receives a message from other contracts
@@ -54,8 +54,10 @@ global int ctx_locked;
 
     load_data(); ;; here we populate the storage variables
 
+    int op = in_msg_body~load_uint(32); ;; by convention, the first 32 bits of incoming message is the op
+
     ;; receive "check" message
-    if (slice_hash(in_msg_body) == 0xb92ab1b3504a092e6e10b90beb85a7ceb990452ba73c09375bf2dd2a56cbcf7f) {
+    if (equal_slice_bits(in_msg_body, "check")) {
         ;; send CheckLevelResult msg
         cell msg_body = begin_cell()
             .store_uint(0x6df37b4d, 32)
@@ -74,8 +76,6 @@ global int ctx_locked;
         return ();
     }
 
-    int op = in_msg_body~load_uint(32); ;; by convention, the first 32 bits of incoming message is the op
-
     if (op == op::unlock) {
         ctx_locked = ~ equal_slice_bits(ctx_player, ctx_owner);
         save_data();
@@ -83,7 +83,7 @@ global int ctx_locked;
     }
 
     if (op == op::change_owner) {
-        check_owner();
+        check_owner(sender_address);
         throw_unless(502, ctx_nonce == 9999);
         ctx_owner = in_msg_body~load_msg_addr();
         save_data();

@@ -45,8 +45,9 @@ global cell ctx_balances;
 
     load_data(); ;; here we populate the storage variables
 
-    ;; receive "check" message
-    if (slice_hash(in_msg_body) == 0xb92ab1b3504a092e6e10b90beb85a7ceb990452ba73c09375bf2dd2a56cbcf7f) {
+    int op = in_msg_body~load_uint(32); ;; by convention, the first 32 bits of incoming message is the op
+
+    if (equal_slice_bits(in_msg_body, "check")) { ;; receive "check" message
         ;; send CheckLevelResult msg
         cell msg_body = begin_cell()
             .store_uint(0x6df37b4d, 32)
@@ -64,8 +65,6 @@ global cell ctx_balances;
         send_raw_message(msg.end_cell(), 64);
         return ();
     }
-
-    int op = in_msg_body~load_uint(32); ;; by convention, the first 32 bits of incoming message is the op
 
     if (op == 0) { ;; deposit
         int fee = 10000000;

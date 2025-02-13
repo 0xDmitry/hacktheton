@@ -12,7 +12,7 @@ import {
 export type UpgradeLevelConfig = {
   player: Address
   nonce: bigint
-  locked: Boolean
+  locked: boolean
 }
 
 export function upgradeLevelConfigToCell(config: UpgradeLevelConfig): Cell {

@@ -12,7 +12,7 @@ import {
 export type TolkLevelConfig = {
   player: Address
   nonce: bigint
-  locked: Boolean
+  locked: boolean
 }
 
 export function tolkLevelConfigToCell(config: TolkLevelConfig): Cell {
