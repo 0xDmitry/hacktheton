@@ -8,6 +8,7 @@ import {
   PaginationState,
   useReactTable,
 } from "@tanstack/react-table"
+import { getLangDictionary } from "@/utils/lang-dictionary"
 
 export const LeaderboardTable = ({
   playersList,
@@ -20,6 +21,8 @@ export const LeaderboardTable = ({
   }[]
   locale: Locale
 }) => {
+  const langDictionary = getLangDictionary(locale)
+
   const columnHelper = createColumnHelper<{
     rank: number
     name: string
@@ -36,18 +39,22 @@ export const LeaderboardTable = ({
     columns: [
       columnHelper.accessor("rank", {
         header: () => (
-          <span className="text-foreground tracking-wide">RANK</span>
+          <span className="text-foreground tracking-wide">
+            {langDictionary.page.leaderboard.rank}
+          </span>
         ),
       }),
       columnHelper.accessor("name", {
         header: () => (
-          <span className="text-foreground tracking-wide">NAME</span>
+          <span className="text-foreground tracking-wide">
+            {langDictionary.page.leaderboard.name}
+          </span>
         ),
       }),
       columnHelper.accessor("levels", {
         header: () => (
           <span className="text-foreground tracking-wide">
-            LEVELS COMPLETED
+            {langDictionary.page.leaderboard.levelsCompleted}
           </span>
         ),
       }),
@@ -62,15 +69,15 @@ export const LeaderboardTable = ({
 
   if (playersList.length === 0) {
     return (
-      <div className="flex justify-center items-center">
-        Nobody has added their results to the table yet
+      <div className="grow text-center">
+        {langDictionary.page.leaderboard.noTableResults}
       </div>
     )
   }
 
   return (
-    <div className="bg-backgroundLight border border-backgroundDark mb-9">
-      <table className="text-white divide-y divide-backgroundDark w-full border-b border-backgroundDark">
+    <div className="grow mb-9 bg-backgroundLight border border-backgroundDark">
+      <table className="w-full text-white divide-y divide-backgroundDark border-b border-backgroundDark">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
@@ -97,7 +104,7 @@ export const LeaderboardTable = ({
           ))}
         </tbody>
       </table>
-      <div className="flex p-2 items-center justify-around">
+      <div className="flex items-center justify-between py-2 px-4 sm:px-10">
         <div className="flex gap-6">
           <div className="flex gap-3 text-xl">
             <button
@@ -131,14 +138,16 @@ export const LeaderboardTable = ({
           </div>
 
           <div className="flex gap-2 items-center">
-            <p>Page</p>
+            <p className="hidden sm:block">
+              {langDictionary.page.leaderboard.page}
+            </p>
             <p>
-              {table.getState().pagination.pageIndex + 1} of{" "}
+              {table.getState().pagination.pageIndex + 1}{" "}
+              {langDictionary.page.leaderboard.of}{" "}
               {table.getPageCount().toLocaleString()}
             </p>
           </div>
         </div>
-
         <div>
           <select
             className="bg-background p-2 focus:outline-none cursor-pointer border-r-8 border-background hover:bg-foreground hover:border-foreground hover:text-background"
@@ -149,7 +158,7 @@ export const LeaderboardTable = ({
           >
             {[10, 20, 30, 40, 50].map((pageSize) => (
               <option key={pageSize} value={pageSize}>
-                Show {pageSize}
+                {langDictionary.page.leaderboard.show} {pageSize}
               </option>
             ))}
           </select>

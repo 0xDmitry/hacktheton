@@ -33,23 +33,15 @@ export default function LeaderboardPage({
   )
 
   const rankedPlayersList = useMemo(() => {
-    const sortedList = playersMock.sort((a, b) => b.levels - a.levels)
-
-    let rank = 1
-
-    return sortedList.map((player, index, array) => {
-      const result = {
-        rank,
-        name: player.name,
-        levels: player.levels,
-      }
-
-      if (index < array.length - 1 && player.levels > array[index + 1].levels) {
-        rank++
-      }
-
-      return result
-    })
+    return playersMock
+      .sort((a, b) => b.levels - a.levels)
+      .map((player, index) => {
+        return {
+          rank: ++index,
+          name: player.name,
+          levels: player.levels,
+        }
+      })
   }, [])
 
   return (
@@ -64,36 +56,36 @@ export default function LeaderboardPage({
             <div>{langDictionary.back}</div>
           </Link>
           <TypewriterText
-            className="flex justify-end items-center flex-grow p-4 border-b-2 border-foreground text-3xl"
-            text={"LEADERBOARD"}
+            className="flex justify-end items-center flex-grow p-4 border-b-2 border-foreground text-2xl sm:text-3xl"
+            text={langDictionary.leaderboard}
           />
         </div>
-        <div className="h-full w-full">
+        <div className="h-full w-full flex flex-col">
           <div className="flex justify-center items-center py-6 px-4 sm:px-6 lg:px-8 xl:px-20 mx-auto">
             {!wallet && (
-              <div>Connect the wallet in order to update your results</div>
+              <div>{langDictionary.page.leaderboard.connectWallet}</div>
             )}
             {wallet && !isPlayerInList && (
               <div className="flex flex-col gap-4">
                 <div className="flex justify-center items-center">
-                  Enter your nickname to be displayed in the table
+                  {langDictionary.page.leaderboard.enterNickname}
                 </div>
                 <div className="flex items-center gap-4">
                   <input className="w-full grow outline-none bg-backgroundLight text-white py-2 px-3 outline-offset-0 focus:outline focus:outline-backgroundDark" />
                   <button className="py-2 px-3 bg-foreground text-black hover:bg-black hover:text-foreground">
-                    SUBMIT
+                    {langDictionary.submit}
                   </button>
                 </div>
               </div>
             )}
             {wallet && isPlayerInList && (
               <button className="p-3 bg-foreground text-black hover:bg-black hover:text-foreground">
-                UPDATE LEADERBOARD DATA
+                {langDictionary.page.leaderboard.updateData}
               </button>
             )}
           </div>
 
-          <div className="px-4 sm:px-6 lg:px-8 xl:px-20 mx-auto">
+          <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-20 mx-auto flex items-center grow">
             <LeaderboardTable playersList={rankedPlayersList} locale={locale} />
           </div>
         </div>
