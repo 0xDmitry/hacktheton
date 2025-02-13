@@ -41,12 +41,6 @@ export const ActionButtons = ({ levelName }: { levelName: LevelName }) => {
             {langDictionary.page.level.checkSolution}
           </button>
         )}
-        <button
-          className="text-center p-4 bg-foreground border-t-2 border-foreground text-black hover:bg-black hover:text-foreground transition"
-          onClick={() => sendCreateLevel(levelName)}
-        >
-          {langDictionary.page.level.getNewInstance}
-        </button>
         {level?.completed && !isLastLevel && (
           <Link
             href={`/${params.locale}/level/${nextLevelName}`}
@@ -55,6 +49,12 @@ export const ActionButtons = ({ levelName }: { levelName: LevelName }) => {
             {langDictionary.page.level.nextLevel}
           </Link>
         )}
+        <button
+          className="text-center p-4 bg-foreground border-t-2 border-foreground text-black hover:bg-black hover:text-foreground transition"
+          onClick={() => sendCreateLevel(levelName)}
+        >
+          {langDictionary.page.level.getNewInstance}
+        </button>
       </div>
     )
   }
