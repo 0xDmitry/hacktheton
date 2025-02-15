@@ -17,6 +17,7 @@ export const LeaderboardTable = ({
   playersList: {
     rank: number
     name: string
+    address: string
     levels: number
   }[]
   locale: Locale
@@ -26,6 +27,7 @@ export const LeaderboardTable = ({
   const columnHelper = createColumnHelper<{
     rank: number
     name: string
+    address: string
     levels: number
   }>()
 
@@ -39,21 +41,34 @@ export const LeaderboardTable = ({
     columns: [
       columnHelper.accessor("rank", {
         header: () => (
-          <span className="text-foreground tracking-wide">
+          <span className="text-foreground">
             {langDictionary.page.leaderboard.rank}
           </span>
         ),
       }),
       columnHelper.accessor("name", {
         header: () => (
-          <span className="text-foreground tracking-wide">
+          <span className="text-foreground">
             {langDictionary.page.leaderboard.name}
           </span>
         ),
       }),
+      columnHelper.accessor("address", {
+        header: () => (
+          <p className="text-foreground">
+            {langDictionary.page.leaderboard.address}
+          </p>
+        ),
+        cell: (info) => {
+          const address = info.getValue() as string
+          return (
+            <span>{`${address.substring(1, 5)}...${address.substring(address.length - 4)}`}</span>
+          )
+        },
+      }),
       columnHelper.accessor("levels", {
         header: () => (
-          <span className="text-foreground tracking-wide">
+          <span className="text-foreground">
             {langDictionary.page.leaderboard.levelsCompleted}
           </span>
         ),
@@ -76,7 +91,7 @@ export const LeaderboardTable = ({
   }
 
   return (
-    <div className="grow mb-9 bg-backgroundLight border border-backgroundDark">
+    <div className="grow mb-9 bg-backgroundLight border border-backgroundDark overflow-x-scroll">
       <table className="w-full text-white divide-y divide-backgroundDark border-b border-backgroundDark">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (

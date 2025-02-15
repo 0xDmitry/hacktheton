@@ -39,6 +39,7 @@ export default function LeaderboardPage({
         return {
           rank: ++index,
           name: player.name,
+          address: player.address,
           levels: player.levels,
         }
       })
