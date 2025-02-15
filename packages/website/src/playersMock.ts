@@ -1,8 +1,8 @@
 export const playersMock = [
   {
     levels: 0,
-    name: "Xenia Cheburechek",
-    address: "EQA2H_XfHrMcwlMxlXizn6Z2OHVeU660SGnqmwobNqvSStM",
+    name: "Xenia Cheburechek Filippockkina yo",
+    address: "EQA2H_XfHrMcwlMxlXizn6Z2OHVeU660SGnqmwobNqvSStM-",
   },
   {
     levels: 10,

@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { useMemo } from "react"
+import { useMemo, useState } from "react"
 import { getLangDictionary } from "@/utils/lang-dictionary"
 import { Locale } from "@/i18n.config"
 import { LeftArrow } from "@/components/assets/LeftArrow"
@@ -45,6 +45,9 @@ export default function LeaderboardPage({
       })
   }, [])
 
+  const [isNicknameChangeRequested, setIsNicknameChangeRequested] =
+    useState<boolean>(false)
+
   return (
     <div className="flex justify-center w-full md:container md:mx-auto md:py-12 md:px-6">
       <div className="flex flex-col justify-center w-full border-2 border-foreground">
@@ -80,9 +83,37 @@ export default function LeaderboardPage({
               </div>
             )}
             {wallet && isPlayerInList && (
-              <button className="p-3 bg-foreground text-black hover:bg-black hover:text-foreground">
-                {langDictionary.page.leaderboard.updateData}
-              </button>
+              <div className="flex gap-4">
+                {isNicknameChangeRequested ? (
+                  <>
+                    <button
+                      className="h-10 px-3 text-xl bg-foreground text-black hover:bg-black hover:text-foreground"
+                      onClick={() => setIsNicknameChangeRequested(false)}
+                    >
+                      {"<"}
+                    </button>
+                    <input
+                      className="sm:w-[300px] outline-none bg-backgroundLight text-white py-2 px-3 outline-offset-0 focus:outline focus:outline-backgroundDark"
+                      placeholder={langDictionary.page.leaderboard.newNickname}
+                    />
+                    <button className="py-2 px-3 bg-foreground text-black hover:bg-black hover:text-foreground">
+                      {langDictionary.page.leaderboard.change}
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button className="py-2 px-3 bg-foreground text-black hover:bg-black hover:text-foreground">
+                      {langDictionary.page.leaderboard.updateData}
+                    </button>
+                    <button
+                      className="py-2 px-3 bg-foreground text-black hover:bg-black hover:text-foreground"
+                      onClick={() => setIsNicknameChangeRequested(true)}
+                    >
+                      {langDictionary.page.leaderboard.changeNickname}
+                    </button>
+                  </>
+                )}
+              </div>
             )}
           </div>
 
