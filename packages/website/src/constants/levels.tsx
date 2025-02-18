@@ -19,6 +19,7 @@ import accessCode from "../../../contracts/contracts/levels/access_level.fc"
 import tokenCode from "../../../contracts/contracts/levels/token_level.tolk"
 import jackpotCode from "../../../contracts/contracts/levels/jackpot_level.fc"
 import proxyCode from "../../../contracts/contracts/levels/proxy_level.tolk"
+import donateCode from "../../../contracts/contracts/levels/donate_level.fc"
 import { IntroductionLevel } from "../../../contracts/wrappers/IntroductionLevel"
 import { DepositLevel } from "../../../contracts/wrappers/DepositLevel"
 import { ScannerLevel } from "../../../contracts/wrappers/ScannerLevel"
@@ -38,6 +39,7 @@ import { AccessLevel } from "../../../contracts/wrappers/AccessLevel"
 import { TokenLevel } from "../../../contracts/wrappers/TokenLevel"
 import { JackpotLevel } from "../../../contracts/wrappers/JackpotLevel"
 import { ProxyLevel } from "../../../contracts/wrappers/ProxyLevel"
+import { DonateLevel } from "../../../contracts/wrappers/DonateLevel"
 import IntroductionEnDescription from "@/markdown/en/levels/introduction/description.mdx"
 import IntroductionEnCompletedDescription from "@/markdown/en/levels/introduction/completed-description.mdx"
 import IntroductionRuDescription from "@/markdown/ru/levels/introduction/description.mdx"
@@ -114,6 +116,10 @@ import ProxyEnDescription from "@/markdown/en/levels/proxy/description.mdx"
 import ProxyEnCompletedDescription from "@/markdown/en/levels/proxy/completed-description.mdx"
 import ProxyRuDescription from "@/markdown/ru/levels/proxy/description.mdx"
 import ProxyRuCompletedDescription from "@/markdown/ru/levels/proxy/completed-description.mdx"
+import DonateEnDescription from "@/markdown/en/levels/donate/description.mdx"
+import DonateEnCompletedDescription from "@/markdown/en/levels/donate/completed-description.mdx"
+import DonateRuDescription from "@/markdown/ru/levels/donate/description.mdx"
+import DonateRuCompletedDescription from "@/markdown/ru/levels/donate/completed-description.mdx"
 
 export type LevelName =
   | "introduction"
@@ -135,6 +141,7 @@ export type LevelName =
   | "token"
   | "jackpot"
   | "proxy"
+  | "donate"
 
 export const levels: LevelName[] = [
   "introduction",
@@ -156,6 +163,7 @@ export const levels: LevelName[] = [
   "token",
   "jackpot",
   "proxy",
+  "donate",
 ]
 
 export type SourceLanguage = "tact" | "func" | "tolk"
@@ -539,6 +547,26 @@ export const levelsConfig = {
     ) => {
       const contract = await ProxyLevel.createFromAddress(levelInstance!)
       return clientAdapter!.open(contract) as OpenedContract<ProxyLevel>
+    },
+  },
+  donate: {
+    description: {
+      en: <DonateEnDescription />,
+      ru: <DonateRuDescription />,
+    },
+    completedDescription: {
+      en: <DonateEnCompletedDescription />,
+      ru: <DonateRuCompletedDescription />,
+    },
+    code: donateCode,
+    lang: "func",
+    revealCode: true,
+    openLevelContract: async (
+      levelInstance: Address,
+      clientAdapter: ContractAdapter,
+    ) => {
+      const contract = await DonateLevel.createFromAddress(levelInstance!)
+      return clientAdapter!.open(contract) as OpenedContract<DonateLevel>
     },
   },
 } as const

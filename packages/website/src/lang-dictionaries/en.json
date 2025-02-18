@@ -36,7 +36,8 @@
     "access": "ACCESS",
     "token": "TOKEN",
     "jackpot": "JACKPOT",
-    "proxy": "PROXY"
+    "proxy": "PROXY",
+    "donate": "DONATE"
   },
   "back": "BACK",
   "completed": "COMPLETED",
