@@ -15,6 +15,22 @@
       "checkSolution": "CHECK SOLUTION",
       "getNewInstance": "GET NEW INSTANCE",
       "nextLevel": "NEXT LEVEL"
+    },
+    "leaderboard": {
+      "connectWallet": "Connect the wallet in order to update your results",
+      "enterNickname": "Enter your nickname to be displayed in the table",
+      "updateData": "UPDATE YOUR RESULTS",
+      "changeNickname": "CHANGE YOUR NICKNAME",
+      "newNickname": "New nickname",
+      "change": "CHANGE",
+      "rank": "RANK",
+      "name": "NAME",
+      "address": "ADDRESS",
+      "levelsCompleted": "LEVELS COMPLETED",
+      "noTableResults": "Nobody has added their results to the table yet",
+      "page": "Page",
+      "of": "of",
+      "show": "Show"
     }
   },
   "levels": {
@@ -32,6 +48,8 @@
     "tolk": "TOLK"
   },
   "back": "BACK",
+  "submit": "SUBMIT",
   "completed": "COMPLETED",
-  "connectWallet": "CONNECT WALLET"
+  "connectWallet": "CONNECT WALLET",
+  "leaderboard": "LEADERBOARD"
 }
