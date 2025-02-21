@@ -32,12 +32,13 @@
     "tolk": "TOLK",
     "upgrade": "АПГРЕЙД",
     "seed": "СИД",
-    "logical": "ПОСЛЕДОВАТЕЛЬНОЕ",
+    "logical": "ПОСЛЕДОВАТЕЛЬНО",
     "access": "ДОСТУП",
     "token": "ТОКЕН",
     "jackpot": "ДЖЕКПОТ",
     "proxy": "ПРОКСИ",
-    "donate": "ДОНАТ"
+    "donate": "ДОНАТ",
+    "execution": "ИСПОЛНЕНИЕ"
   },
   "back": "НАЗАД",
   "completed": "ПРОЙДЕНО",

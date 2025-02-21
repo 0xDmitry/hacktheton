@@ -20,6 +20,7 @@ import tokenCode from "../../../contracts/contracts/levels/token_level.tolk"
 import jackpotCode from "../../../contracts/contracts/levels/jackpot_level.fc"
 import proxyCode from "../../../contracts/contracts/levels/proxy_level.tolk"
 import donateCode from "../../../contracts/contracts/levels/donate_level.fc"
+import executionCode from "../../../contracts/contracts/levels/execution_level.tolk"
 import { IntroductionLevel } from "../../../contracts/wrappers/IntroductionLevel"
 import { DepositLevel } from "../../../contracts/wrappers/DepositLevel"
 import { ScannerLevel } from "../../../contracts/wrappers/ScannerLevel"
@@ -40,6 +41,7 @@ import { TokenLevel } from "../../../contracts/wrappers/TokenLevel"
 import { JackpotLevel } from "../../../contracts/wrappers/JackpotLevel"
 import { ProxyLevel } from "../../../contracts/wrappers/ProxyLevel"
 import { DonateLevel } from "../../../contracts/wrappers/DonateLevel"
+import { ExecutionLevel } from "../../../contracts/wrappers/ExecutionLevel"
 import IntroductionEnDescription from "@/markdown/en/levels/introduction/description.mdx"
 import IntroductionEnCompletedDescription from "@/markdown/en/levels/introduction/completed-description.mdx"
 import IntroductionRuDescription from "@/markdown/ru/levels/introduction/description.mdx"
@@ -120,6 +122,10 @@ import DonateEnDescription from "@/markdown/en/levels/donate/description.mdx"
 import DonateEnCompletedDescription from "@/markdown/en/levels/donate/completed-description.mdx"
 import DonateRuDescription from "@/markdown/ru/levels/donate/description.mdx"
 import DonateRuCompletedDescription from "@/markdown/ru/levels/donate/completed-description.mdx"
+import ExecutionEnDescription from "@/markdown/en/levels/execution/description.mdx"
+import ExecutionEnCompletedDescription from "@/markdown/en/levels/execution/completed-description.mdx"
+import ExecutionRuDescription from "@/markdown/ru/levels/execution/description.mdx"
+import ExecutionRuCompletedDescription from "@/markdown/ru/levels/execution/completed-description.mdx"
 
 export type LevelName =
   | "introduction"
@@ -142,6 +148,7 @@ export type LevelName =
   | "jackpot"
   | "proxy"
   | "donate"
+  | "execution"
 
 export const levels: LevelName[] = [
   "introduction",
@@ -164,6 +171,7 @@ export const levels: LevelName[] = [
   "jackpot",
   "proxy",
   "donate",
+  "execution",
 ]
 
 export type SourceLanguage = "tact" | "func" | "tolk"
@@ -567,6 +575,26 @@ export const levelsConfig = {
     ) => {
       const contract = await DonateLevel.createFromAddress(levelInstance!)
       return clientAdapter!.open(contract) as OpenedContract<DonateLevel>
+    },
+  },
+  execution: {
+    description: {
+      en: <ExecutionEnDescription />,
+      ru: <ExecutionRuDescription />,
+    },
+    completedDescription: {
+      en: <ExecutionEnCompletedDescription />,
+      ru: <ExecutionRuCompletedDescription />,
+    },
+    code: executionCode,
+    lang: "tolk",
+    revealCode: true,
+    openLevelContract: async (
+      levelInstance: Address,
+      clientAdapter: ContractAdapter,
+    ) => {
+      const contract = await ExecutionLevel.createFromAddress(levelInstance!)
+      return clientAdapter!.open(contract) as OpenedContract<ExecutionLevel>
     },
   },
 } as const

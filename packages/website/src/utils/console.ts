@@ -7,6 +7,7 @@ import {
   toNano,
   beginCell,
   Builder,
+  Cell,
 } from "@ton/core"
 
 declare global {
@@ -18,6 +19,7 @@ declare global {
     fromNano: (src: bigint | number | string) => string
     Address: typeof Address
     beginCell: () => Builder
+    Cell: typeof Cell
   }
 }
 
@@ -26,6 +28,7 @@ export function setupConsoleUtils() {
   window.fromNano = fromNano
   window.Address = Address
   window.beginCell = beginCell
+  window.Cell = Cell
 
   window.help = function () {
     console.table({
@@ -58,6 +61,9 @@ export function setupConsoleUtils() {
         description: "parse Address from string",
       },
       "beginCell(): Builder": { description: "start building a cell" },
+      "Cell.fromHex(src: string): Cell": {
+        description: "deserialize a single cell from BOC in hex",
+      },
     })
   }
 }

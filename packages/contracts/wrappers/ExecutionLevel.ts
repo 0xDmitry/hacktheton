@@ -9,32 +9,36 @@ import {
   SendMode,
 } from "@ton/core"
 
-export type LogicalSolutionConfig = {}
-
-export function logicalSolutionConfigToCell(
-  config: LogicalSolutionConfig,
-): Cell {
-  return beginCell().endCell()
+export type ExecutionLevelConfig = {
+  player: Address
+  nonce: bigint
 }
 
-export class LogicalSolution implements Contract {
+export function executionLevelConfigToCell(config: ExecutionLevelConfig): Cell {
+  return beginCell()
+    .storeAddress(config.player)
+    .storeUint(config.nonce, 32)
+    .endCell()
+}
+
+export class ExecutionLevel implements Contract {
   constructor(
     readonly address: Address,
     readonly init?: { code: Cell; data: Cell },
   ) {}
 
   static createFromAddress(address: Address) {
-    return new LogicalSolution(address)
+    return new ExecutionLevel(address)
   }
 
   static createFromConfig(
-    config: LogicalSolutionConfig,
+    config: ExecutionLevelConfig,
     code: Cell,
     workchain = 0,
   ) {
-    const data = logicalSolutionConfigToCell(config)
+    const data = executionLevelConfigToCell(config)
     const init = { code, data }
-    return new LogicalSolution(contractAddress(workchain, init), init)
+    return new ExecutionLevel(contractAddress(workchain, init), init)
   }
 
   async sendDeploy(provider: ContractProvider, via: Sender, value: bigint) {
@@ -52,9 +56,14 @@ export class LogicalSolution implements Contract {
     value: bigint,
   ) {
     await provider.internal(via, {
+      value,
       sendMode: SendMode.PAY_GAS_SEPARATELY,
       body,
-      value: value,
     })
+  }
+
+  async getBalance(provider: ContractProvider) {
+    const { stack } = await provider.get("balance", [])
+    return stack.readBigNumber()
   }
 }

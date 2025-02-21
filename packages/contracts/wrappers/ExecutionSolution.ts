@@ -9,32 +9,32 @@ import {
   SendMode,
 } from "@ton/core"
 
-export type LogicalSolutionConfig = {}
+export type ExecutionSolutionConfig = {}
 
-export function logicalSolutionConfigToCell(
-  config: LogicalSolutionConfig,
+export function executionSolutionConfigToCell(
+  config: ExecutionSolutionConfig,
 ): Cell {
   return beginCell().endCell()
 }
 
-export class LogicalSolution implements Contract {
+export class ExecutionSolution implements Contract {
   constructor(
     readonly address: Address,
     readonly init?: { code: Cell; data: Cell },
   ) {}
 
   static createFromAddress(address: Address) {
-    return new LogicalSolution(address)
+    return new ExecutionSolution(address)
   }
 
   static createFromConfig(
-    config: LogicalSolutionConfig,
+    config: ExecutionSolutionConfig,
     code: Cell,
     workchain = 0,
   ) {
-    const data = logicalSolutionConfigToCell(config)
+    const data = executionSolutionConfigToCell(config)
     const init = { code, data }
-    return new LogicalSolution(contractAddress(workchain, init), init)
+    return new ExecutionSolution(contractAddress(workchain, init), init)
   }
 
   async sendDeploy(provider: ContractProvider, via: Sender, value: bigint) {
