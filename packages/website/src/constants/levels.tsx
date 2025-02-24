@@ -164,13 +164,13 @@ export const levels: LevelName[] = [
   "bruteforce",
   "tolk",
   "upgrade",
-  "seed",
-  "logical",
   "access",
+  "donate",
+  "logical",
+  "seed",
   "token",
   "jackpot",
   "proxy",
-  "donate",
   "execution",
 ]
 
