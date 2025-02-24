@@ -45,7 +45,16 @@
     "coin": "COIN",
     "gatekeeper": "GATEKEEPER",
     "bruteforce": "BRUTE-FORCE",
-    "tolk": "TOLK"
+    "tolk": "TOLK",
+    "upgrade": "UPGRADE",
+    "seed": "SEED",
+    "logical": "LOGICAL",
+    "access": "ACCESS",
+    "token": "TOKEN",
+    "jackpot": "JACKPOT",
+    "proxy": "PROXY",
+    "donate": "DONATE",
+    "execution": "EXECUTION"
   },
   "back": "BACK",
   "submit": "SUBMIT",

@@ -1,0 +1,119 @@
+#include "../imports/stdlib.fc";
+
+const op::unlock = "op::unlock"c; ;; create an opcode from string using the "c" prefix, this results in 0xf0fd50bb opcode in this case
+const op::change_owner = "op::change_owner"c; ;; create an opcode from string using the "c" prefix, this results in 0xf1eef33c opcode in this case
+const op::change_nonce = "op::change_nonce"c; ;; create an opcode from string using the "c" prefix, this results in 0x8caa87bd opcode in this case
+
+;; storage variables
+
+global slice ctx_player;
+global int ctx_nonce;
+global slice ctx_owner;
+global int ctx_locked;
+
+;; load_data populates storage variables using stored data
+() load_data() impure {
+    var ds = get_data().begin_parse();
+
+    ctx_player = ds~load_msg_addr();
+    ctx_nonce = ds~load_uint(32);
+    ctx_owner = ds~load_msg_addr();
+    ctx_locked = ds~load_int(1);
+
+    ds.end_parse();
+}
+
+;; save_data stores storage variables as a cell into persistent storage
+() save_data() impure {
+    set_data(
+        begin_cell()
+            .store_slice(ctx_player)
+            .store_uint(ctx_nonce, 32)
+            .store_slice(ctx_owner)
+            .store_int(ctx_locked, 1)
+        .end_cell()
+    );
+}
+
+() check_owner(slice sender) {
+    throw_unless(501, equal_slice_bits(sender, ctx_owner));
+}
+
+;; recv_internal is the main function of the contract and is called when it receives a message from other contracts
+() recv_internal(int my_balance, int msg_value, cell in_msg_full, slice in_msg_body) impure {
+    if (in_msg_body.slice_empty?()) { ;; ignore all empty messages
+        return ();
+    }
+
+    slice cs = in_msg_full.begin_parse();
+    int flags = cs~load_uint(4);
+    if (flags & 1) { ;; ignore all bounced messages
+        return ();
+    }
+    slice sender_address = cs~load_msg_addr();
+
+    load_data(); ;; here we populate the storage variables
+
+    int op = in_msg_body~load_uint(32); ;; by convention, the first 32 bits of incoming message is the op
+
+    ;; receive "check" message
+    if (equal_slice_bits(in_msg_body, "check")) {
+        ;; send CheckLevelResult msg
+        cell msg_body = begin_cell()
+            .store_uint(0x6df37b4d, 32)
+            .store_ref(begin_cell().store_slice("access").end_cell())
+            .store_int(~ ctx_locked, 1)
+        .end_cell();
+        builder msg = begin_cell()
+            .store_uint(0x18, 6)
+            .store_slice(sender_address)
+            .store_coins(0)
+            .store_uint(1, 1 + 4 + 4 + 64 + 32 + 1 + 1)
+            .store_ref(msg_body);
+            
+        ;; send all the remaining value
+        send_raw_message(msg.end_cell(), 64);
+        return ();
+    }
+
+    if (op == op::unlock) {
+        ctx_locked = ~ equal_slice_bits(ctx_player, ctx_owner);
+        save_data();
+        return ();
+    }
+
+    if (op == op::change_owner) {
+        check_owner(sender_address);
+        throw_unless(502, ctx_nonce == 9999);
+        ctx_owner = in_msg_body~load_msg_addr();
+        save_data();
+        return ();
+    }
+
+    if (op == op::change_nonce) {
+        ctx_nonce = in_msg_body~load_uint(32);
+        save_data();
+        return ();
+    }
+
+    throw(0xffff); ;; if the message contains an op that is not known to this contract, we throw
+}
+
+;; get methods are a means to conveniently read contract data using, for example, HTTP APIs
+;; they are marked with method_id
+;; note that unlike in many other smart contract VMs, get methods cannot be called by other contracts
+
+int nonce() method_id {
+    load_data();
+    return ctx_nonce;
+}
+
+slice owner() method_id {
+    load_data();
+    return ctx_owner;
+}
+
+int locked() method_id {
+    load_data();
+    return ctx_locked;
+}

@@ -9,6 +9,10 @@ const nextConfig = {
       type: "asset/source",
     })
     config.module.rules.push({
+      test: /\.fc$/,
+      type: "asset/source",
+    })
+    config.module.rules.push({
       test: /\.tolk$/,
       type: "asset/source",
     })

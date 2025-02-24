@@ -6,7 +6,7 @@ import { TypewriterText } from "@/components/TypewriterText"
 import { ActionButtons } from "@/components/ActionButtons"
 import { LevelName, levelsConfig } from "@/constants/levels"
 import { Level } from "@/components/Level"
-import { TactCode } from "@/components/TactCode"
+import { SourceCode } from "@/components/SourceCode"
 import { getLangDictionary } from "@/utils/lang-dictionary"
 
 export default function LevelPage({
@@ -38,7 +38,12 @@ export default function LevelPage({
         </div>
         <Level
           name={name as LevelName}
-          code={<TactCode code={levelsConfig[name as LevelName].code} />}
+          code={
+            <SourceCode
+              code={levelsConfig[name as LevelName].code}
+              lang={levelsConfig[name as LevelName].lang}
+            />
+          }
         />
         <ActionButtons levelName={name as LevelName} />
       </div>

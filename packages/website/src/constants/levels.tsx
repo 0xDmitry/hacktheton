@@ -12,6 +12,15 @@ import coinCode from "../../../contracts/contracts/levels/coin_level.tact"
 import gatekeeperCode from "../../../contracts/contracts/levels/gatekeeper_level.tact"
 import bruteforceCode from "../../../contracts/contracts/levels/bruteforce_level.tact"
 import tolkCode from "../../../contracts/contracts/levels/tolk_level.tolk"
+import upgradeCode from "../../../contracts/contracts/levels/upgrade_level.tolk"
+import seedCode from "../../../contracts/contracts/levels/seed_level.tolk"
+import logicalCode from "../../../contracts/contracts/levels/logical_level.tolk"
+import accessCode from "../../../contracts/contracts/levels/access_level.fc"
+import tokenCode from "../../../contracts/contracts/levels/token_level.tolk"
+import jackpotCode from "../../../contracts/contracts/levels/jackpot_level.fc"
+import proxyCode from "../../../contracts/contracts/levels/proxy_level.tolk"
+import donateCode from "../../../contracts/contracts/levels/donate_level.fc"
+import executionCode from "../../../contracts/contracts/levels/execution_level.tolk"
 import { IntroductionLevel } from "../../../contracts/wrappers/IntroductionLevel"
 import { DepositLevel } from "../../../contracts/wrappers/DepositLevel"
 import { ScannerLevel } from "../../../contracts/wrappers/ScannerLevel"
@@ -24,6 +33,15 @@ import { CoinLevel } from "../../../contracts/wrappers/CoinLevel"
 import { GatekeeperLevel } from "../../../contracts/wrappers/GatekeeperLevel"
 import { BruteforceLevel } from "../../../contracts/wrappers/BruteforceLevel"
 import { TolkLevel } from "../../../contracts/wrappers/TolkLevel"
+import { UpgradeLevel } from "../../../contracts/wrappers/UpgradeLevel"
+import { SeedLevel } from "../../../contracts/wrappers/SeedLevel"
+import { LogicalLevel } from "../../../contracts/wrappers/LogicalLevel"
+import { AccessLevel } from "../../../contracts/wrappers/AccessLevel"
+import { TokenLevel } from "../../../contracts/wrappers/TokenLevel"
+import { JackpotLevel } from "../../../contracts/wrappers/JackpotLevel"
+import { ProxyLevel } from "../../../contracts/wrappers/ProxyLevel"
+import { DonateLevel } from "../../../contracts/wrappers/DonateLevel"
+import { ExecutionLevel } from "../../../contracts/wrappers/ExecutionLevel"
 import IntroductionEnDescription from "@/markdown/en/levels/introduction/description.mdx"
 import IntroductionEnCompletedDescription from "@/markdown/en/levels/introduction/completed-description.mdx"
 import IntroductionRuDescription from "@/markdown/ru/levels/introduction/description.mdx"
@@ -72,6 +90,42 @@ import TolkEnDescription from "@/markdown/en/levels/tolk/description.mdx"
 import TolkEnCompletedDescription from "@/markdown/en/levels/tolk/completed-description.mdx"
 import TolkRuDescription from "@/markdown/ru/levels/tolk/description.mdx"
 import TolkRuCompletedDescription from "@/markdown/ru/levels/tolk/completed-description.mdx"
+import UpgradeEnDescription from "@/markdown/en/levels/upgrade/description.mdx"
+import UpgradeEnCompletedDescription from "@/markdown/en/levels/upgrade/completed-description.mdx"
+import UpgradeRuDescription from "@/markdown/ru/levels/upgrade/description.mdx"
+import UpgradeRuCompletedDescription from "@/markdown/ru/levels/upgrade/completed-description.mdx"
+import SeedEnDescription from "@/markdown/en/levels/seed/description.mdx"
+import SeedEnCompletedDescription from "@/markdown/en/levels/seed/completed-description.mdx"
+import SeedRuDescription from "@/markdown/ru/levels/seed/description.mdx"
+import SeedRuCompletedDescription from "@/markdown/ru/levels/seed/completed-description.mdx"
+import LogicalEnDescription from "@/markdown/en/levels/logical/description.mdx"
+import LogicalEnCompletedDescription from "@/markdown/en/levels/logical/completed-description.mdx"
+import LogicalRuDescription from "@/markdown/ru/levels/logical/description.mdx"
+import LogicalRuCompletedDescription from "@/markdown/ru/levels/logical/completed-description.mdx"
+import AccessEnDescription from "@/markdown/en/levels/access/description.mdx"
+import AccessEnCompletedDescription from "@/markdown/en/levels/access/completed-description.mdx"
+import AccessRuDescription from "@/markdown/ru/levels/access/description.mdx"
+import AccessRuCompletedDescription from "@/markdown/ru/levels/access/completed-description.mdx"
+import TokenEnDescription from "@/markdown/en/levels/token/description.mdx"
+import TokenEnCompletedDescription from "@/markdown/en/levels/token/completed-description.mdx"
+import TokenRuDescription from "@/markdown/ru/levels/token/description.mdx"
+import TokenRuCompletedDescription from "@/markdown/ru/levels/token/completed-description.mdx"
+import JackpotEnDescription from "@/markdown/en/levels/jackpot/description.mdx"
+import JackpotEnCompletedDescription from "@/markdown/en/levels/jackpot/completed-description.mdx"
+import JackpotRuDescription from "@/markdown/ru/levels/jackpot/description.mdx"
+import JackpotRuCompletedDescription from "@/markdown/ru/levels/jackpot/completed-description.mdx"
+import ProxyEnDescription from "@/markdown/en/levels/proxy/description.mdx"
+import ProxyEnCompletedDescription from "@/markdown/en/levels/proxy/completed-description.mdx"
+import ProxyRuDescription from "@/markdown/ru/levels/proxy/description.mdx"
+import ProxyRuCompletedDescription from "@/markdown/ru/levels/proxy/completed-description.mdx"
+import DonateEnDescription from "@/markdown/en/levels/donate/description.mdx"
+import DonateEnCompletedDescription from "@/markdown/en/levels/donate/completed-description.mdx"
+import DonateRuDescription from "@/markdown/ru/levels/donate/description.mdx"
+import DonateRuCompletedDescription from "@/markdown/ru/levels/donate/completed-description.mdx"
+import ExecutionEnDescription from "@/markdown/en/levels/execution/description.mdx"
+import ExecutionEnCompletedDescription from "@/markdown/en/levels/execution/completed-description.mdx"
+import ExecutionRuDescription from "@/markdown/ru/levels/execution/description.mdx"
+import ExecutionRuCompletedDescription from "@/markdown/ru/levels/execution/completed-description.mdx"
 
 export type LevelName =
   | "introduction"
@@ -86,6 +140,15 @@ export type LevelName =
   | "gatekeeper"
   | "bruteforce"
   | "tolk"
+  | "upgrade"
+  | "seed"
+  | "logical"
+  | "access"
+  | "token"
+  | "jackpot"
+  | "proxy"
+  | "donate"
+  | "execution"
 
 export const levels: LevelName[] = [
   "introduction",
@@ -100,7 +163,18 @@ export const levels: LevelName[] = [
   "gatekeeper",
   "bruteforce",
   "tolk",
+  "upgrade",
+  "access",
+  "donate",
+  "logical",
+  "seed",
+  "token",
+  "jackpot",
+  "proxy",
+  "execution",
 ]
+
+export type SourceLanguage = "tact" | "func" | "tolk"
 
 export const levelsConfig = {
   introduction: {
@@ -113,6 +187,7 @@ export const levelsConfig = {
       ru: <IntroductionRuCompletedDescription />,
     },
     code: introductionCode,
+    lang: "tact",
     revealCode: false,
     openLevelContract: async (
       levelInstance: Address,
@@ -132,6 +207,7 @@ export const levelsConfig = {
       ru: <DepositRuCompletedDescription />,
     },
     code: depositCode,
+    lang: "tact",
     revealCode: true,
     openLevelContract: async (
       levelInstance: Address,
@@ -151,6 +227,7 @@ export const levelsConfig = {
       ru: <ScannerRuCompletedDescription />,
     },
     code: scannerCode,
+    lang: "tact",
     revealCode: true,
     openLevelContract: async (
       levelInstance: Address,
@@ -170,6 +247,7 @@ export const levelsConfig = {
       ru: <BounceRuCompletedDescription />,
     },
     code: bounceCode,
+    lang: "tact",
     revealCode: true,
     openLevelContract: async (
       levelInstance: Address,
@@ -189,6 +267,7 @@ export const levelsConfig = {
       ru: <IntruderRuCompletedDescription />,
     },
     code: intruderCode,
+    lang: "tact",
     revealCode: true,
     openLevelContract: async (
       levelInstance: Address,
@@ -208,6 +287,7 @@ export const levelsConfig = {
       ru: <PartialRuCompletedDescription />,
     },
     code: partialCode,
+    lang: "tact",
     revealCode: true,
     openLevelContract: async (
       levelInstance: Address,
@@ -227,6 +307,7 @@ export const levelsConfig = {
       ru: <PeekRuCompletedDescription />,
     },
     code: peekCode,
+    lang: "tact",
     revealCode: true,
     openLevelContract: async (
       levelInstance: Address,
@@ -246,6 +327,7 @@ export const levelsConfig = {
       ru: <SwapRuCompletedDescription />,
     },
     code: swapCode,
+    lang: "tact",
     revealCode: true,
     openLevelContract: async (
       levelInstance: Address,
@@ -265,6 +347,7 @@ export const levelsConfig = {
       ru: <CoinRuCompletedDescription />,
     },
     code: coinCode,
+    lang: "tact",
     revealCode: true,
     openLevelContract: async (
       levelInstance: Address,
@@ -284,6 +367,7 @@ export const levelsConfig = {
       ru: <GatekeeperRuCompletedDescription />,
     },
     code: gatekeeperCode,
+    lang: "tact",
     revealCode: true,
     openLevelContract: async (
       levelInstance: Address,
@@ -303,6 +387,7 @@ export const levelsConfig = {
       ru: <BruteforceRuCompletedDescription />,
     },
     code: bruteforceCode,
+    lang: "tact",
     revealCode: true,
     openLevelContract: async (
       levelInstance: Address,
@@ -322,6 +407,7 @@ export const levelsConfig = {
       ru: <TolkRuCompletedDescription />,
     },
     code: tolkCode,
+    lang: "tolk",
     revealCode: true,
     openLevelContract: async (
       levelInstance: Address,
@@ -329,6 +415,186 @@ export const levelsConfig = {
     ) => {
       const contract = await TolkLevel.createFromAddress(levelInstance!)
       return clientAdapter!.open(contract) as OpenedContract<TolkLevel>
+    },
+  },
+  upgrade: {
+    description: {
+      en: <UpgradeEnDescription />,
+      ru: <UpgradeRuDescription />,
+    },
+    completedDescription: {
+      en: <UpgradeEnCompletedDescription />,
+      ru: <UpgradeRuCompletedDescription />,
+    },
+    code: upgradeCode,
+    lang: "tolk",
+    revealCode: true,
+    openLevelContract: async (
+      levelInstance: Address,
+      clientAdapter: ContractAdapter,
+    ) => {
+      const contract = await UpgradeLevel.createFromAddress(levelInstance!)
+      return clientAdapter!.open(contract) as OpenedContract<UpgradeLevel>
+    },
+  },
+  seed: {
+    description: {
+      en: <SeedEnDescription />,
+      ru: <SeedRuDescription />,
+    },
+    completedDescription: {
+      en: <SeedEnCompletedDescription />,
+      ru: <SeedRuCompletedDescription />,
+    },
+    code: seedCode,
+    lang: "tolk",
+    revealCode: true,
+    openLevelContract: async (
+      levelInstance: Address,
+      clientAdapter: ContractAdapter,
+    ) => {
+      const contract = await SeedLevel.createFromAddress(levelInstance!)
+      return clientAdapter!.open(contract) as OpenedContract<SeedLevel>
+    },
+  },
+  logical: {
+    description: {
+      en: <LogicalEnDescription />,
+      ru: <LogicalRuDescription />,
+    },
+    completedDescription: {
+      en: <LogicalEnCompletedDescription />,
+      ru: <LogicalRuCompletedDescription />,
+    },
+    code: logicalCode,
+    lang: "tolk",
+    revealCode: true,
+    openLevelContract: async (
+      levelInstance: Address,
+      clientAdapter: ContractAdapter,
+    ) => {
+      const contract = await LogicalLevel.createFromAddress(levelInstance!)
+      return clientAdapter!.open(contract) as OpenedContract<LogicalLevel>
+    },
+  },
+  access: {
+    description: {
+      en: <AccessEnDescription />,
+      ru: <AccessRuDescription />,
+    },
+    completedDescription: {
+      en: <AccessEnCompletedDescription />,
+      ru: <AccessRuCompletedDescription />,
+    },
+    code: accessCode,
+    lang: "func",
+    revealCode: true,
+    openLevelContract: async (
+      levelInstance: Address,
+      clientAdapter: ContractAdapter,
+    ) => {
+      const contract = await AccessLevel.createFromAddress(levelInstance!)
+      return clientAdapter!.open(contract) as OpenedContract<AccessLevel>
+    },
+  },
+  token: {
+    description: {
+      en: <TokenEnDescription />,
+      ru: <TokenRuDescription />,
+    },
+    completedDescription: {
+      en: <TokenEnCompletedDescription />,
+      ru: <TokenRuCompletedDescription />,
+    },
+    code: tokenCode,
+    lang: "tolk",
+    revealCode: true,
+    openLevelContract: async (
+      levelInstance: Address,
+      clientAdapter: ContractAdapter,
+    ) => {
+      const contract = await TokenLevel.createFromAddress(levelInstance!)
+      return clientAdapter!.open(contract) as OpenedContract<TokenLevel>
+    },
+  },
+  jackpot: {
+    description: {
+      en: <JackpotEnDescription />,
+      ru: <JackpotRuDescription />,
+    },
+    completedDescription: {
+      en: <JackpotEnCompletedDescription />,
+      ru: <JackpotRuCompletedDescription />,
+    },
+    code: jackpotCode,
+    lang: "func",
+    revealCode: true,
+    openLevelContract: async (
+      levelInstance: Address,
+      clientAdapter: ContractAdapter,
+    ) => {
+      const contract = await JackpotLevel.createFromAddress(levelInstance!)
+      return clientAdapter!.open(contract) as OpenedContract<JackpotLevel>
+    },
+  },
+  proxy: {
+    description: {
+      en: <ProxyEnDescription />,
+      ru: <ProxyRuDescription />,
+    },
+    completedDescription: {
+      en: <ProxyEnCompletedDescription />,
+      ru: <ProxyRuCompletedDescription />,
+    },
+    code: proxyCode,
+    lang: "tolk",
+    revealCode: true,
+    openLevelContract: async (
+      levelInstance: Address,
+      clientAdapter: ContractAdapter,
+    ) => {
+      const contract = await ProxyLevel.createFromAddress(levelInstance!)
+      return clientAdapter!.open(contract) as OpenedContract<ProxyLevel>
+    },
+  },
+  donate: {
+    description: {
+      en: <DonateEnDescription />,
+      ru: <DonateRuDescription />,
+    },
+    completedDescription: {
+      en: <DonateEnCompletedDescription />,
+      ru: <DonateRuCompletedDescription />,
+    },
+    code: donateCode,
+    lang: "func",
+    revealCode: true,
+    openLevelContract: async (
+      levelInstance: Address,
+      clientAdapter: ContractAdapter,
+    ) => {
+      const contract = await DonateLevel.createFromAddress(levelInstance!)
+      return clientAdapter!.open(contract) as OpenedContract<DonateLevel>
+    },
+  },
+  execution: {
+    description: {
+      en: <ExecutionEnDescription />,
+      ru: <ExecutionRuDescription />,
+    },
+    completedDescription: {
+      en: <ExecutionEnCompletedDescription />,
+      ru: <ExecutionRuCompletedDescription />,
+    },
+    code: executionCode,
+    lang: "tolk",
+    revealCode: true,
+    openLevelContract: async (
+      levelInstance: Address,
+      clientAdapter: ContractAdapter,
+    ) => {
+      const contract = await ExecutionLevel.createFromAddress(levelInstance!)
+      return clientAdapter!.open(contract) as OpenedContract<ExecutionLevel>
     },
   },
 } as const

@@ -1,0 +1,122 @@
+#include "../imports/stdlib.fc";
+
+;; storage variables
+
+global slice ctx_player;
+global int ctx_nonce;
+global cell ctx_balances;
+
+;; load_data populates storage variables using stored data
+() load_data() impure {
+    var ds = get_data().begin_parse();
+
+    ctx_player = ds~load_msg_addr();
+    ctx_nonce = ds~load_uint(32);
+    ctx_balances = ds~load_dict();
+
+    ds.end_parse();
+}
+
+;; save_data stores storage variables as a cell into persistent storage
+() save_data() impure {
+    set_data(
+        begin_cell()
+            .store_slice(ctx_player)
+            .store_uint(ctx_nonce, 32)
+            .store_dict(ctx_balances)
+        .end_cell()
+    );
+}
+
+;; recv_internal is the main function of the contract and is called when it receives a message from other contracts
+() recv_internal(int my_balance, int msg_value, cell in_msg_full, slice in_msg_body) impure {
+    if (in_msg_body.slice_empty?()) { ;; ignore all empty messages
+        return ();
+    }
+
+    slice cs = in_msg_full.begin_parse();
+    int flags = cs~load_uint(4);
+    if (flags & 1) { ;; ignore all bounced messages
+        return ();
+    }
+    slice sender_address = cs~load_msg_addr();
+    (int wc, int sender) = parse_std_addr(sender_address);
+    throw_unless(501, wc == 0);
+
+    load_data(); ;; here we populate the storage variables
+
+    int op = in_msg_body~load_uint(32); ;; by convention, the first 32 bits of incoming message is the op
+
+    if (equal_slice_bits(in_msg_body, "check")) { ;; receive "check" message
+        ;; send CheckLevelResult msg
+        cell msg_body = begin_cell()
+            .store_uint(0x6df37b4d, 32)
+            .store_ref(begin_cell().store_slice("jackpot").end_cell())
+            .store_int(my_balance - msg_value == 0, 1)
+        .end_cell();
+        builder msg = begin_cell()
+            .store_uint(0x18, 6)
+            .store_slice(sender_address)
+            .store_coins(0)
+            .store_uint(1, 1 + 4 + 4 + 64 + 32 + 1 + 1)
+            .store_ref(msg_body);
+            
+        ;; send all the remaining value
+        send_raw_message(msg.end_cell(), 64);
+        return ();
+    }
+
+    if (op == 0) { ;; deposit
+        int fee = 10000000;
+        int balance = max(msg_value - fee, 0);
+        (_, slice old_balance_slice, int found?) = ctx_balances.udict_delete_get?(256, sender);
+        if (found?) {
+            balance += old_balance_slice~load_coins();
+        }
+        ctx_balances~udict_set_builder(256, sender, begin_cell().store_coins(balance));
+        save_data();
+        return ();
+    }
+
+    if (op == 1) { ;; withdraw
+        (_, slice old_balance_slice, int found?) = ctx_balances.udict_delete_get?(256, sender);
+        throw_unless(502, found?);
+        int balance = old_balance_slice~load_coins();
+        int withdraw_amount = in_msg_body~load_coins();
+        throw_unless(503, balance >= withdraw_amount);
+        balance -= withdraw_amount;
+        if (balance > 0) {
+            ctx_balances~udict_set_builder(256, sender, begin_cell().store_coins(balance));
+        }
+        var msg = begin_cell()
+            .store_uint(0x18, 6)
+            .store_slice(sender_address)
+            .store_coins(withdraw_amount)
+            .store_uint(0, 1 + 4 + 4 + 64 + 32 + 1 + 1)
+        .end_cell();
+        send_raw_message(msg, 64 + 2);
+        save_data();
+        return ();
+    }
+
+    throw(0xffff); ;; if the message contains an op that is not known to this contract, we throw
+}
+
+;; get methods are a means to conveniently read contract data using, for example, HTTP APIs
+;; they are marked with method_id
+;; note that unlike in many other smart contract VMs, get methods cannot be called by other contracts
+
+int balance_of(slice account_address) method_id {
+    load_data();
+    (_, int account) = parse_std_addr(account_address);
+    (slice value, int found?) = ctx_balances.udict_get?(256, account);
+    ifnot (found?) {
+        return 0;
+    }
+    return value~load_coins();
+}
+
+int balance() method_id {
+    [int value, _] = get_balance();
+    return value;
+}

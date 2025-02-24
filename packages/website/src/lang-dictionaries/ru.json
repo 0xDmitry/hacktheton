@@ -45,7 +45,16 @@
     "coin": "МОНЕТА",
     "gatekeeper": "ПРИВРАТНИК",
     "bruteforce": "ПЕРЕБОР",
-    "tolk": "TOLK"
+    "tolk": "TOLK",
+    "upgrade": "АПГРЕЙД",
+    "seed": "СИД",
+    "logical": "ПОСЛЕДОВАТЕЛЬНО",
+    "access": "ДОСТУП",
+    "token": "ТОКЕН",
+    "jackpot": "ДЖЕКПОТ",
+    "proxy": "ПРОКСИ",
+    "donate": "ДОНАТ",
+    "execution": "ИСПОЛНЕНИЕ"
   },
   "back": "НАЗАД",
   "submit": "ОТПРАВИТЬ",

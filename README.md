@@ -12,4 +12,26 @@ You can find the current, official version at [hacktheton.com](https://hacktheto
 
 ## Install and Build
 
-TBD
+### Install
+
+`bun install`
+
+### Build Website
+
+`bun build:website`
+
+### Start Website
+
+`bun start:website`
+
+### Build Contracts
+
+`bun build:contracts`
+
+### Test Contracts
+
+`bun test:contracts`
+
+### Run Contracts
+
+`bun run:contracts`

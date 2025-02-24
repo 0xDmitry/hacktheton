@@ -35,10 +35,6 @@ export function useTonConnect(): { sender: Sender } {
   )
 
   useEffect(() => {
-    window.tonConnectUI = tonConnectUI
-  }, [tonConnectUI])
-
-  useEffect(() => {
     window.player = sender
   }, [sender])
 

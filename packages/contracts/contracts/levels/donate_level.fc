@@ -1,0 +1,146 @@
+#include "../imports/stdlib.fc";
+
+const donation_goal = 1000000000;
+const gas_consumption = 5000000; 
+
+const op::change_destination = "op::change_destination"c; ;; create an opcode from string using the "c" prefix, this results in 0xbaed25a6 opcode in this case
+const op::withdraw = "op::withdraw"c; ;; create an opcode from string using the "c" prefix, this results in 0xcb03bfaf opcode in this case
+const op::donate = "op::donate"c; ;; create an opcode from string using the "c" prefix, this results in 0x47bbe425 opcode in this case
+
+;; storage variables
+
+global slice player;
+global int nonce;
+global slice owner;
+global slice destination;
+global int donations_count;
+
+;; load_data populates storage variables using stored data
+() load_data() impure {
+    var ds = get_data().begin_parse();
+
+    player = ds~load_msg_addr();
+    nonce = ds~load_uint(32);
+    owner = ds~load_msg_addr();
+    destination = ds~load_msg_addr();
+    donations_count = ds~load_uint(32);
+
+    ds.end_parse();
+}
+
+;; save_data stores storage variables as a cell into persistent storage
+() save_data() impure {
+    set_data(
+        begin_cell()
+            .store_slice(player)
+            .store_uint(nonce, 32)
+            .store_slice(owner)
+            .store_slice(destination)
+            .store_uint(donations_count, 32)
+        .end_cell()
+    );
+}
+
+;; recv_internal is the main function of the contract and is called when it receives a message from other contracts
+() recv_internal(int my_balance, int msg_value, cell in_msg_full, slice in_msg_body) impure {
+    if (in_msg_body.slice_empty?()) { ;; ignore all empty messages
+        return ();
+    }
+
+    slice cs = in_msg_full.begin_parse();
+    int flags = cs~load_uint(4);
+    if (flags & 1) { ;; ignore all bounced messages
+        return ();
+    }
+    slice sender_address = cs~load_msg_addr();
+
+    load_data(); ;; here we populate the storage variables
+
+    int op = in_msg_body~load_uint(32); ;; by convention, the first 32 bits of incoming message is the op
+
+    ;; receive "check" message
+    if (equal_slice_bits(in_msg_body, "check")) {
+        ;; send CheckLevelResult msg
+        cell msg_body = begin_cell()
+            .store_uint(0x6df37b4d, 32)
+            .store_ref(begin_cell().store_slice("donate").end_cell())
+            .store_int(my_balance - msg_value == 0, 1)
+        .end_cell();
+        builder msg = begin_cell()
+            .store_uint(0x18, 6)
+            .store_slice(sender_address)
+            .store_coins(0)
+            .store_uint(1, 1 + 4 + 4 + 64 + 32 + 1 + 1)
+            .store_ref(msg_body);
+            
+        ;; send all the remaining value
+        send_raw_message(msg.end_cell(), 64);
+        return ();
+    }
+
+    if (op == op::change_destination) {
+        throw_unless(501, equal_slice_bits(sender_address, owner));
+        var new_destination = in_msg_body~load_msg_addr();
+        destination = new_destination;
+        save_data();
+        return ();
+    }
+
+    if (op == op::withdraw) {
+        throw_unless(502, equal_slice_bits(sender_address, destination));
+        builder msg = begin_cell()
+            .store_uint(0x18, 6)
+            .store_slice(destination)
+            .store_coins(0)
+            .store_uint(0, 1 + 4 + 4 + 64 + 32 + 1 + 1);
+        
+        ;; send all the contract balance
+        send_raw_message(msg.end_cell(), 128);
+        return ();
+    }
+
+    if (op == op::donate) {
+        throw_unless(503, my_balance - msg_value < donation_goal);
+
+        if (my_balance > donation_goal) {
+            var destination = in_msg_body~load_msg_addr();
+            builder msg = begin_cell()
+                .store_uint(0x18, 6)
+                .store_slice(destination)
+                .store_coins(my_balance - donation_goal - gas_consumption)
+                .store_uint(0, 1 + 4 + 4 + 64 + 32 + 1 + 1);
+            
+            send_raw_message(msg.end_cell(), 0);
+        }
+
+        donations_count += 1;
+        save_data();
+        return ();
+    }
+
+    throw(0xffff); ;; if the message contains an op that is not known to this contract, we throw
+}
+
+;; get methods are a means to conveniently read contract data using, for example, HTTP APIs
+;; they are marked with method_id
+;; note that unlike in many other smart contract VMs, get methods cannot be called by other contracts
+
+slice _owner() method_id {
+    load_data();
+    return owner;
+}
+
+slice _destination() method_id {
+    load_data();
+    return destination;
+}
+
+int _donations_count() method_id {
+    load_data();
+    return donations_count;
+}
+
+int balance() method_id {
+    [int value, _] = get_balance();
+    return value;
+}
