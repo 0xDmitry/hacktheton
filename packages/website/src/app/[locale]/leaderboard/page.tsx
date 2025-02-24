@@ -7,8 +7,8 @@ import { Locale } from "@/i18n.config"
 import { LeftArrow } from "@/components/assets/LeftArrow"
 import { TypewriterText } from "@/components/TypewriterText"
 import { useTonWallet } from "@tonconnect/ui-react"
-import { playersMock } from "@/playersMock"
 import { useTonConnect } from "@/hooks/useTonConnect"
+import { useLeaderboard } from "@/hooks/useLeaderboard"
 import { LeaderboardTable } from "@/components/LeaderboardTable"
 
 export default function LeaderboardPage({
@@ -20,31 +20,35 @@ export default function LeaderboardPage({
   const wallet = useTonWallet()
   const { sender } = useTonConnect()
 
-  const playerAddress = useMemo(
-    () => sender.address?.toString(),
-    [sender.address],
-  )
+  const { players, sendAddPlayer, sendUpdatePlayer } = useLeaderboard()
 
-  const isPlayerInList = useMemo(
+  const playerInList = useMemo(
     () =>
-      Boolean(playerAddress) &&
-      playersMock.some((player) => player.address === playerAddress),
-    [playerAddress],
+      sender.address &&
+      players.values().find((player) => sender.address!.equals(player.address)),
+    [players, sender.address],
   )
 
   const rankedPlayersList = useMemo(() => {
-    return playersMock
-      .sort((a, b) => b.levels - a.levels)
+    return players
+      .values()
+      .sort(
+        (a, b) =>
+          Number(b.levelsCompleted - a.levelsCompleted) ||
+          Number(a.order - b.order),
+      )
       .map((player, index) => {
         return {
           rank: ++index,
           name: player.name,
-          address: player.address,
-          levels: player.levels,
+          address: player.address.toString(),
+          levels: Number(player.levelsCompleted),
         }
       })
-  }, [])
+  }, [players])
 
+  const [playerName, setPlayerName] = useState("")
+  const [newPlayerName, setNewPlayerName] = useState("")
   const [isNicknameChangeRequested, setIsNicknameChangeRequested] =
     useState<boolean>(false)
 
@@ -69,20 +73,27 @@ export default function LeaderboardPage({
             {!wallet && (
               <div>{langDictionary.page.leaderboard.connectWallet}</div>
             )}
-            {wallet && !isPlayerInList && (
+            {wallet && !playerInList && (
               <div className="flex flex-col gap-4">
                 <div className="flex justify-center items-center">
                   {langDictionary.page.leaderboard.enterNickname}
                 </div>
                 <div className="flex items-center gap-4">
-                  <input className="w-full grow outline-none bg-backgroundLight text-white py-2 px-3 outline-offset-0 focus:outline focus:outline-backgroundDark" />
-                  <button className="py-2 px-3 bg-foreground text-black hover:bg-black hover:text-foreground">
+                  <input
+                    value={playerName}
+                    onChange={(event) => setPlayerName(event.target.value)}
+                    className="w-full grow outline-none bg-backgroundLight text-white py-2 px-3 outline-offset-0 focus:outline focus:outline-backgroundDark"
+                  />
+                  <button
+                    className="py-2 px-3 bg-foreground text-black hover:bg-black hover:text-foreground"
+                    onClick={() => sendAddPlayer(playerName)}
+                  >
                     {langDictionary.submit}
                   </button>
                 </div>
               </div>
             )}
-            {wallet && isPlayerInList && (
+            {wallet && playerInList && (
               <div className="flex gap-4">
                 {isNicknameChangeRequested ? (
                   <>
@@ -93,16 +104,24 @@ export default function LeaderboardPage({
                       {"<"}
                     </button>
                     <input
+                      value={newPlayerName}
+                      onChange={(event) => setNewPlayerName(event.target.value)}
                       className="sm:w-[300px] outline-none bg-backgroundLight text-white py-2 px-3 outline-offset-0 focus:outline focus:outline-backgroundDark"
                       placeholder={langDictionary.page.leaderboard.newNickname}
                     />
-                    <button className="py-2 px-3 bg-foreground text-black hover:bg-black hover:text-foreground">
+                    <button
+                      onClick={() => sendUpdatePlayer(newPlayerName)}
+                      className="py-2 px-3 bg-foreground text-black hover:bg-black hover:text-foreground"
+                    >
                       {langDictionary.page.leaderboard.change}
                     </button>
                   </>
                 ) : (
                   <>
-                    <button className="py-2 px-3 bg-foreground text-black hover:bg-black hover:text-foreground">
+                    <button
+                      onClick={() => sendUpdatePlayer(playerInList.name)}
+                      className="py-2 px-3 bg-foreground text-black hover:bg-black hover:text-foreground"
+                    >
                       {langDictionary.page.leaderboard.updateData}
                     </button>
                     <button
