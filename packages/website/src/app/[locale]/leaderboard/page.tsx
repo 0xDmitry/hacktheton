@@ -64,7 +64,7 @@ export default function LeaderboardPage({
             <div>{langDictionary.back}</div>
           </Link>
           <TypewriterText
-            className="flex justify-end items-center flex-grow p-4 border-b-2 border-foreground text-2xl sm:text-3xl"
+            className="flex justify-end items-center flex-grow p-4 border-b-2 border-foreground text-xl"
             text={langDictionary.leaderboard}
           />
         </div>
