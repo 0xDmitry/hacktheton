@@ -37,7 +37,7 @@ export function useLeaderboard() {
       }
     },
     [leaderboard],
-    { interval: 3000 },
+    { interval: 1000 },
   )
 
   return {

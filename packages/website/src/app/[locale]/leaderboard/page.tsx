@@ -79,7 +79,7 @@ export default function LeaderboardPage({
                 {isNicknameChangeRequested ? (
                   <UpdatePlayerInputGroup
                     locale={locale}
-                    onBackButtonClick={() =>
+                    handleBackTransition={() =>
                       setIsNicknameChangeRequested(false)
                     }
                   />

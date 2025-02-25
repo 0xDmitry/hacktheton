@@ -7,10 +7,10 @@ import { useLeaderboard } from "@/hooks/useLeaderboard"
 
 export const UpdatePlayerInputGroup = ({
   locale,
-  onBackButtonClick,
+  handleBackTransition,
 }: {
   locale: Locale
-  onBackButtonClick: () => void
+  handleBackTransition: () => void
 }) => {
   const langDictionary = getLangDictionary(locale)
   const { sendUpdatePlayer } = useLeaderboard()
@@ -21,7 +21,7 @@ export const UpdatePlayerInputGroup = ({
     <>
       <button
         className="h-10 px-3 text-xl bg-foreground text-black hover:bg-black hover:text-foreground"
-        onClick={() => onBackButtonClick()}
+        onClick={() => handleBackTransition()}
       >
         {"<"}
       </button>
@@ -32,7 +32,10 @@ export const UpdatePlayerInputGroup = ({
         placeholder={langDictionary.page.leaderboard.newNickname}
       />
       <button
-        onClick={() => sendUpdatePlayer(playerName)}
+        onClick={async () => {
+          await sendUpdatePlayer(playerName)
+          handleBackTransition()
+        }}
         className="py-2 px-3 bg-foreground text-black hover:bg-black hover:text-foreground"
       >
         {langDictionary.page.leaderboard.change}
