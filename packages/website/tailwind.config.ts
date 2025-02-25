@@ -17,6 +17,8 @@ const config: Config = {
       colors: {
         cover: "var(--cover)",
         background: "var(--background)",
+        backgroundDark: "#07070a",
+        backgroundLight: "#252533",
         foreground: "var(--foreground)",
         codePanel: "#24292e",
       },

@@ -29,3 +29,9 @@ message CheckLevelResult {
 message ResponseStats {
   levelsCompleted: Int;
 }
+message AddPlayer {
+  name: String;
+}
+message UpdatePlayer {
+  name: String;
+}

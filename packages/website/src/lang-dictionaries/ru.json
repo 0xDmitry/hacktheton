@@ -15,6 +15,23 @@
       "checkSolution": "ПРОВЕРИТЬ РЕШЕНИЕ",
       "getNewInstance": "ПОЛУЧИТЬ НОВЫЙ ИНСТАНС",
       "nextLevel": "СЛЕДУЮЩИЙ УРОВЕНЬ"
+    },
+    "leaderboard": {
+      "connectWallet": "Подключите свой кошелек, чтобы обновить результаты",
+      "enterNickname": "Введите ваше имя, которое будет отображаться в таблице",
+      "updateData": "ОБНОВИТЬ СВОЙ РЕЗУЛЬТАТ",
+      "changeNickname": "ИЗМЕНИТЬ СВОЕ ИМЯ",
+      "nickname": "Имя",
+      "newNickname": "Новое имя",
+      "change": "ИЗМЕНИТЬ",
+      "rank": "РЕЙТИНГ",
+      "name": "ИМЯ",
+      "address": "АДРЕС",
+      "levelsCompleted": "ПРОЙДЕНО УРОВНЕЙ",
+      "noTableResults": "Пока никто не внёс свои результаты в таблицу",
+      "page": "Страница",
+      "of": "из",
+      "show": "Показать"
     }
   },
   "levels": {
@@ -41,6 +58,8 @@
     "execution": "ИСПОЛНЕНИЕ"
   },
   "back": "НАЗАД",
+  "submit": "ОТПРАВИТЬ",
   "completed": "ПРОЙДЕНО",
-  "connectWallet": "ПОДКЛЮЧИТЬ КОШЕЛЕК"
+  "connectWallet": "ПОДКЛЮЧИТЬ КОШЕЛЕК",
+  "leaderboard": "ТАБЛИЦА ИГРОКОВ"
 }

@@ -47,7 +47,7 @@ export function usePlayerStats() {
       })
     },
     [playerStats],
-    { interval: 3000 },
+    { interval: 2000 },
   )
 
   return stats
