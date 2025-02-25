@@ -10,6 +10,8 @@ import { useTonWallet } from "@tonconnect/ui-react"
 import { useTonConnect } from "@/hooks/useTonConnect"
 import { useLeaderboard } from "@/hooks/useLeaderboard"
 import { LeaderboardTable } from "@/components/LeaderboardTable"
+import { AddPlayerInputGroup } from "@/components/AddPlayerInputGroup"
+import { UpdatePlayerInputGroup } from "@/components/UpdatePlayerInputGroup"
 
 export default function LeaderboardPage({
   params: { locale },
@@ -20,7 +22,7 @@ export default function LeaderboardPage({
   const wallet = useTonWallet()
   const { sender } = useTonConnect()
 
-  const { players, sendAddPlayer, sendUpdatePlayer } = useLeaderboard()
+  const { players, sendUpdatePlayer } = useLeaderboard()
 
   const playerInList = useMemo(
     () =>
@@ -47,8 +49,6 @@ export default function LeaderboardPage({
       })
   }, [players])
 
-  const [playerName, setPlayerName] = useState("")
-  const [newPlayerName, setNewPlayerName] = useState("")
   const [isNicknameChangeRequested, setIsNicknameChangeRequested] =
     useState<boolean>(false)
 
@@ -73,49 +73,16 @@ export default function LeaderboardPage({
             {!wallet && (
               <div>{langDictionary.page.leaderboard.connectWallet}</div>
             )}
-            {wallet && !playerInList && (
-              <div className="flex flex-col gap-4">
-                <div className="flex justify-center items-center">
-                  {langDictionary.page.leaderboard.enterNickname}
-                </div>
-                <div className="flex items-center gap-4">
-                  <input
-                    value={playerName}
-                    onChange={(event) => setPlayerName(event.target.value)}
-                    className="w-full grow outline-none bg-backgroundLight text-white py-2 px-3 outline-offset-0 focus:outline focus:outline-backgroundDark"
-                  />
-                  <button
-                    className="py-2 px-3 bg-foreground text-black hover:bg-black hover:text-foreground"
-                    onClick={() => sendAddPlayer(playerName)}
-                  >
-                    {langDictionary.submit}
-                  </button>
-                </div>
-              </div>
-            )}
+            {wallet && !playerInList && <AddPlayerInputGroup locale={locale} />}
             {wallet && playerInList && (
               <div className="flex gap-4">
                 {isNicknameChangeRequested ? (
-                  <>
-                    <button
-                      className="h-10 px-3 text-xl bg-foreground text-black hover:bg-black hover:text-foreground"
-                      onClick={() => setIsNicknameChangeRequested(false)}
-                    >
-                      {"<"}
-                    </button>
-                    <input
-                      value={newPlayerName}
-                      onChange={(event) => setNewPlayerName(event.target.value)}
-                      className="sm:w-[300px] outline-none bg-backgroundLight text-white py-2 px-3 outline-offset-0 focus:outline focus:outline-backgroundDark"
-                      placeholder={langDictionary.page.leaderboard.newNickname}
-                    />
-                    <button
-                      onClick={() => sendUpdatePlayer(newPlayerName)}
-                      className="py-2 px-3 bg-foreground text-black hover:bg-black hover:text-foreground"
-                    >
-                      {langDictionary.page.leaderboard.change}
-                    </button>
-                  </>
+                  <UpdatePlayerInputGroup
+                    locale={locale}
+                    onBackButtonClick={() =>
+                      setIsNicknameChangeRequested(false)
+                    }
+                  />
                 ) : (
                   <>
                     <button
