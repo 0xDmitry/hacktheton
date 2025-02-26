@@ -32,6 +32,12 @@
       "page": "Page",
       "of": "of",
       "show": "Show"
+    },
+    "rewards": {
+      "connectWallet": "Connect the wallet to see your progress",
+      "description": "We have prepared collections of SBTs for you, which can be unlocked by completing certain number of levels. For 5 levels completed, you will be able to claim a beginner's SBT as a reward. For 13 completed levels, an advanced-level SBT will be available, and for all levels completed, the highest reward will be an expert-level SBT. If you find yourself stuck on any level, do not lose hope and try your luck with another one. Not all levels are arranged in ascending order of difficulty, so keep trying until you find the one that suits you best. Good luck!",
+      "claim": "CLAIM SBT",
+      "claimed": "CLAIMED"
     }
   },
   "levels": {
@@ -61,5 +67,6 @@
   "submit": "SUBMIT",
   "completed": "COMPLETED",
   "connectWallet": "CONNECT WALLET",
-  "leaderboard": "LEADERBOARD"
+  "leaderboard": "LEADERBOARD",
+  "rewards": "REWARDS"
 }

@@ -15,12 +15,19 @@ export default function Home({
   return (
     <div className="container mx-auto flex flex-col justify-center gap-12 my-6 p-6">
       <Welcome locale={locale} />
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center text-xl md:text-2xl gap-10 md:gap-48">
         <Link
-          className="flex justify-center items-center gap-1 text-2xl tracking-wide text-slate-400 hover:text-slate-300"
+          className="flex items-center gap-1 tracking-wide text-slate-400 hover:text-slate-300"
           href={`/${locale}/leaderboard`}
         >
           {langDictionary.leaderboard}
+          <ArrowForward />
+        </Link>
+        <Link
+          className="flex items-center gap-1 tracking-wide text-slate-400 hover:text-slate-300"
+          href={`/${locale}/rewards`}
+        >
+          {langDictionary.rewards}
           <ArrowForward />
         </Link>
       </div>
