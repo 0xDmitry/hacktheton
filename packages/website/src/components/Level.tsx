@@ -8,7 +8,7 @@ import { sha256_sync } from "@ton/crypto"
 import { ContractAdapter } from "@ton-api/ton-adapter"
 import { levelsConfig, LevelName } from "@/constants/levels"
 import { usePlayerStats } from "@/hooks/usePlayerStats"
-import { useTonClientAdapter } from "@/hooks/useTonClientAdapter"
+import { useContractAdapter } from "@/hooks/useContractAdapter"
 import { setupConsoleUtils } from "@/utils/console"
 import { CustomConsole } from "@/components/CustomConsole"
 
@@ -22,7 +22,7 @@ export const Level = ({
   const params = useParams()
   const locale = params.locale as Locale
 
-  const clientAdapter = useTonClientAdapter()
+  const contractAdapter = useContractAdapter()
   const playerStats = usePlayerStats()
   const [prevLevelInstance, setPrevLevelInstance] = useState<
     Address | undefined
@@ -61,12 +61,12 @@ export const Level = ({
       }
     }
 
-    if (levelInstance && clientAdapter) {
-      openContract(levelInstance, clientAdapter)
+    if (levelInstance && contractAdapter) {
+      openContract(levelInstance, contractAdapter)
     } else {
       window.contract = undefined
     }
-  }, [clientAdapter, levelInstance, name])
+  }, [contractAdapter, levelInstance, name])
 
   return (
     <div className="p-6 md:p-12">

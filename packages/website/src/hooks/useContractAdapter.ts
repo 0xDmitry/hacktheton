@@ -4,7 +4,7 @@ import { Api, TonApiClient } from "@ton-api/client"
 import { ContractAdapter } from "@ton-api/ton-adapter"
 import { useAsyncInitialize } from "./useAsyncInitialize"
 
-export function useTonClientAdapter() {
+export function useContractAdapter() {
   return useAsyncInitialize(async () => {
     const httpClient = new TonApiClient({
       baseUrl: "https://testnet.tonapi.io",

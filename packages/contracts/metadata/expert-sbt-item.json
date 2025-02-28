@@ -1,0 +1,11 @@
+{
+  "image": "ipfs://bafybeigkmggj2cs5hahbeu6sj5c3zou5py7qmy5mnqdsne3bz2gimxlnjm/expert-sbt-item.png",
+  "name": "Expert",
+  "attributes": [
+    {
+      "trait_type": "Rank",
+      "value": "Expert"
+    }
+  ],
+  "description": "21 levels completed"
+}

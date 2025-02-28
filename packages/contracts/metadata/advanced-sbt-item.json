@@ -1,0 +1,11 @@
+{
+  "image": "ipfs://bafybeigkmggj2cs5hahbeu6sj5c3zou5py7qmy5mnqdsne3bz2gimxlnjm/advanced-sbt-item.png",
+  "name": "Advanced",
+  "attributes": [
+    {
+      "trait_type": "Rank",
+      "value": "Advanced"
+    }
+  ],
+  "description": "13 levels completed"
+}

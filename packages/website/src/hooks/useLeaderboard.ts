@@ -3,22 +3,22 @@
 import { useState } from "react"
 import { Address, Dictionary, OpenedContract, toNano } from "@ton/core"
 import { Player, Leaderboard } from "../../../contracts/wrappers/Leaderboard"
-import { useTonClientAdapter } from "./useTonClientAdapter"
+import { useContractAdapter } from "./useContractAdapter"
 import { useAsyncInitialize } from "./useAsyncInitialize"
 import { useTonConnect } from "./useTonConnect"
 import { usePollingEffect } from "./usePollingEffect"
 
 export function useLeaderboard() {
-  const clientAdapter = useTonClientAdapter()
+  const contractAdapter = useContractAdapter()
   const { sender } = useTonConnect()
 
   const leaderboard = useAsyncInitialize(async () => {
-    if (!clientAdapter) return
+    if (!contractAdapter) return
     const contract = Leaderboard.fromAddress(
       Address.parse(process.env.NEXT_PUBLIC_LEADERBOARD_ADDRESS!),
     )
-    return clientAdapter.open(contract) as OpenedContract<Leaderboard>
-  }, [clientAdapter])
+    return contractAdapter.open(contract) as OpenedContract<Leaderboard>
+  }, [contractAdapter])
 
   const [players, setPlayers] = useState<Dictionary<Address, Player>>(
     Dictionary.empty(),

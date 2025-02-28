@@ -9,6 +9,7 @@ import { useTonWallet } from "@tonconnect/ui-react"
 import { useMemo } from "react"
 import { levels } from "@/constants/levels"
 import { usePlayerStats } from "@/hooks/usePlayerStats"
+import { useRewards } from "@/hooks/useRewards"
 import { sha256_sync } from "@ton/crypto"
 
 const BEGINNER_SBT_LEVELS_COUNT = 5
@@ -23,6 +24,7 @@ export default function RewardsPage({
   const langDictionary = getLangDictionary(locale)
   const wallet = useTonWallet()
   const playerStats = usePlayerStats()
+  const rewards = useRewards()
 
   const completedLevelsCount = useMemo(() => {
     return levels.filter((levelName) => {
@@ -63,9 +65,18 @@ export default function RewardsPage({
                 <div className="flex justify-between items-center p-3 w-full min-h-[94px] bg-backgroundLight gap-3 text-white border border-backgroundDark">
                   <div>BEGINNER SBT</div>
                   {completedLevelsCount >= BEGINNER_SBT_LEVELS_COUNT ? (
-                    <button className="hover:bg-backgroundDark bg-foreground p-3 hover:text-foreground text-backgroundDark">
-                      {langDictionary.page.rewards.claim}
-                    </button>
+                    rewards.claimedBeginnerSBT ? (
+                      <div className="text-foreground">
+                        {langDictionary.page.rewards.claimed}
+                      </div>
+                    ) : (
+                      <button
+                        onClick={() => rewards.sendMintBeginnerSBT()}
+                        className="hover:bg-backgroundDark bg-foreground p-3 hover:text-foreground text-backgroundDark"
+                      >
+                        {langDictionary.page.rewards.claim}
+                      </button>
+                    )
                   ) : (
                     <div className="text-foreground">{`${completedLevelsCount} / ${BEGINNER_SBT_LEVELS_COUNT}`}</div>
                   )}
@@ -73,9 +84,18 @@ export default function RewardsPage({
                 <div className="flex justify-between items-center p-3 w-full min-h-[94px] bg-backgroundLight gap-3 text-white border border-backgroundDark">
                   <div>ADVANCED SBT</div>
                   {completedLevelsCount >= ADVANCED_SBT_LEVELS_COUNT ? (
-                    <button className="hover:bg-backgroundDark bg-foreground p-3 hover:text-foreground text-backgroundDark">
-                      {langDictionary.page.rewards.claim}
-                    </button>
+                    rewards.claimedAdvancedSBT ? (
+                      <div className="text-foreground">
+                        {langDictionary.page.rewards.claimed}
+                      </div>
+                    ) : (
+                      <button
+                        onClick={() => rewards.sendMintAdvancedSBT()}
+                        className="hover:bg-backgroundDark bg-foreground p-3 hover:text-foreground text-backgroundDark"
+                      >
+                        {langDictionary.page.rewards.claim}
+                      </button>
+                    )
                   ) : (
                     <div className="text-foreground">{`${completedLevelsCount} / ${ADVANCED_SBT_LEVELS_COUNT}`}</div>
                   )}
@@ -83,9 +103,18 @@ export default function RewardsPage({
                 <div className="flex grow justify-between items-center p-3 w-full min-h-[94px] bg-backgroundLight gap-3 text-white border border-backgroundDark">
                   <div>EXPERT SBT</div>
                   {completedLevelsCount >= EXPERT_SBT_LEVELS_COUNT ? (
-                    <button className="hover:bg-backgroundDark bg-foreground p-3 hover:text-foreground text-backgroundDark">
-                      {langDictionary.page.rewards.claim}
-                    </button>
+                    rewards.claimedExpertSBT ? (
+                      <div className="text-foreground">
+                        {langDictionary.page.rewards.claimed}
+                      </div>
+                    ) : (
+                      <button
+                        onClick={() => rewards.sendMintExpertSBT()}
+                        className="hover:bg-backgroundDark bg-foreground p-3 hover:text-foreground text-backgroundDark"
+                      >
+                        {langDictionary.page.rewards.claim}
+                      </button>
+                    )
                   ) : (
                     <div className="text-foreground">{`${completedLevelsCount} / ${EXPERT_SBT_LEVELS_COUNT}`}</div>
                   )}

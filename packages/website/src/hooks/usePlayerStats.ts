@@ -3,13 +3,13 @@
 import { useState } from "react"
 import { Address, Dictionary, OpenedContract } from "@ton/core"
 import { Level, PlayerStats } from "../../../contracts/wrappers/PlayerStats"
-import { useTonClientAdapter } from "./useTonClientAdapter"
+import { useContractAdapter } from "./useContractAdapter"
 import { useAsyncInitialize } from "./useAsyncInitialize"
 import { useTonConnect } from "./useTonConnect"
 import { usePollingEffect } from "./usePollingEffect"
 
 export function usePlayerStats() {
-  const clientAdapter = useTonClientAdapter()
+  const contractAdapter = useContractAdapter()
   const { sender } = useTonConnect()
 
   const [stats, setStats] = useState<{
@@ -17,7 +17,7 @@ export function usePlayerStats() {
   }>()
 
   const playerStats = useAsyncInitialize(async () => {
-    if (!clientAdapter || !sender.address) {
+    if (!contractAdapter || !sender.address) {
       return
     }
     const gameManagerAddress = Address.parse(
@@ -28,11 +28,11 @@ export function usePlayerStats() {
         gameManagerAddress,
         sender.address,
       )
-      return clientAdapter.open(contract) as OpenedContract<PlayerStats>
+      return contractAdapter.open(contract) as OpenedContract<PlayerStats>
     } catch {
       return
     }
-  }, [clientAdapter, sender.address])
+  }, [contractAdapter, sender.address])
 
   usePollingEffect(
     async () => {
