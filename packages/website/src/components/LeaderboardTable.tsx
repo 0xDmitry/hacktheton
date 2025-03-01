@@ -62,7 +62,7 @@ export const LeaderboardTable = ({
         cell: (info) => {
           const address = info.getValue() as string
           return (
-            <span>{`${address.substring(1, 5)}...${address.substring(address.length - 4)}`}</span>
+            <span>{`${address.substring(0, 4)}...${address.substring(address.length - 4)}`}</span>
           )
         },
       }),
