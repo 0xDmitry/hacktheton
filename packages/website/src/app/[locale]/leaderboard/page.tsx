@@ -43,7 +43,10 @@ export default function LeaderboardPage({
         return {
           rank: ++index,
           name: player.name,
-          address: player.address.toString(),
+          address: player.address.toString({
+            bounceable: false,
+            testOnly: true,
+          }),
           levels: Number(player.levelsCompleted),
         }
       })
