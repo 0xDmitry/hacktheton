@@ -77,6 +77,7 @@ export const LeaderboardTable = ({
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     onPaginationChange: setPagination,
+    autoResetPageIndex: false,
     state: {
       pagination,
     },
