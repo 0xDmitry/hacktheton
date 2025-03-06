@@ -38,6 +38,16 @@
       "description": "We have prepared collections of SBTs for you, which can be unlocked by completing certain number of levels. For 5 levels completed, you will be able to claim a beginner's SBT as a reward. For 13 completed levels, an advanced-level SBT will be available, and for all levels completed, the highest reward will be an expert-level SBT. If you find yourself stuck on any level, do not lose hope and try your luck with another one. Not all levels are arranged in ascending order of difficulty, so keep trying until you find the one that suits you best. Good luck!",
       "claim": "CLAIM SBT",
       "claimed": "CLAIMED"
+    },
+    "levelApplication": {
+      "levelApplication": "LEVEL APPLICATION",
+      "name": "Name",
+      "telegramUsername": "Telegram username",
+      "levelName": "How would you like to name your level",
+      "goalAndHints": "Level goal and hints",
+      "smartContractCode": "Smart contract code",
+      "smartContractOrIdea": "The smart contract code or your idea for the level",
+      "solution": "Your solution"
     }
   },
   "levels": {
@@ -68,5 +78,6 @@
   "completed": "COMPLETED",
   "connectWallet": "CONNECT WALLET",
   "leaderboard": "LEADERBOARD",
-  "rewards": "REWARDS"
+  "rewards": "REWARDS",
+  "suggestLevel": "Suggest your level"
 }
