@@ -28,7 +28,10 @@ export async function POST(request: NextRequest) {
       to: process.env.TO_EMAIL,
       subject: "Level application",
       html: Object.entries(data)
-        .map(([key, value]) => `<h3>${key}</h3><p>${value}</p>`)
+        .map(
+          ([key, value]) =>
+            `<h3>${key}</h3><p style="white-space: break-spaces;">${value}</p>`,
+        )
         .join(""),
     }
 
