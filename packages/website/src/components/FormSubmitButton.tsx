@@ -11,7 +11,7 @@ export const FormSubmitButton = ({ locale }: { locale: Locale }) => {
     <button
       type="submit"
       disabled={pending}
-      className="w-72 py-2 px-3 mb-3 bg-foreground text-black hover:enabled:bg-black hover:enabled:text-foreground"
+      className="w-72 py-2 px-3 mb-3 bg-foreground text-black hover:enabled:bg-black hover:enabled:text-foreground disabled:bg-black disabled:text-foreground"
     >
       {pending ? langDictionary.submitting : langDictionary.submit}
     </button>

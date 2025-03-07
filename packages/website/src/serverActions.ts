@@ -4,9 +4,9 @@ export const LevelApplicationSchema = z.object({
   name: z.string().min(1),
   telegramUsername: z.string().min(1),
   levelName: z.string(),
-  goalAndHints: z.string(),
-  contract: z.string(),
-  solution: z.string(),
+  goalAndHints: z.string().min(1),
+  contract: z.string().min(1),
+  solution: z.string().min(1),
 })
 
 type LevelApplication = z.infer<typeof LevelApplicationSchema>
@@ -14,6 +14,7 @@ type LevelApplication = z.infer<typeof LevelApplicationSchema>
 export interface LevelApplicationFormState {
   errors?: ZodFormattedError<LevelApplication>
   message?: string
+  resetKey?: number
 }
 
 export const sendLevelApplication = async (
@@ -45,7 +46,8 @@ export const sendLevelApplication = async (
 
     if (response.ok) {
       return {
-        message: "sucess",
+        message: "success",
+        resetKey: Date.now(),
       }
     } else {
       return {

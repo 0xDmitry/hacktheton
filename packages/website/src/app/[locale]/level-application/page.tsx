@@ -40,7 +40,11 @@ export default function LevelApplicationPage({
           />
         </div>
 
-        <form action={formAction} className="flex flex-col gap-4 p-6 md:p-12">
+        <form
+          action={formAction}
+          key={state?.resetKey}
+          className="flex flex-col gap-4 p-6 md:p-12"
+        >
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
             <div>
               <label htmlFor="name" className="mb-2 block">
@@ -96,18 +100,26 @@ export default function LevelApplicationPage({
 
           <div className="flex w-full flex-col">
             <label htmlFor="goalAndHints" className="mb-2 block">
-              {langDictionary.page.levelApplication.goalAndHints}
+              {`${langDictionary.page.levelApplication.goalAndHints} *`}
             </label>
             <textarea
               id="goalAndHints"
               name="goalAndHints"
               className="size-full min-h-[200px] outline-none bg-backgroundLight text-white py-2 px-3 outline-offset-0 focus:outline focus:outline-backgroundDark"
             ></textarea>
+            {state.errors?.goalAndHints?._errors &&
+              state.errors?.goalAndHints?._errors.map((error: string) => (
+                <FormValidationText
+                  isValid={false}
+                  text={langDictionary.page.levelApplication.isRequired}
+                  key="goalAndHints"
+                />
+              ))}
           </div>
 
           <div className="flex w-full flex-col">
             <label htmlFor="contract" className="mb-2 block">
-              {langDictionary.page.levelApplication.smartContractCode}
+              {`${langDictionary.page.levelApplication.smartContractCode} *`}
             </label>
             <textarea
               id="contract"
@@ -117,17 +129,33 @@ export default function LevelApplicationPage({
                 langDictionary.page.levelApplication.smartContractOrIdea
               }
             ></textarea>
+            {state.errors?.contract?._errors &&
+              state.errors?.contract?._errors.map((error: string) => (
+                <FormValidationText
+                  isValid={false}
+                  text={langDictionary.page.levelApplication.isRequired}
+                  key="contract"
+                />
+              ))}
           </div>
 
           <div className="flex w-full flex-col">
             <label htmlFor="solution" className="mb-2 block">
-              {langDictionary.page.levelApplication.solution}
+              {`${langDictionary.page.levelApplication.solution} *`}
             </label>
             <textarea
               id="solution"
               name="solution"
               className="size-full min-h-[200px] outline-none bg-backgroundLight text-white py-2 px-3 outline-offset-0 focus:outline focus:outline-backgroundDark"
             ></textarea>
+            {state.errors?.solution?._errors &&
+              state.errors?.solution?._errors.map((error: string) => (
+                <FormValidationText
+                  isValid={false}
+                  text={langDictionary.page.levelApplication.isRequired}
+                  key="solution"
+                />
+              ))}
           </div>
           <div className="flex flex-col justify-center items-center mt-6">
             <FormSubmitButton locale={locale} />
