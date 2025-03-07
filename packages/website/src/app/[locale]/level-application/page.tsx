@@ -1,8 +1,17 @@
+"use client"
+
+import { useFormState } from "react-dom"
 import Link from "next/link"
 import { Locale } from "@/i18n.config"
+import {
+  LevelApplicationFormState,
+  sendLevelApplication,
+} from "@/serverActions"
+import { getLangDictionary } from "@/utils/lang-dictionary"
 import { LeftArrow } from "@/components/assets/LeftArrow"
 import { TypewriterText } from "@/components/TypewriterText"
-import { getLangDictionary } from "@/utils/lang-dictionary"
+import { FormValidationText } from "@/components/FormValidationText"
+import { FormSubmitButton } from "@/components/FormSubmitButton"
 
 export default function LevelApplicationPage({
   params: { locale },
@@ -10,6 +19,9 @@ export default function LevelApplicationPage({
   params: { locale: Locale }
 }) {
   const langDictionary = getLangDictionary(locale)
+
+  const initialState: LevelApplicationFormState = {}
+  const [state, formAction] = useFormState(sendLevelApplication, initialState)
 
   return (
     <div className="flex justify-center w-full md:container md:mx-auto md:py-12 md:px-6">
@@ -28,7 +40,7 @@ export default function LevelApplicationPage({
           />
         </div>
 
-        <form className="flex flex-col gap-4 p-6 md:p-12">
+        <form action={formAction} className="flex flex-col gap-4 p-6 md:p-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
             <div>
               <label htmlFor="name" className="mb-2 block">
@@ -39,6 +51,14 @@ export default function LevelApplicationPage({
                 name="name"
                 className="w-full outline-none bg-backgroundLight text-white py-2 px-3 outline-offset-0 focus:outline focus:outline-backgroundDark"
               />
+              {state.errors?.name?._errors &&
+                state.errors?.name?._errors.map((error: string) => (
+                  <FormValidationText
+                    isValid={false}
+                    text={langDictionary.page.levelApplication.isRequired}
+                    key="name"
+                  />
+                ))}
             </div>
 
             <div>
@@ -50,6 +70,14 @@ export default function LevelApplicationPage({
                 name="telegramUsername"
                 className="w-full outline-none bg-backgroundLight text-white py-2 px-3 outline-offset-0 focus:outline focus:outline-backgroundDark"
               />
+              {state.errors?.telegramUsername?._errors &&
+                state.errors?.telegramUsername?._errors.map((error: string) => (
+                  <FormValidationText
+                    isValid={false}
+                    text={langDictionary.page.levelApplication.isRequired}
+                    key="telegramUsername"
+                  />
+                ))}
             </div>
           </div>
 
@@ -101,10 +129,31 @@ export default function LevelApplicationPage({
               className="size-full min-h-[200px] outline-none bg-backgroundLight text-white py-2 px-3 outline-offset-0 focus:outline focus:outline-backgroundDark"
             ></textarea>
           </div>
-          <div className="flex justify-center mt-6">
-            <button className="w-[250px] py-2 px-3 bg-foreground text-black hover:bg-black hover:text-foreground">
-              {langDictionary.submit}
-            </button>
+          <div className="flex flex-col justify-center items-center mt-6">
+            <FormSubmitButton locale={locale} />
+            {state.errors && (
+              <FormValidationText
+                isValid={false}
+                text={
+                  langDictionary.page.levelApplication
+                    .notAllRequiredFieldsAreFilled
+                }
+              />
+            )}
+            {state.message && state.message === "success" && (
+              <FormValidationText
+                isValid
+                text={langDictionary.page.levelApplication.applicationSent}
+              />
+            )}
+            {state.message && state.message === "fail" && (
+              <FormValidationText
+                isValid={false}
+                text={
+                  langDictionary.page.levelApplication.applicationFailedToSend
+                }
+              />
+            )}
           </div>
         </form>
       </div>

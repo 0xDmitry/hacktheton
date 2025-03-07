@@ -47,7 +47,11 @@
       "goalAndHints": "Цель уровня и подсказки",
       "smartContractCode": "Код смарт-контракта",
       "smartContractOrIdea": "Код смарт-контракта или ваша идея для уровня",
-      "solution": "Ваше решение"
+      "solution": "Ваше решение",
+      "isRequired": "Обязательное поле",
+      "notAllRequiredFieldsAreFilled": "Не все обязательные поля были заполнены",
+      "applicationSent": "Заявка отправлена",
+      "applicationFailedToSend": "Не удалось отправить заявку. Пожалуйста, попробуйте еще раз или свяжитесь с нами"
     }
   },
   "levels": {
@@ -75,6 +79,7 @@
   },
   "back": "НАЗАД",
   "submit": "ОТПРАВИТЬ",
+  "submitting": "ОТПРАВЛЯЕТСЯ...",
   "completed": "ПРОЙДЕНО",
   "connectWallet": "ПОДКЛЮЧИТЬ КОШЕЛЕК",
   "leaderboard": "ТАБЛИЦА ИГРОКОВ",

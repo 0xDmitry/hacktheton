@@ -47,7 +47,11 @@
       "goalAndHints": "Level goal and hints",
       "smartContractCode": "Smart contract code",
       "smartContractOrIdea": "The smart contract code or your idea for the level",
-      "solution": "Your solution"
+      "solution": "Your solution",
+      "isRequired": "Field is required",
+      "notAllRequiredFieldsAreFilled": "Not all required fields have been filled in",
+      "applicationSent": "Application has been sent",
+      "applicationFailedToSend": "Failed to send application. Please try again or contact us via socials"
     }
   },
   "levels": {
@@ -75,6 +79,7 @@
   },
   "back": "BACK",
   "submit": "SUBMIT",
+  "submitting": "SUBMITTING...",
   "completed": "COMPLETED",
   "connectWallet": "CONNECT WALLET",
   "leaderboard": "LEADERBOARD",
